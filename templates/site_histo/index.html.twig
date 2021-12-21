@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SiteHisto index{% endblock %}
+
+{% block body %}
+    <h1>SiteHisto index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for site_histo in site_histos %}
+            <tr>
+                <td>{{ site_histo.id }}</td>
+                <td>{{ site_histo.date ? site_histo.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('site_histo_show', {'id': site_histo.id}) }}">show</a>
+                    <a href="{{ path('site_histo_edit', {'id': site_histo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('site_histo_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SiteHisto{% endblock %}
+
+{% block body %}
+    <h1>Edit SiteHisto</h1>
+
+    {{ include('site_histo/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('site_histo_index') }}">back to list</a>
+
+    {{ include('site_histo/_delete_form.html.twig') }}
+{% endblock %}

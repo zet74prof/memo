@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouvel utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouvel utilisateur</h1>
+<div class="container">
+    {{ form_start(registrationForm) }}
+        <div class="row">
+            {{ form_row(registrationForm.username) }}
+        </div>
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.roles) }}
+        {{ form_row(registrationForm.title) }}
+        {{ form_row(registrationForm.surname) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.address) }}
+        {{ form_row(registrationForm.postalCode) }}
+        {{ form_row(registrationForm.city) }}
+        {{ form_row(registrationForm.birthDate) }}
+        {{ form_row(registrationForm.tel1) }}
+        {{ form_row(registrationForm.tel2) }}
+        {{ form_row(registrationForm.comment) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.site) }}
+        <button type="submit" class="btn btn-primary">Etape suivante</button>
+    {{ form_end(registrationForm) }}
+</div>
+
+{% endblock %}
