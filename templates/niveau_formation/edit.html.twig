@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit NiveauFormation{% endblock %}
+
+{% block body %}
+    <h1>Edit NiveauFormation</h1>
+
+    {{ include('niveau_formation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('niveau_formation_index') }}">back to list</a>
+
+    {{ include('niveau_formation/_delete_form.html.twig') }}
+{% endblock %}

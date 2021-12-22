@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apprenant index{% endblock %}
+
+{% block body %}
+    <h1>Apprenant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom d'utilisateur</th>
+                <th>Nom de famille</th>
+                <th>Prénom</th>
+                <th>Titre</th>
+                <th>Adresse</th>
+                <th>Code Postal</th>
+                <th>Ville</th>
+                <th>Date de naissance</th>
+                <th>Tel1</th>
+                <th>Tel2</th>
+                <th>Commentaire</th>
+                <th>Email</th>
+                <th>Enfant(s) à charge</th>
+                <th>Prescripteur</th>
+                <th>Ressources</th>
+                <th>Type de formation</th>
+                <th>QPV</th>
+                <th>Situation familiale</th>
+                <th>Site</th>
+                <th>Niveau de formation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apprenant in apprenants %}
+            <tr>
+                <td>{{ apprenant.id }}</td>
+                <td>{{ apprenant.userIdentifier }}</td>
+                <td>{{ apprenant.surname }}</td>
+                <td>{{ apprenant.firstname }}</td>
+                <td>{{ apprenant.title }}</td>
+                <td>{{ apprenant.address }}</td>
+                <td>{{ apprenant.postalCode }}</td>
+                <td>{{ apprenant.city }}</td>
+                <td>{{ apprenant.birthDate ? apprenant.birthDate|date('d/m/Y') : '' }}</td>
+                <td>{{ apprenant.tel1 }}</td>
+                <td>{{ apprenant.tel2 }}</td>
+                <td>{{ apprenant.comment }}</td>
+                <td>{{ apprenant.email }}</td>
+                <td>{{ apprenant.enfantACharge }}</td>
+                <td>{{ apprenant.prescripteur.prescripteurName }}</td>
+                <td>{{ apprenant.ressource.ressourceName }}</td>
+                <td>{{ apprenant.typeFormation.formationName }}</td>
+                <td>{{ apprenant.qpv.qpvName }}</td>
+                <td>{{ apprenant.situationFamiliale }}</td>
+                <td>{{ apprenant.getLastSite.siteName }}</td>
+                <td>{{ apprenant.getLastNiveauFormation.nivFormName }}</td>
+                <td>
+                    <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}">show</a>
+                    <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('apprenant_new') }}">Créer un nouvel apprenant</a>
+{% endblock %}

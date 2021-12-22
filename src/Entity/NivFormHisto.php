@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SiteHistoRepository;
+use App\Repository\NivFormHistoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SiteHistoRepository::class)
+ * @ORM\Entity(repositoryClass=NivFormHistoRepository::class)
  */
-class SiteHisto
+class NivFormHisto
 {
     /**
      * @ORM\Id
@@ -23,16 +23,16 @@ class SiteHisto
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="site")
+     * @ORM\ManyToOne(targetEntity=NiveauFormation::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $niveauFormation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="niveauFormation")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $site;
+    private $apprenant;
 
     public function getId(): ?int
     {
@@ -51,26 +51,26 @@ class SiteHisto
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getNiveauFormation(): ?NiveauFormation
     {
-        return $this->user;
+        return $this->niveauFormation;
     }
 
-    public function setUser(?User $user): self
+    public function setNiveauFormation(?NiveauFormation $niveauFormation): self
     {
-        $this->user = $user;
+        $this->niveauFormation = $niveauFormation;
 
         return $this;
     }
 
-    public function getSite(): ?Site
+    public function getApprenant(): ?Apprenant
     {
-        return $this->site;
+        return $this->apprenant;
     }
 
-    public function setSite(?Site $site): self
+    public function setApprenant(?Apprenant $apprenant): self
     {
-        $this->site = $site;
+        $this->apprenant = $apprenant;
 
         return $this;
     }

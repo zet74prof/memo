@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NiveauFormation index{% endblock %}
+
+{% block body %}
+    <h1>NiveauFormation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NivFormName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for niveau_formation in niveau_formations %}
+            <tr>
+                <td>{{ niveau_formation.id }}</td>
+                <td>{{ niveau_formation.nivFormName }}</td>
+                <td>
+                    <a href="{{ path('niveau_formation_show', {'id': niveau_formation.id}) }}">show</a>
+                    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('niveau_formation_new') }}">Create new</a>
+{% endblock %}

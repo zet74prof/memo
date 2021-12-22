@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prescripteur{% endblock %}
+
+{% block body %}
+    <h1>Prescripteur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prescripteur.id }}</td>
+            </tr>
+            <tr>
+                <th>PrescripteurName</th>
+                <td>{{ prescripteur.prescripteurName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('prescripteur_index') }}">back to list</a>
+
+    <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}">edit</a>
+
+    {{ include('prescripteur/_delete_form.html.twig') }}
+{% endblock %}

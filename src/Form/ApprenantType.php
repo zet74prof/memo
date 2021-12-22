@@ -2,29 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\SiteHisto;
-use App\Entity\StateHisto;
-use App\Entity\User;
+use App\Entity\Apprenant;
+use App\Entity\NiveauFormation;
+use App\Entity\Prescripteur;
+use App\Entity\QPV;
+use App\Entity\Ressource;
 use App\Entity\Site;
+use App\Entity\TypeFormation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Config\Monolog\HandlerConfig\EmailPrototypeConfig;
 
-class RegistrationFormType extends AbstractType
+class ApprenantType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('username', TextType::class, [
@@ -100,18 +102,56 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'Mot de passe',
             ])
+            ->add('enfantACharge', IntegerType::class, [
+                'empty_data' => 0,
+                'label' => 'Enfants à charge'
+            ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'siteName',
-                'mapped' => false,
+                'mapped' => false, //mapped set to false because site is not an attribute of Apprenant class
+            ])
+            ->add('ressource', EntityType::class, [
+                'class' => Ressource::class,
+                'choice_label' => 'ressourceName',
+                'label' => 'Ressources',
+            ])
+            ->add('typeFormation', EntityType::class, [
+                'class' => TypeFormation::class,
+                'choice_label' => 'formationName',
+                'label' => 'Type de formation',
+            ])
+            ->add('prescripteur', EntityType::class, [
+                'class' => Prescripteur::class,
+                'choice_label' => 'prescripteurName',
+                'label' => 'Prescripteur',
+            ])
+            ->add('qpv', EntityType::class, [
+                'class' => QPV::class,
+                'choice_label' => 'qpvName',
+                'label' => 'QPV',
+            ])
+            ->add('niveauFormation', EntityType::class, [
+                'class' => NiveauFormation::class,
+                'choice_label' => 'nivFormName',
+                'label' => 'Niveau de formation',
+                'mapped' => false, //mapped set to false because niveauFormation is not an attribute of Apprenant class
+            ])
+            ->add('situationFamiliale', ChoiceType::class, [
+                'choices' => [
+                    'Personne seule sans enfant' => 1,
+                    'Personne seule avec enfant(s)' => 2,
+                    'Couple sans enfant' => 3,
+                    'Couple avec enfant(s)' => 4
+                ]
             ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Apprenant::class,
         ]);
     }
 }

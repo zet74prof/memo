@@ -82,6 +82,14 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
+            {{ form_label(form.enfantACharge) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.enfantACharge) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
             {{ form_label(form.tel1) }}
         </div>
         <div class="col-lg-10">
@@ -118,6 +126,54 @@
         </div>
         <div class="col-lg-10">
             {{ form_widget(form.site) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.ressource) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.ressource) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.typeFormation) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.typeFormation) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.prescripteur) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.prescripteur) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.qpv) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.qpv) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.niveauFormation) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.niveauFormation) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.situationFamiliale) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.situationFamiliale) }}
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Etape suivante</button>

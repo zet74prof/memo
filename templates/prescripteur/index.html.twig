@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prescripteur index{% endblock %}
+
+{% block body %}
+    <h1>Prescripteur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PrescripteurName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prescripteur in prescripteurs %}
+            <tr>
+                <td>{{ prescripteur.id }}</td>
+                <td>{{ prescripteur.prescripteurName }}</td>
+                <td>
+                    <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}">show</a>
+                    <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('prescripteur_new') }}">Create new</a>
+{% endblock %}
