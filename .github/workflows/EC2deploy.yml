@@ -1,0 +1,15 @@
+name: Deploy EC2 self-hosted
+on:
+  release:
+    types: [published]
+jobs:
+  deploy-aws:
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: update code
+        run: | 
+          cd /var/www/memodev
+          git fetch origin
+          git reset --hard origin/master  &&  echo 'You are doing well'
