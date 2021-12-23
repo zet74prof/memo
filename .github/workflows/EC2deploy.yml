@@ -11,5 +11,5 @@ jobs:
       - name: update code
         run: | 
           cd /var/www/memodev
-          git fetch origin
-          git reset --hard origin/master  &&  echo 'You are doing well'
+          sudo git fetch origin
+          sudo git reset --hard origin/master  &&  echo 'You are doing well'
