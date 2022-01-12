@@ -47,9 +47,9 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         # allow unauthenticated users to access the login form
-        - { path: ^/login, roles: PUBLIC_ACCESS }
+        #- { path: ^/login, roles: PUBLIC_ACCESS }
 
         # but require authentication for all other admin routes
-        - { path: ^/, roles: [ROLE_ADMIN, ROLE_GESTIONNAIRE] }
+        #- { path: ^/, roles: [ROLE_ADMIN, ROLE_GESTIONNAIRE] }
 
 

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div
+    class="container">
+        <div
+            class="collapse navbar-collapse" id="navbarCollapse">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollaps">
+                <i class="fe fe-x"></i>
+            </button>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item-dropdown">
+                    <a href="{{ path('apprenant_index') }}" class="nav-link" href="">Apprenants</a>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="{{ path('enfant_index') }}" class="nav-link" href="">Enfants</a>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="{{ path('q_p_v_index') }}" class="nav-link" href="">QPV</a>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="{{ path('user_index') }}" class="nav-link" href="">Utilisateur</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
