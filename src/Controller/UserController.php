@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,49 @@ class UserController extends AbstractController
         }
 
         return $this->renderForm('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/changepassword', name: 'user_change_password', methods: ['GET', 'POST'])]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($passwordHasher->isPasswordValid($user, $form->get('plainPasswordCurrent')->getData()))
+            {
+                $user->setPassword(
+                    $passwordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPasswordNew')->getData()
+                    )
+                );
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                return $this->renderForm('user/changepassword.html.twig', [
+                    'user' => $user,
+                    'form' => $form,
+                    'success' => true,
+                ]);
+            }
+            else
+            {
+                return $this->renderForm('user/changepassword.html.twig', [
+                    'user' => $user,
+                    'form' => $form,
+                    'success' => false,
+                ]);
+            }
+        }
+
+        return $this->renderForm('user/changepassword.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
