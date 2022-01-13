@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Benevole;
+use App\Entity\NivFormHisto;
+use App\Entity\SiteHisto;
+use App\Entity\StateHisto;
 use App\Form\BenevoleType;
 use App\Repository\BenevoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/benevole')]
@@ -23,17 +27,38 @@ class BenevoleController extends AbstractController
     }
 
     #[Route('/new', name: 'benevole_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $benevole = new Benevole();
         $form = $this->createForm(BenevoleType::class, $benevole);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $benevole->setPassword(
+                $passwordHasher->hashPassword(
+                    $benevole,
+                    //récupère la saisi utilisateur
+                    $form->get('plainPassword')->getData()
+                )
+            );
+            //on récupère le champ site (un objet de la classe Site) pour instancier un objet SiteHisto
+            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
+            $site = $form->get('site')->getData();
+            $siteHisto = new SiteHisto();
+            $siteHisto->setUser($benevole);
+            $siteHisto->setSite($site);
+            $siteHisto->setDate(new \DateTime('now'));
+            //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
+            $state = new StateHisto(new \DateTime('now'),true,'Création');
+            $state->setUser($benevole);
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($benevole);
+            $entityManager->persist($state);
+            $entityManager->persist($siteHisto);
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('benevole_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('benevole_index',);
         }
 
         return $this->renderForm('benevole/new.html.twig', [

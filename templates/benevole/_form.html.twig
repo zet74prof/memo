@@ -1,4 +1,125 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="container">
+    {{ form_start(form) }}
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.username) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.username) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.plainPassword) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.plainPassword) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.roles) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.roles) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.title) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.surname) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.surname) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.firstname) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.firstname) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.address) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.address) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.postalCode) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.postalCode) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.city) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.city) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.birthDate) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.birthDate) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.tel1) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.tel1) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.tel2) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.tel2) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.comment) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.comment) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.email) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.site) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.site) }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Etape suivante</button>
+    {{ form_end(form) }}
+</div>

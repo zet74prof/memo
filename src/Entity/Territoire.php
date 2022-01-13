@@ -20,13 +20,18 @@ class Territoire
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Site::class, mappedBy="SiteRelation")
+     * @ORM\OneToMany(targetEntity=Site::class, mappedBy="territoire")
      */
-    private $site;
+    private $sites;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     public function __construct()
     {
-        $this->site = new ArrayCollection();
+        $this->sites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,27 +44,39 @@ class Territoire
      */
     public function getSite(): Collection
     {
-        return $this->site;
+        return $this->sites;
     }
 
-    public function addSite(Site $site): self
+    public function addSite(Site $sites): self
     {
-        if (!$this->site->contains($site)) {
-            $this->site[] = $site;
-            $site->setSiteRelation($this);
+        if (!$this->sites->contains($sites)) {
+            $this->sites[] = $sites;
+            $sites->setTerritoire($this);
         }
 
         return $this;
     }
 
-    public function removeSite(Site $site): self
+    public function removeSite(Site $sites): self
     {
-        if ($this->site->removeElement($site)) {
+        if ($this->site->removeElement($sites)) {
             // set the owning side to null (unless already changed)
-            if ($site->getSiteRelation() === $this) {
-                $site->setSiteRelation(null);
+            if ($sites->getTerritoire() === $this) {
+                $sites->setTerritoire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

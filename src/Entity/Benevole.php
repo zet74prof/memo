@@ -12,42 +12,38 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Benevole extends User
 {
-
     /**
-     * @ORM\ManyToMany(targetEntity=TypeFormation::class, inversedBy="benevole")
+     * @ORM\ManyToMany(targetEntity=TypeEnseignement::class, mappedBy="lien_typeEnseignement")
      */
-    private $lien_type_enseignement;
+    private $typeEnseignements;
 
     public function __construct()
     {
-        $this->lien_type_enseignement = new ArrayCollection();
+        $this->typeEnseignements = new ArrayCollection();
     }
 
     /**
-     * @return Collection|TypeFormation[]
+     * @return Collection|TypeEnseignement[]
      */
-    public function getLienTypeEnseignement(): Collection
+    public function getTypeEnseignements(): Collection
     {
-        return $this->lien_type_enseignement;
+        return $this->typeEnseignements;
     }
 
-    public function addLienTypeEnseignement(TypeFormation $lienTypeEnseignement): self
+    public function addTypeEnseignement(TypeEnseignement $typeEnseignement): self
     {
-        if (!$this->lien_type_enseignement->contains($lienTypeEnseignement)) {
-            $this->lien_type_enseignement[] = $lienTypeEnseignement;
-            $lienTypeEnseignement->setBenevole($this);
+        if (!$this->typeEnseignements->contains($typeEnseignement)) {
+            $this->typeEnseignements[] = $typeEnseignement;
+            $typeEnseignement->addLienTypeEnseignement($this);
         }
 
         return $this;
     }
 
-    public function removeLienTypeEnseignement(TypeFormation $lienTypeEnseignement): self
+    public function removeTypeEnseignement(TypeEnseignement $typeEnseignement): self
     {
-        if ($this->lien_type_enseignement->removeElement($lienTypeEnseignement)) {
-            // set the owning side to null (unless already changed)
-            if ($lienTypeEnseignement->getBenevole() === $this) {
-                $lienTypeEnseignement->setBenevole(null);
-            }
+        if ($this->typeEnseignements->removeElement($typeEnseignement)) {
+            $typeEnseignement->removeLienTypeEnseignement($this);
         }
 
         return $this;

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Territoire{% endblock %}
+
+{% block body %}
+    <h1>Create new Territoire</h1>
+
+    {{ include('territoire/_form.html.twig') }}
+
+    <a href="{{ path('territoire_index') }}">back to list</a>
+{% endblock %}

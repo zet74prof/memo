@@ -3,16 +3,20 @@
 namespace App\Form;
 
 use App\Entity\Benevole;
+use App\Entity\Site;
 use App\Entity\TypeFormation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BenevoleType extends AbstractType
 {
@@ -33,7 +37,24 @@ class BenevoleType extends AbstractType
                 'expanded' => true,
                 'label' => 'Roles',
             ])
-            ->add('password')
+            ->add('plainPassword', PasswordType::class, [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Vous devez saisir un mot de passe',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+                'label' => 'Mot de passe',
+            ])
             ->add('surname', TextType::class, [
                 'label' => 'Nom de famille',
             ])
@@ -68,17 +89,17 @@ class BenevoleType extends AbstractType
                 'required' => false,
                 'label' => 'Téléphone secondaire',
             ])
+            ->add('site', EntityType::class, [
+                'class' => Site::class,
+                'choice_label' => 'siteName',
+                'mapped' => false, //mapped set to false because site is not an attribute of Apprenant class
+            ])
             ->add('comment', TextType::class, [
                 'required' => false,
                 'label' => 'Commentaires additionnels',
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-            ])
-            ->add('lien_type_enseignement', EntityType::class, [
-                'class' => TypeFormation::class,
-                'choice_label' => 'enseignementName',
-                'label' => 'Type d enseignement ',
             ])
         ;
     }
