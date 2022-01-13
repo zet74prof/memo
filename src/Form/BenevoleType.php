@@ -3,7 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Benevole;
+use App\Entity\TypeFormation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,21 +19,67 @@ class BenevoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('roles')
+            ->add('username', TextType::class, [
+                'label' => 'Nom d\'utilisateur',
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'Gestionnaire' => 'ROLE_GESTIONNAIRE',
+                    'Bénévole' => 'ROLE_BENEVOLE',
+                    'Apprenant' => 'ROLE_APPRENANT',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Roles',
+            ])
             ->add('password')
-            ->add('surname')
-            ->add('firstname')
-            ->add('title')
-            ->add('address')
-            ->add('postalCode')
-            ->add('city')
-            ->add('birthDate')
-            ->add('tel1')
-            ->add('tel2')
-            ->add('comment')
-            ->add('email')
-            ->add('lien_type_enseignement')
+            ->add('surname', TextType::class, [
+                'label' => 'Nom de famille',
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('title', ChoiceType::class, [
+                'choices' => [
+                    'Madame' => 'F',
+                    'Monsieur' => 'M',
+                ],
+                'label' => 'Genre'
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse'
+            ])
+            ->add('postalCode', TextType::class, [
+                'label' => 'Code postal',
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('birthDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de naissance',
+            ])
+            ->add('tel1', TelType::class, [
+                'required' => false,
+                'label' => 'Téléphone principal',
+            ])
+            ->add('tel2', TelType::class, [
+                'required' => false,
+                'label' => 'Téléphone secondaire',
+            ])
+            ->add('comment', TextType::class, [
+                'required' => false,
+                'label' => 'Commentaires additionnels',
+            ])
+            ->add('email', EmailType::class, [
+                'required' => false,
+            ])
+            ->add('lien_type_enseignement', EntityType::class, [
+                'class' => TypeFormation::class,
+                'choice_label' => 'enseignementName',
+                'label' => 'Type d enseignement ',
+            ])
         ;
     }
 

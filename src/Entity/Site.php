@@ -24,6 +24,11 @@ class Site
      */
     private $siteName;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Territoire::class, inversedBy="site")
+     */
+    private $SiteRelation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +42,18 @@ class Site
     public function setSiteName(string $siteName): self
     {
         $this->siteName = $siteName;
+
+        return $this;
+    }
+
+    public function getSiteRelation(): ?Territoire
+    {
+        return $this->SiteRelation;
+    }
+
+    public function setSiteRelation(?Territoire $SiteRelation): self
+    {
+        $this->SiteRelation = $SiteRelation;
 
         return $this;
     }
