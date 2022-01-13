@@ -38,6 +38,7 @@ class ApprenantController extends AbstractController
             $apprenant->setPassword(
                 $passwordHasher->hashPassword(
                     $apprenant,
+                    //récupère la saisi utilisateur
                     $form->get('plainPassword')->getData()
                 )
             );

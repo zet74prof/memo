@@ -29,6 +29,11 @@ class TypeFormation
      */
     private $apprenants;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Benevole::class, inversedBy="lien_type_enseignement")
+     */
+    private $benevole;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
@@ -77,6 +82,18 @@ class TypeFormation
                 $apprenant->setTypeFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBenevole(): ?Benevole
+    {
+        return $this->benevole;
+    }
+
+    public function setBenevole(?Benevole $benevole): self
+    {
+        $this->benevole = $benevole;
 
         return $this;
     }
