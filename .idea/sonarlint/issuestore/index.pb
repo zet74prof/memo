@@ -1,6 +1,4 @@
 
-=
-composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
 I
 config/packages/twig.yaml,8/a/8a5c55d47e428b829ef7645f00a0b768cef8a5bf
 <
@@ -13,8 +11,6 @@ U
 +templates/site_histo/_delete_form.html.twig,4/5/4514b22d60fcc1fda79a77872e79ee76fd2ea8e8
 \
 ,templates/state_histo/_delete_form.html.twig,d/3/d39f404717c5225fe09c764c5f888f9cc03ac3c7
-U
-%templates/user/_delete_form.html.twig,d/a/da91fa2f2cdc1e3525b986b5b3d4d9b9b5dd5b26
 N
 templates/site/_form.html.twig,a/8/a8994552252fa60688954825c606e87d8fca7e51
 T
@@ -23,8 +19,6 @@ U
 %templates/state_histo/_form.html.twig,6/3/635f879c726fbcd8f104c366571d9e22b33455a2
 V
 &src/Repository/ApprenantRepository.php,2/6/2661ae2b2d62406fab3c4bef8d0bbf07fbf2294e
-H
-templates/base.html.twig,f/f/ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 M
 templates/site/edit.html.twig,7/7/777d350944b9b03276fc3c27ba1f884974e338ea
 S
@@ -67,8 +61,6 @@ J
 src/Form/SiteHistoType.php,d/1/d195df8d545d7d2ae9245dc866fff7d8fbc7e48a
 Q
 !src/Repository/SiteRepository.php,c/7/c74323e25570f2d64a150caf148582f2fac6c1c8
-E
-src/Form/SiteType.php,b/7/b7389c47ce1743bf9c206cc69e0c0be8aace7de5
 I
 src/Entity/StateHisto.php,3/d/3dc2cc28df17a0913533f2847f93e5b45ce242c7
 W
@@ -89,10 +81,6 @@ T
 $migrations/Version20211220205416.php,4/b/4b7f52375fe554e5e486c87aff2aa9875429f41c
 U
 %src/Controller/SecurityController.php,7/c/7cc876ecdb4df676c79a6188e9f3ac45e5079434
-M
-templates/user/edit.html.twig,5/f/5ffff80b6da656e78261bf85eddb09fec0c7a56c
-L
-templates/user/new.html.twig,a/c/ace29539ac31910d3ff0e7d11d8e9bd7eff30b24
 Z
 *templates/apprenant/_delete_form.html.twig,3/6/361ea980125fb6b89f093b901015a8d4248ff13e
 a
@@ -117,10 +105,6 @@ S
 #templates/ressource/_form.html.twig,4/4/4436f76f39ce8e50308c19d75ac8eac2620f60e0
 X
 (templates/type_formation/_form.html.twig,8/5/85f79e41f374e759f4f8c86eea74592f31059967
-N
-templates/user/_form.html.twig,2/9/29198098962e7f33c221162e2ae8ae32900e11aa
-b
-2src/Controller/ApprenantRegistrationController.php,1/8/18a652a2148f538da46bd8e54be785113349d0bc
 R
 "templates/apprenant/edit.html.twig,5/6/562f4d2de0c7599e318698c7dc04b8d54adce39d
 Y
@@ -217,10 +201,6 @@ Z
 *src/Repository/TypeFormationRepository.php,0/b/0b8e22b5730e7f406530afde77aa1a4f23d81b5d
 N
 src/Form/TypeFormationType.php,f/9/f923179bb4f396d515a6dbf271329597feb161e3
-Q
-!src/Controller/UserController.php,8/7/87b99206717ccce222f05190f36b6273e3ea6228
-E
-src/Form/UserType.php,6/c/6c2442a67dda9c3193b965c65ce788acf9b5ecaf
 T
 $migrations/Version20211221111143.php,7/4/745b8dd998b21e7da47169e1a57c8c3a302989a6
 T
@@ -231,7 +211,5 @@ T
 $migrations/Version20211222093837.php,e/2/e2d48519cfdc82e8e21c3fb797037f0315d3a374
 O
 .github/workflows/EC2deploy.yml,8/e/8eba8f5627937330cd934b9ff7ec39d1e6916e04
-C
-src/Entity/Site.php,f/8/f8b139b26b09e4a1f07cab3e8fe635735f994a15
 H
 src/Entity/SiteHisto.php,9/3/936c2d53c0809e38b910601c32860868b0b46544
