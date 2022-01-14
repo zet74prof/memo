@@ -2,24 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Enfant;
+use App\Entity\EtablissementScolaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EnfantType extends AbstractType
+class EtablissementScolaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('typeReferent')
+            ->add('name')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Enfant::class,
+            'data_class' => EtablissementScolaire::class,
         ]);
     }
 }
