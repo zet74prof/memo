@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enfant index{% endblock %}
+
+{% block body %}
+    <h1>Enfant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Surname</th>
+                <th>Firstname</th>
+                <th>Title</th>
+                <th>Address</th>
+                <th>PostalCode</th>
+                <th>City</th>
+                <th>BirthDate</th>
+                <th>Tel1</th>
+                <th>Tel2</th>
+                <th>Comment</th>
+                <th>Email</th>
+                <th>TypeReferent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enfant in enfants %}
+            <tr>
+                <td>{{ enfant.id }}</td>
+                <td>{{ enfant.username }}</td>
+                <td>{{ enfant.roles ? enfant.roles|json_encode : '' }}</td>
+                <td>{{ enfant.password }}</td>
+                <td>{{ enfant.surname }}</td>
+                <td>{{ enfant.firstname }}</td>
+                <td>{{ enfant.title }}</td>
+                <td>{{ enfant.address }}</td>
+                <td>{{ enfant.postalCode }}</td>
+                <td>{{ enfant.city }}</td>
+                <td>{{ enfant.birthDate ? enfant.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ enfant.tel1 }}</td>
+                <td>{{ enfant.tel2 }}</td>
+                <td>{{ enfant.comment }}</td>
+                <td>{{ enfant.email }}</td>
+                <td>{{ enfant.typeReferent }}</td>
+                <td>
+                    <a href="{{ path('enfant_show', {'id': enfant.id}) }}">show</a>
+                    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('enfant_new') }}">Create new</a>
+{% endblock %}
