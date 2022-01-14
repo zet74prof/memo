@@ -12,15 +12,15 @@
                 <td>{{ niveau_formation.id }}</td>
             </tr>
             <tr>
-                <th>NivFormName</th>
+                <th>Nom du niveau de formation</th>
                 <td>{{ niveau_formation.nivFormName }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('niveau_formation_index') }}">back to list</a>
+    <a href="{{ path('niveau_formation_index') }}">retour à la liste</a>
 
-    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">edit</a>
+    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">Modifier</a>
 
     {{ include('niveau_formation/_delete_form.html.twig') }}
 {% endblock %}

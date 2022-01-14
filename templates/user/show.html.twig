@@ -3,7 +3,7 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Utilisateur</h1>
 
     <table class="table">
         <tbody>
@@ -12,7 +12,7 @@
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Username</th>
+                <th>Utilisateur</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
@@ -20,35 +20,35 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
+                <th>Mot de passe</th>
                 <td>{{ user.password }}</td>
             </tr>
             <tr>
-                <th>Surname</th>
+                <th>Nom de famille</th>
                 <td>{{ user.surname }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>Prénom</th>
                 <td>{{ user.firstname }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <td>{{ user.title }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>Adresse</th>
                 <td>{{ user.address }}</td>
             </tr>
             <tr>
-                <th>PostalCode</th>
+                <th>Code postal</th>
                 <td>{{ user.postalCode }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>Ville</th>
                 <td>{{ user.city }}</td>
             </tr>
             <tr>
-                <th>BirthDate</th>
+                <th>Date de naissance</th>
                 <td>{{ user.birthDate ? user.birthDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
@@ -60,7 +60,7 @@
                 <td>{{ user.tel2 }}</td>
             </tr>
             <tr>
-                <th>Comment</th>
+                <th>Commentaire</th>
                 <td>{{ user.comment }}</td>
             </tr>
             <tr>
@@ -70,9 +70,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    <a href="{{ path('user_index') }}">retour à la liste</a>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('user_edit', {'id': user.id}) }}">modifier</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

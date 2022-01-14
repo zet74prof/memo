@@ -19,17 +19,17 @@
                 <td>{{ enfant.id }}</td>
                 <td>{{ enfant.typeReferent }}</td>
                 <td>
-                    <a href="{{ path('enfant_show', {'id': enfant.id}) }}">show</a>
-                    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">edit</a>
+                    <a href="{{ path('enfant_show', {'id': enfant.id}) }}">Afficher</a>
+                    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">aucune donnée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('enfant_new') }}">Create new</a>
+    <a href="{{ path('enfant_new') }}">Créer un nouvel enfant</a>
 {% endblock %}

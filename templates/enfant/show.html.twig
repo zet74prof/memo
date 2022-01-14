@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('enfant_index') }}">back to list</a>
+    <a href="{{ path('enfant_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">edit</a>
+    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">Modifier</a>
 
     {{ include('enfant/_delete_form.html.twig') }}
 {% endblock %}

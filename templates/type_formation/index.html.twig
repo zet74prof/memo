@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>FormationName</th>
+                <th>Nom formation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,17 +19,17 @@
                 <td>{{ type_formation.id }}</td>
                 <td>{{ type_formation.formationName }}</td>
                 <td>
-                    <a href="{{ path('type_formation_show', {'id': type_formation.id}) }}">show</a>
-                    <a href="{{ path('type_formation_edit', {'id': type_formation.id}) }}">edit</a>
+                    <a href="{{ path('type_formation_show', {'id': type_formation.id}) }}">Afficher</a>
+                    <a href="{{ path('type_formation_edit', {'id': type_formation.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">aucune donnée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('type_formation_new') }}">Create new</a>
+    <a href="{{ path('type_formation_new') }}">Créer nouveau/a>
 {% endblock %}

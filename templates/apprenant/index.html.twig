@@ -57,13 +57,13 @@
                 <td>{{ apprenant.getLastSite.siteName }}</td>
                 <td>{{ apprenant.getLastNiveauFormation.nivFormName }}</td>
                 <td>
-                    <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}">show</a>
-                    <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}">edit</a>
+                    <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}">Afficher</a>
+                    <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="17">no records found</td>
+                <td colspan="17">aucune donnée trouver</td>
             </tr>
         {% endfor %}
         </tbody>
