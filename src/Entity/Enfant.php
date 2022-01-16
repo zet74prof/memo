@@ -8,24 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=EnfantRepository::class)
  */
-class Enfant
+class Enfant extends User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $typeReferent;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=EtablissementScolaire::class, inversedBy="enfants")
+     */
+    private $etablissementScolaire;
 
     public function getTypeReferent(): ?string
     {
@@ -35,6 +28,18 @@ class Enfant
     public function setTypeReferent(string $typeReferent): self
     {
         $this->typeReferent = $typeReferent;
+
+        return $this;
+    }
+
+    public function getEtablissementScolaire(): ?EtablissementScolaire
+    {
+        return $this->etablissementScolaire;
+    }
+
+    public function setEtablissementScolaire(?EtablissementScolaire $etablissementScolaire): self
+    {
+        $this->etablissementScolaire = $etablissementScolaire;
 
         return $this;
     }

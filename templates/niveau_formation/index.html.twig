@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>NivFormName</th>
+                <th>nom du Niveau de Formation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,17 +19,17 @@
                 <td>{{ niveau_formation.id }}</td>
                 <td>{{ niveau_formation.nivFormName }}</td>
                 <td>
-                    <a href="{{ path('niveau_formation_show', {'id': niveau_formation.id}) }}">show</a>
-                    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">edit</a>
+                    <a href="{{ path('niveau_formation_show', {'id': niveau_formation.id}) }}">Afficher</a>
+                    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">aucune donnée trouver</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('niveau_formation_new') }}">Create new</a>
+    <a href="{{ path('niveau_formation_new') }}">Créer un niveau de formation</a>
 {% endblock %}

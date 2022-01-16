@@ -11,7 +11,7 @@
                 <th>Id</th>
                 <th>Date</th>
                 <th>Active</th>
-                <th>Reason</th>
+                <th>Raison</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,17 +23,17 @@
                 <td>{{ state_histo.active ? 'Yes' : 'No' }}</td>
                 <td>{{ state_histo.reason }}</td>
                 <td>
-                    <a href="{{ path('state_histo_show', {'id': state_histo.id}) }}">show</a>
-                    <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}">edit</a>
+                    <a href="{{ path('state_histo_show', {'id': state_histo.id}) }}">Afficher</a>
+                    <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">aucune donnée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('state_histo_new') }}">Create new</a>
+    <a href="{{ path('state_histo_new') }}">Créer un nouveau</a>
 {% endblock %}

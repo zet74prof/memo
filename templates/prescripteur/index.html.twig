@@ -19,17 +19,17 @@
                 <td>{{ prescripteur.id }}</td>
                 <td>{{ prescripteur.prescripteurName }}</td>
                 <td>
-                    <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}">show</a>
-                    <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}">edit</a>
+                    <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}">Afficher</a>
+                    <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">aucune donnée trouver</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('prescripteur_new') }}">Create new</a>
+    <a href="{{ path('prescripteur_new') }}">Créer un nouveau prescripteur</a>
 {% endblock %}

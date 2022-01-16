@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ressource{% endblock %}
+{% block title %}nouvelle Ressource{% endblock %}
 
 {% block body %}
-    <h1>Create new Ressource</h1>
+    <h1>Créer une nouvelle Ressource</h1>
 
     {{ include('ressource/_form.html.twig') }}
 
-    <a href="{{ path('ressource_index') }}">back to list</a>
+    <a href="{{ path('ressource_index') }}">retour à la liste</a>
 {% endblock %}

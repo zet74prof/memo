@@ -9,6 +9,19 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Surname</th>
+                <th>Firstname</th>
+                <th>Title</th>
+                <th>Address</th>
+                <th>PostalCode</th>
+                <th>City</th>
+                <th>BirthDate</th>
+                <th>Tel1</th>
+                <th>Tel2</th>
+                <th>Comment</th>
+                <th>Email</th>
                 <th>TypeReferent</th>
                 <th>actions</th>
             </tr>
@@ -17,6 +30,19 @@
         {% for enfant in enfants %}
             <tr>
                 <td>{{ enfant.id }}</td>
+                <td>{{ enfant.username }}</td>
+                <td>{{ enfant.roles ? enfant.roles|json_encode : '' }}</td>
+                <td>{{ enfant.surname }}</td>
+                <td>{{ enfant.firstname }}</td>
+                <td>{{ enfant.title }}</td>
+                <td>{{ enfant.address }}</td>
+                <td>{{ enfant.postalCode }}</td>
+                <td>{{ enfant.city }}</td>
+                <td>{{ enfant.birthDate ? enfant.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ enfant.tel1 }}</td>
+                <td>{{ enfant.tel2 }}</td>
+                <td>{{ enfant.comment }}</td>
+                <td>{{ enfant.email }}</td>
                 <td>{{ enfant.typeReferent }}</td>
                 <td>
                     <a href="{{ path('enfant_show', {'id': enfant.id}) }}">show</a>
@@ -25,7 +51,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="17">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

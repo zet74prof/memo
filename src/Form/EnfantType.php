@@ -12,7 +12,22 @@ class EnfantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('username')
+            ->add('roles')
+            ->add('password')
+            ->add('surname')
+            ->add('firstname')
+            ->add('title')
+            ->add('address')
+            ->add('postalCode')
+            ->add('city')
+            ->add('birthDate')
+            ->add('tel1')
+            ->add('tel2')
+            ->add('comment')
+            ->add('email')
             ->add('typeReferent')
+            ->add('etablissementScolaire')
         ;
     }
 

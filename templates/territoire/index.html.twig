@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,8 +19,8 @@
                 <td>{{ territoire.id }}</td>
                 <td>{{ territoire.name }}</td>
                 <td>
-                    <a href="{{ path('territoire_show', {'id': territoire.id}) }}">show</a>
-                    <a href="{{ path('territoire_edit', {'id': territoire.id}) }}">edit</a>
+                    <a href="{{ path('territoire_show', {'id': territoire.id}) }}">Afficher</a>
+                    <a href="{{ path('territoire_edit', {'id': territoire.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EtablissementScolaire{% endblock %}
+
+{% block body %}
+    <h1>Create new EtablissementScolaire</h1>
+
+    {{ include('etablissement_scolaire/_form.html.twig') }}
+
+    <a href="{{ path('etablissement_scolaire_index') }}">back to list</a>
+{% endblock %}
