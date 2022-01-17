@@ -109,7 +109,9 @@ class ApprenantType extends AbstractType
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'siteName',
-                'mapped' => false, //mapped set to false because site is not an attribute of Apprenant class
+                'expanded' => true,
+                'multiple' => true,
+                'mapped' => false, //mapped set to false because site is not an attribute of User class
             ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,

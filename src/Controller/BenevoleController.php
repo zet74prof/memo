@@ -41,12 +41,15 @@ class BenevoleController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            //on récupère le champ site (un objet de la classe Site) pour instancier un objet SiteHisto
-            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
-            $site = $form->get('site')->getData();
             $siteHisto = new SiteHisto();
             $siteHisto->setUser($benevole);
-            $siteHisto->setSite($site);
+            //on récupère la liste des sites (un tableau d'objets de la classe Site) pour l'ajouter à l'objet SiteHisto
+            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
+            $sites = $form->get('site')->getData();
+            foreach ($sites as $site)
+            {
+                $siteHisto->addSite($site);
+            }
             $siteHisto->setDate(new \DateTime('now'));
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
             $state = new StateHisto(new \DateTime('now'),true,'Création');

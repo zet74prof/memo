@@ -29,6 +29,16 @@ class Site
      */
     private $territoire;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=SiteHisto::class, mappedBy="sites")
+     */
+    private $siteHistos;
+
+    public function __construct()
+    {
+        $this->siteHistos = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +64,33 @@ class Site
     public function setTerritoire(?Territoire $territoire): self
     {
         $this->territoire = $territoire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SiteHisto[]
+     */
+    public function getSiteHistos(): Collection
+    {
+        return $this->siteHistos;
+    }
+
+    public function addSiteHisto(SiteHisto $siteHisto): self
+    {
+        if (!$this->siteHistos->contains($siteHisto)) {
+            $this->siteHistos[] = $siteHisto;
+            $siteHisto->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSiteHisto(SiteHisto $siteHisto): self
+    {
+        if ($this->siteHistos->removeElement($siteHisto)) {
+            $siteHisto->removeSite($this);
+        }
 
         return $this;
     }

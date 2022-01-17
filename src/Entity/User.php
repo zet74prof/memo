@@ -381,12 +381,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastSite(): Site
-    {
-        $lastSite = $this->site->last();
-        return $lastSite->getSite();
-    }
-
     public function removeSite(SiteHisto $site): self
     {
         if ($this->site->removeElement($site)) {
