@@ -31,7 +31,7 @@ class SiteHisto
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Site::class, inversedBy="siteHistos")
+     * @ORM\ManyToMany(targetEntity=Site::class, inversedBy="siteHistos", fetch="EAGER")
      */
     private $sites;
 

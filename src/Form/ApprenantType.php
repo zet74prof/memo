@@ -28,6 +28,18 @@ class ApprenantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //we get the current sites of the Appenant to compare to the list of sites and check the ones he belong to
+        $apprenant = $options['data'];
+        //test if user exists already or not (creation)
+        if ($apprenant->getSiteHisto()->last())
+        {
+            $currentSites = $apprenant->getSiteHisto()->last()->getSites();
+        }
+        else
+        {
+            $currentSites = [];
+        }
+
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur',
@@ -112,6 +124,17 @@ class ApprenantType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'mapped' => false, //mapped set to false because site is not an attribute of User class
+                //while displaying all sites as checkboxes, we check the checkboxes of the current sites
+                'choice_attr' => function ($site, $key, $index) use ($currentSites) {
+                    $selected = false;
+                    foreach ($currentSites as $cs)
+                    {
+                        if ($site == $cs) {
+                            $selected = true;
+                        }
+                    }
+                    return ['checked' => $selected];
+                }
             ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,

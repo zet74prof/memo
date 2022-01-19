@@ -107,7 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $stateHisto;
 
     /**
-     * @ORM\OneToMany(targetEntity=SiteHisto::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=SiteHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
      */
     protected $siteHisto;
 
@@ -400,5 +400,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setSitesWithHisto(Collection $sitesList): ?SiteHisto
+    {
+        $modify = false;
+        if ($this->getSiteHisto()->last())
+        {
+            //here we need to check if the list of site has changed or not.
+            //for array_udiff to work, the largest list must be put first.
+            // So we need to count nb of entries per array to decide which list goes first.
+            $nbSitesInNewList = $sitesList->count();
+            $nbSitesInCurrentList = $this->getLastSites()->count();
+            if ($nbSitesInNewList < $nbSitesInCurrentList)
+            {
+                $list1 = $this->getLastSites()->toArray();
+                $list2 = $sitesList->toArray();
+            }
+            else
+            {
+                $list1 = $sitesList->toArray();
+                $list2 = $this->getLastSites()->toArray();
+            }
+            $diff = array_udiff($list1, $list2,
+                function ($site_a, $site_b) {
+                    return $site_a->getId() - $site_b->getId();
+                }
+            );
+            if($diff != [])
+            {
+                $modify = true;
+            }
+        }
+        else //it's a new user with no sites yet
+        {
+            $modify = true;
+        }
+
+        if ($modify == true)
+        {
+            $siteHisto = new SiteHisto();
+            $siteHisto->setUser($this);
+            //on récupère la liste des sites (un tableau d'objets de la classe Site) pour l'ajouter à l'objet SiteHisto
+            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
+            foreach ($sitesList as $site)
+            {
+                $siteHisto->addSite($site);
+            }
+            $siteHisto->setDate(new \DateTime('now'));
+            return $siteHisto;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
