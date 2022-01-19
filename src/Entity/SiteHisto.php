@@ -25,7 +25,7 @@ class SiteHisto
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="site")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="siteHisto")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

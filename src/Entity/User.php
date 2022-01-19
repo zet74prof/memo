@@ -109,12 +109,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=SiteHisto::class, mappedBy="user", orphanRemoval=true)
      */
-    protected $site;
+    protected $siteHisto;
 
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
-        $this->site = new ArrayCollection();
+        $this->siteHisto = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -366,24 +366,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|SiteHisto[]
      */
-    public function getSite(): Collection
+    public function getSiteHisto(): Collection
     {
-        return $this->site;
+        return $this->siteHisto;
     }
 
     public function addSite(SiteHisto $site): self
     {
-        if (!$this->site->contains($site)) {
-            $this->site[] = $site;
+        if (!$this->siteHisto->contains($site)) {
+            $this->siteHisto[] = $site;
             $site->setUser($this);
         }
 
         return $this;
     }
 
+    /**
+     * @return Collection|Site[]
+     */
+    public function getLastSites(): Collection
+    {
+        $lastSiteHisto = $this->getSiteHisto()->last();
+        return $lastSiteHisto->getSites();
+    }
+
     public function removeSite(SiteHisto $site): self
     {
-        if ($this->site->removeElement($site)) {
+        if ($this->siteHisto->removeElement($site)) {
             // set the owning side to null (unless already changed)
             if ($site->getUser() === $this) {
                 $site->setUser(null);

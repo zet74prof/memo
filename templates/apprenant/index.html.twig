@@ -54,7 +54,10 @@
                 <td>{{ apprenant.typeFormation.formationName }}</td>
                 <td>{{ apprenant.qpv.qpvName }}</td>
                 <td>{{ apprenant.situationFamiliale }}</td>
-                <td>{{ apprenant.getLastSite.siteName }}</td>
+                <td>{% for site in apprenant.getLastSites %}
+                    {{ site.siteName }}<br>
+                    {% endfor %}
+                </td>
                 <td>{{ apprenant.getLastNiveauFormation.nivFormName }}</td>
                 <td>
                     <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}">Afficher</a>
