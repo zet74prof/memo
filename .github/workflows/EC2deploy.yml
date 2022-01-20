@@ -13,5 +13,4 @@ jobs:
           cd /var/www/memodev
           sudo git fetch origin
           sudo git reset --hard origin/master  &&  echo 'You are doing well'
-          sudo php bin/console make:migration
-          sudo php bin/console doctrine:migration:migrate
+          sudo php bin/console doctrine:schema:update --force
