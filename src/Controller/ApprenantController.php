@@ -30,6 +30,7 @@ class ApprenantController extends AbstractController
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $apprenant = new Apprenant();
+        $apprenant->setRoles(['ROLE_APPRENANT']);
         $form = $this->createForm(ApprenantType::class, $apprenant);
         $form->handleRequest($request);
 

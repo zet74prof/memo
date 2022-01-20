@@ -44,17 +44,6 @@ class ApprenantType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur',
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'Gestionnaire' => 'ROLE_GESTIONNAIRE',
-                    'Bénévole' => 'ROLE_BENEVOLE',
-                    'Apprenant' => 'ROLE_APPRENANT',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Roles',
-            ])
             ->add('surname', TextType::class, [
                 'label' => 'Nom de famille',
             ])

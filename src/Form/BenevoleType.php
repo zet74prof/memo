@@ -26,17 +26,6 @@ class BenevoleType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur',
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'Gestionnaire' => 'ROLE_GESTIONNAIRE',
-                    'Bénévole' => 'ROLE_BENEVOLE',
-                    'Apprenant' => 'ROLE_APPRENANT',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Roles',
-            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
