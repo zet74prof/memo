@@ -30,6 +30,7 @@ class BenevoleController extends AbstractController
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $benevole = new Benevole();
+        $benevole->setRoles(['ROLE_BENEVOLE']);
         $form = $this->createForm(BenevoleType::class, $benevole);
         $form->handleRequest($request);
 
