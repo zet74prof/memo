@@ -6,6 +6,7 @@ use App\Entity\Apprenant;
 use App\Entity\NivFormHisto;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
+use App\Entity\StatusHisto;
 use App\Form\ApprenantType;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,9 +47,10 @@ class ApprenantController extends AbstractController
 
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
-            $state = new StateHisto(new \DateTime('now'),true,'Création');
+            $state = new StateHisto(new \DateTime('now'),1,'Création');
             $state->setUser($apprenant);
-
+            $status = new StatusHisto(new \DateTime('now'),$form->get('status')->getData());
+            $status->setUser($apprenant);
             $niveauFormation = $form->get('niveauFormation')->getData();
             $nivFormHisto = new NivFormHisto();
             $nivFormHisto->setDate(new \DateTime('now'));
@@ -57,16 +59,18 @@ class ApprenantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($apprenant);
             $entityManager->persist($state);
+            $entityManager->persist($status);
             $entityManager->persist($siteHisto);
             $entityManager->persist($nivFormHisto);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('apprenant_index');
         }
 
         return $this->renderForm('apprenant/new.html.twig', [
             'apprenant' => $apprenant,
             'form' => $form,
+            'create' => true,
         ]);
     }
 
@@ -86,17 +90,24 @@ class ApprenantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
-            //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
-            $state = new StateHisto(new \DateTime('now'),true,'Création');
-            $state->setUser($apprenant);
+            $state = $apprenant->setStateWithHisto($form->get('state')->getData(), $form->get('state_reason')->getData());
+            $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
 
             $niveauFormation = $form->get('niveauFormation')->getData();
             $nivFormHisto = new NivFormHisto();
             $nivFormHisto->setDate(new \DateTime('now'));
             $nivFormHisto->setApprenant($apprenant);
             $nivFormHisto->setNiveauFormation($niveauFormation);
+
             $entityManager->persist($apprenant);
-            $entityManager->persist($state);
+            if ($state != null)
+            {
+                $entityManager->persist($state);
+            }
+            if ($status != null)
+            {
+                $entityManager->persist($status);
+            }
             if ($siteHisto != null)
             {
                 $entityManager->persist($siteHisto);
@@ -110,6 +121,7 @@ class ApprenantController extends AbstractController
         return $this->renderForm('apprenant/edit.html.twig', [
             'apprenant' => $apprenant,
             'form' => $form,
+            'create' => false,
         ]);
     }
 
