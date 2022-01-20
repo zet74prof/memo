@@ -169,6 +169,8 @@ class ApprenantType extends AbstractType
                 'class' => Ressource::class,
                 'choice_label' => 'ressourceName',
                 'label' => 'Ressources',
+                'expanded' => true,
+                'multiple' => false,
             ])
             ->add('typeFormation', EntityType::class, [
                 'class' => TypeFormation::class,

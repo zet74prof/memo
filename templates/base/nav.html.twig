@@ -1,29 +1,38 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
     <div class="container">
-        <div
-            class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollaps">
                 <i class="fe fe-x"></i>
             </button>
 
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item-dropdown">
+                <li class="nav-item">
                     <a href="/" class="nav-link" href="">Accueil</a>
                 </li>
-                <li class="nav-item-dropdown">
-                    <a href="{{ path('apprenant_index') }}" class="nav-link" href="">Apprenants</a>
+                <li class="nav-item">
+                    <a href="{{ path('apprenant_index') }}" class="nav-link">Apprenants</a>
                 </li>
-                <li class="nav-item-dropdown">
-                    <a href="{{ path('enfant_index') }}" class="nav-link" href="">Enfants</a>
+                <li class="nav-item">
+                    <a href="{{ path('enfant_index') }}" class="nav-link">Enfants</a>
                 </li>
-                <li class="nav-item-dropdown">
-                    <a href="{{ path('q_p_v_index') }}" class="nav-link" href="">QPV</a>
+                <li class="nav-item">
+                    <a href="{{ path('benevole_index') }}" class="nav-link">Bénevoles</a>
                 </li>
-                <li class="nav-item-dropdown">
-                    <a href="{{ path('user_index') }}" class="nav-link" href="">Utilisateur</a>
-                </li>
-                <li class="nav-item-dropdown">
-                    <a href="{{ path('benevole_index') }}" class="nav-link" href="">Bénevole</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramétrage</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('q_p_v_index') }}" class="dropdown-item">QPV</a></li>
+                        <li><a href="{{ path('etablissement_scolaire_index') }}" class="dropdown-item">Etablissements scolaires</a></li>
+                        <li><a href="{{ path('niveau_formation_index') }}" class="dropdown-item">Niveaux de formation</a></li>
+                        <li><a href="{{ path('prescripteur_index') }}" class="dropdown-item">Prescripteurs</a></li>
+                        <li><a href="{{ path('ressource_index') }}" class="dropdown-item">Ressources</a></li>
+                        <li><a href="{{ path('site_index') }}" class="dropdown-item">Sites</a></li>
+                        <li><a href="{{ path('status_index') }}" class="dropdown-item">Statuts</a></li>
+                        <li><a href="{{ path('territoire_index') }}" class="dropdown-item">Territoires</a></li>
+                        <li><a href="{{ path('type_enseignement_index') }}" class="dropdown-item">Types d'enseignements</a></li>
+                        <li><a href="{{ path('type_formation_index') }}" class="dropdown-item">Types de formation</a></li>
+                        <li><a href="{{ path('user_index') }}" class="dropdown-item">Utilisateurs</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

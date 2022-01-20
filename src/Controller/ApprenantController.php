@@ -8,6 +8,7 @@ use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\StatusHisto;
 use App\Form\ApprenantType;
+use App\Form\ApprenantTypeEdit;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,7 +86,7 @@ class ApprenantController extends AbstractController
     #[Route('/{id}/edit', name: 'apprenant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Apprenant $apprenant, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ApprenantType::class, $apprenant);
+        $form = $this->createForm(ApprenantTypeEdit::class, $apprenant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
