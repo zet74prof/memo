@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +31,7 @@ class UserController extends AbstractController
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
+        $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -39,17 +42,19 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            //on récupère le champ site (un objet de la classe Site) pour instancier un objet SiteHisto
-            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
-            $site = $form->get('site')->getData();
             $siteHisto = new SiteHisto();
             $siteHisto->setUser($user);
-            $siteHisto->setSite($site);
+            //on récupère la liste des sites (un tableau d'objets de la classe Site) pour l'ajouter à l'objet SiteHisto
+            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
+            $sites = $form->get('site')->getData();
+            foreach ($sites as $site)
+            {
+                $siteHisto->addSite($site);
+            }
             $siteHisto->setDate(new \DateTime('now'));
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
             $state = new StateHisto(new \DateTime('now'),true,'Création');
             $state->setUser($user);
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->persist($state);
             $entityManager->persist($siteHisto);

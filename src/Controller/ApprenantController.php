@@ -42,13 +42,8 @@ class ApprenantController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            //on récupère le champ site (un objet de la classe Site) pour instancier un objet SiteHisto
-            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
-            $site = $form->get('site')->getData();
-            $siteHisto = new SiteHisto();
-            $siteHisto->setUser($apprenant);
-            $siteHisto->setSite($site);
-            $siteHisto->setDate(new \DateTime('now'));
+
+            $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
             $state = new StateHisto(new \DateTime('now'),true,'Création');
             $state->setUser($apprenant);
@@ -89,6 +84,23 @@ class ApprenantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
+            //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
+            $state = new StateHisto(new \DateTime('now'),true,'Création');
+            $state->setUser($apprenant);
+
+            $niveauFormation = $form->get('niveauFormation')->getData();
+            $nivFormHisto = new NivFormHisto();
+            $nivFormHisto->setDate(new \DateTime('now'));
+            $nivFormHisto->setApprenant($apprenant);
+            $nivFormHisto->setNiveauFormation($niveauFormation);
+            $entityManager->persist($apprenant);
+            $entityManager->persist($state);
+            if ($siteHisto != null)
+            {
+                $entityManager->persist($siteHisto);
+            }
+            $entityManager->persist($nivFormHisto);
             $entityManager->flush();
 
             return $this->redirectToRoute('apprenant_index', [], Response::HTTP_SEE_OTHER);

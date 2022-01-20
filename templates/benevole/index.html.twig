@@ -42,6 +42,10 @@
                 <td>{{ benevole.tel2 }}</td>
                 <td>{{ benevole.comment }}</td>
                 <td>{{ benevole.email }}</td>
+                <td>{% for site in benevole.getLastSites %}
+                        {{ site.siteName }}<br>
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('benevole_show', {'id': benevole.id}) }}">Afficher</a>
                     <a href="{{ path('benevole_edit', {'id': benevole.id}) }}">Modifier</a>

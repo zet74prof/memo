@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SiteHistoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,16 +25,20 @@ class SiteHisto
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="site")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="siteHisto")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Site::class, inversedBy="siteHistos", fetch="EAGER")
      */
-    private $site;
+    private $sites;
+
+    public function __construct()
+    {
+        $this->sites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,14 +69,26 @@ class SiteHisto
         return $this;
     }
 
-    public function getSite(): ?Site
+    /**
+     * @return Collection|Site[]
+     */
+    public function getSites(): Collection
     {
-        return $this->site;
+        return $this->sites;
     }
 
-    public function setSite(?Site $site): self
+    public function addSite(Site $site): self
     {
-        $this->site = $site;
+        if (!$this->sites->contains($site)) {
+            $this->sites[] = $site;
+        }
+
+        return $this;
+    }
+
+    public function removeSite(Site $site): self
+    {
+        $this->sites->removeElement($site);
 
         return $this;
     }

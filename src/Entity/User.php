@@ -107,14 +107,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $stateHisto;
 
     /**
-     * @ORM\OneToMany(targetEntity=SiteHisto::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=SiteHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
      */
-    protected $site;
+    protected $siteHisto;
 
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
-        $this->site = new ArrayCollection();
+        $this->siteHisto = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -366,30 +366,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|SiteHisto[]
      */
-    public function getSite(): Collection
+    public function getSiteHisto(): Collection
     {
-        return $this->site;
+        return $this->siteHisto;
     }
 
     public function addSite(SiteHisto $site): self
     {
-        if (!$this->site->contains($site)) {
-            $this->site[] = $site;
+        if (!$this->siteHisto->contains($site)) {
+            $this->siteHisto[] = $site;
             $site->setUser($this);
         }
 
         return $this;
     }
 
-    public function getLastSite(): Site
+    /**
+     * @return Collection|Site[]
+     */
+    public function getLastSites(): Collection
     {
-        $lastSite = $this->site->last();
-        return $lastSite->getSite();
+        $lastSiteHisto = $this->getSiteHisto()->last();
+        return $lastSiteHisto->getSites();
     }
 
     public function removeSite(SiteHisto $site): self
     {
-        if ($this->site->removeElement($site)) {
+        if ($this->siteHisto->removeElement($site)) {
             // set the owning side to null (unless already changed)
             if ($site->getUser() === $this) {
                 $site->setUser(null);
@@ -397,5 +400,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setSitesWithHisto(Collection $sitesList): ?SiteHisto
+    {
+        $modify = false;
+        if ($this->getSiteHisto()->last())
+        {
+            //here we need to check if the list of site has changed or not.
+            //for array_udiff to work, the largest list must be put first.
+            // So we need to count nb of entries per array to decide which list goes first.
+            $nbSitesInNewList = $sitesList->count();
+            $nbSitesInCurrentList = $this->getLastSites()->count();
+            if ($nbSitesInNewList < $nbSitesInCurrentList)
+            {
+                $list1 = $this->getLastSites()->toArray();
+                $list2 = $sitesList->toArray();
+            }
+            else
+            {
+                $list1 = $sitesList->toArray();
+                $list2 = $this->getLastSites()->toArray();
+            }
+            $diff = array_udiff($list1, $list2,
+                function ($site_a, $site_b) {
+                    return $site_a->getId() - $site_b->getId();
+                }
+            );
+            if($diff != [])
+            {
+                $modify = true;
+            }
+        }
+        else //it's a new user with no sites yet
+        {
+            $modify = true;
+        }
+
+        if ($modify == true)
+        {
+            $siteHisto = new SiteHisto();
+            $siteHisto->setUser($this);
+            //on récupère la liste des sites (un tableau d'objets de la classe Site) pour l'ajouter à l'objet SiteHisto
+            //et on vient persister cet objet SiteHisto ce qui permet de conserver l'historique des modifs
+            foreach ($sitesList as $site)
+            {
+                $siteHisto->addSite($site);
+            }
+            $siteHisto->setDate(new \DateTime('now'));
+            return $siteHisto;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
