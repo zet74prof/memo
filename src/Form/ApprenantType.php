@@ -8,6 +8,7 @@ use App\Entity\Prescripteur;
 use App\Entity\QPV;
 use App\Entity\Ressource;
 use App\Entity\Site;
+use App\Entity\Status;
 use App\Entity\TypeFormation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -31,6 +32,22 @@ class ApprenantType extends AbstractType
         //we get the current sites of the Appenant to compare to the list of sites and check the ones he belong to
         $apprenant = $options['data'];
         //test if user exists already or not (creation)
+        if($apprenant->getStateHisto()->last())
+        {
+            $currentState = $apprenant->getStateHisto()->last()->getState();
+        }
+        else
+        {
+            $currentState = 1;
+        }
+        if($apprenant->getStatusHistos()->last())
+        {
+            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
+        }
+        else
+        {
+            $currentStatus = null;
+        }
         if ($apprenant->getSiteHisto()->last())
         {
             $currentSites = $apprenant->getSiteHisto()->last()->getSites();
@@ -107,6 +124,22 @@ class ApprenantType extends AbstractType
                 'empty_data' => 0,
                 'label' => 'Enfants à charge'
             ])
+            ->add('state', ChoiceType::class, [
+                'choices' => [
+                    'Validation' => 1,
+                    'Actif' => 2,
+                    'Inactif' => 3,
+                    'Pause' => 4
+                ],
+                'label' => 'Etat',
+                'mapped' => false,
+                'data' => $currentState,
+            ])
+            ->add('state_reason', TextType::class, [
+                'label' => 'Indiquer la raison du changement d\'état',
+                'required' => false,
+                'mapped' => false,
+            ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'siteName',
@@ -124,6 +157,13 @@ class ApprenantType extends AbstractType
                     }
                     return ['checked' => $selected];
                 }
+            ])
+            ->add('status', EntityType::class, [
+                'class' => Status::class,
+                'choice_label' => 'statusName',
+                'label' => 'Statut',
+                'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
+                'data' => $currentStatus,
             ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,
@@ -157,7 +197,8 @@ class ApprenantType extends AbstractType
                     'Personne seule avec enfant(s)' => 2,
                     'Couple sans enfant' => 3,
                     'Couple avec enfant(s)' => 4
-                ]
+                ],
+                'label' => 'Situation familiale',
             ])
         ;
     }

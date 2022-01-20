@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\StateHistoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=StateHistoRepository::class)
  */
 class StateHisto
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,9 +25,11 @@ class StateHisto
     private $date;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
+     * @Assert\Choice(1,2,3,4)
+     * 1 = validation, 2 = actif, 3 = inactif, 4 = en pause
      */
-    private $active;
+    private $state;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -40,13 +44,13 @@ class StateHisto
 
     /**
      * @param $date
-     * @param $active
+     * @param $state
      * @param $reason
      */
-    public function __construct($date, $active, $reason)
+    public function __construct($date, $state, $reason)
     {
         $this->date = $date;
-        $this->active = $active;
+        $this->state = $state;
         $this->reason = $reason;
     }
 
@@ -67,14 +71,14 @@ class StateHisto
         return $this;
     }
 
-    public function getActive(): ?bool
+    public function getState(): ?int
     {
-        return $this->active;
+        return $this->state;
     }
 
-    public function setActive(bool $active): self
+    public function setState(int $state): self
     {
-        $this->active = $active;
+        $this->state = $state;
 
         return $this;
     }

@@ -102,7 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=StateHisto::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=StateHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
      */
     protected $stateHisto;
 
@@ -111,10 +111,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     protected $siteHisto;
 
+    /**
+     * @ORM\OneToMany(targetEntity=StatusHisto::class, mappedBy="user", fetch="EAGER")
+     */
+    private $statusHistos;
+
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
         $this->siteHisto = new ArrayCollection();
+        $this->statusHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -363,6 +369,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    /**
+     * @return int
+     */
+    public function getLastState(): int
+    {
+        $lastSateHisto = $this->getStateHisto()->last();
+        return $lastSateHisto->getState();
+    }
+
+    /**
+     * @param int $state
+     * @param string $reason
+     * @return StateHisto|null
+     * Get a state and a reason, checks ifthe state has changed and returns a stateHisto object to persist
+     */
+    public function setStateWithHisto(int $state, ?string $reason): ?StateHisto
+    {
+        if ($reason == null)
+        {
+            $reason = '';
+        }
+        if ($this->getLastState() != $state)
+        {
+            $stateHisto = new StateHisto(new \DateTime('now'),$state,$reason);
+            $stateHisto->setUser($this);
+            return $stateHisto;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     /**
      * @return Collection|SiteHisto[]
      */
@@ -402,6 +442,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Collection $sitesList
+     * @return SiteHisto|null
+     * Get a site list, check if the site list has changed, and if so, returns a new SiteHisto object to persist
+     */
     public function setSitesWithHisto(Collection $sitesList): ?SiteHisto
     {
         $modify = false;
@@ -449,6 +494,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
             $siteHisto->setDate(new \DateTime('now'));
             return $siteHisto;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @return Collection|StatusHisto[]
+     */
+    public function getStatusHistos(): Collection
+    {
+        return $this->statusHistos;
+    }
+
+    public function addStatusHisto(StatusHisto $statusHisto): self
+    {
+        if (!$this->statusHistos->contains($statusHisto)) {
+            $this->statusHistos[] = $statusHisto;
+            $statusHisto->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatusHisto(StatusHisto $statusHisto): self
+    {
+        if ($this->statusHistos->removeElement($statusHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($statusHisto->getUser() === $this) {
+                $statusHisto->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Status
+     */
+    public function getLastStatus(): Status
+    {
+        $lastSatusHisto = $this->getStatusHistos()->last();
+        return $lastSatusHisto->getStatus();
+    }
+
+    /**
+     * @param Status $status
+     * @return StatusHisto|null
+     * Get a status, checks if the status has changed and returns a statusHisto object to persist
+     */
+    public function setStatusWithHisto(Status $status): ?StatusHisto
+    {
+        if ($this->getLastStatus() != $status)
+        {
+            $statusHisto = new StatusHisto(new \DateTime('now'),$status);
+            $statusHisto->setUser($this);
+            return $statusHisto;
         }
         else
         {
