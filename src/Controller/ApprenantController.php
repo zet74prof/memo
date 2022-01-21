@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Apprenant;
 use App\Entity\NivFormHisto;
+use App\Entity\QPVHisto;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\StatusHisto;
@@ -41,10 +42,12 @@ class ApprenantController extends AbstractController
             $apprenant->setPassword(
                 $passwordHasher->hashPassword(
                     $apprenant,
-                    //récupère la saisi utilisateur
-                    $form->get('plainPassword')->getData()
+                    'motsetmerveilles@59%ApprenantPwd'
                 )
             );
+
+            $apprenant->setUsername($form->get('firstname')->getData() . '.' . $form->get('surname')->getData());
+            $apprenant->CleanUserName();
 
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
@@ -52,17 +55,17 @@ class ApprenantController extends AbstractController
             $state->setUser($apprenant);
             $status = new StatusHisto(new \DateTime('now'),$form->get('status')->getData());
             $status->setUser($apprenant);
-            $niveauFormation = $form->get('niveauFormation')->getData();
-            $nivFormHisto = new NivFormHisto();
-            $nivFormHisto->setDate(new \DateTime('now'));
-            $nivFormHisto->setApprenant($apprenant);
-            $nivFormHisto->setNiveauFormation($niveauFormation);
+            $niveauFormation = new NivFormHisto(new \DateTime('now'),$form->get('niveauFormation')->getData());
+            $niveauFormation->setApprenant($apprenant);
+            $qpv = new QPVHisto(new \DateTime('now'),$form->get('qpv')->getData());
+            $qpv->setUser($apprenant);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($apprenant);
             $entityManager->persist($state);
             $entityManager->persist($status);
             $entityManager->persist($siteHisto);
-            $entityManager->persist($nivFormHisto);
+            $entityManager->persist($niveauFormation);
+            $entityManager->persist($qpv);
             $entityManager->flush();
 
             return $this->redirectToRoute('apprenant_index');
@@ -86,20 +89,15 @@ class ApprenantController extends AbstractController
     #[Route('/{id}/edit', name: 'apprenant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Apprenant $apprenant, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ApprenantTypeEdit::class, $apprenant);
+        $form = $this->createForm(ApprenantType::class, $apprenant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
             $state = $apprenant->setStateWithHisto($form->get('state')->getData(), $form->get('state_reason')->getData());
             $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
-
-            $niveauFormation = $form->get('niveauFormation')->getData();
-            $nivFormHisto = new NivFormHisto();
-            $nivFormHisto->setDate(new \DateTime('now'));
-            $nivFormHisto->setApprenant($apprenant);
-            $nivFormHisto->setNiveauFormation($niveauFormation);
-
+            $niveauFormation = $apprenant->setNiveauFormationWithHisto($form->get('niveauFormation')->getData());
+            $qpv = $apprenant->setQPVWithHisto($form->get('qpv')->getData());
             $entityManager->persist($apprenant);
             if ($state != null)
             {
@@ -113,7 +111,14 @@ class ApprenantController extends AbstractController
             {
                 $entityManager->persist($siteHisto);
             }
-            $entityManager->persist($nivFormHisto);
+            if($niveauFormation != null)
+            {
+                $entityManager->persist($niveauFormation);
+            }
+            if($qpv != null)
+            {
+                $entityManager->persist($qpv);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('apprenant_index', [], Response::HTTP_SEE_OTHER);

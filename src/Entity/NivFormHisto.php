@@ -34,6 +34,16 @@ class NivFormHisto
      */
     private $apprenant;
 
+    /**
+     * @param $date
+     * @param $niveauFormation
+     */
+    public function __construct($date, $niveauFormation)
+    {
+        $this->date = $date;
+        $this->niveauFormation = $niveauFormation;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

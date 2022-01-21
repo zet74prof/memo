@@ -48,6 +48,14 @@ class ApprenantType extends AbstractType
         {
             $currentStatus = null;
         }
+        if($apprenant->getQPVHistos()->last())
+        {
+            $currentQPV = $apprenant->getQPVHistos()->last()->getQpv();
+        }
+        else
+        {
+            $currentQPV = null;
+        }
         if ($apprenant->getSiteHisto()->last())
         {
             $currentSites = $apprenant->getSiteHisto()->last()->getSites();
@@ -56,11 +64,16 @@ class ApprenantType extends AbstractType
         {
             $currentSites = [];
         }
+        if($apprenant->getNiveauFormationHistos()->last())
+        {
+            $currentNiveauFormation = $apprenant->getNiveauFormationHistos()->last()->getNiveauFormation();
+        }
+        else
+        {
+            $currentNiveauFormation = null;
+        }
 
         $builder
-            ->add('username', TextType::class, [
-                'label' => 'Nom d\'utilisateur',
-            ])
             ->add('surname', TextType::class, [
                 'label' => 'Nom de famille',
             ])
@@ -101,24 +114,6 @@ class ApprenantType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez saisir un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'label' => 'Mot de passe',
             ])
             ->add('enfantACharge', IntegerType::class, [
                 'empty_data' => 0,
@@ -169,8 +164,6 @@ class ApprenantType extends AbstractType
                 'class' => Ressource::class,
                 'choice_label' => 'ressourceName',
                 'label' => 'Ressources',
-                'expanded' => true,
-                'multiple' => false,
             ])
             ->add('typeFormation', EntityType::class, [
                 'class' => TypeFormation::class,
@@ -186,12 +179,15 @@ class ApprenantType extends AbstractType
                 'class' => QPV::class,
                 'choice_label' => 'qpvName',
                 'label' => 'QPV',
+                'mapped' => false, //mapped set to false because QPV is not an attribute of Apprenant class
+                'data' => $currentQPV,
             ])
             ->add('niveauFormation', EntityType::class, [
                 'class' => NiveauFormation::class,
                 'choice_label' => 'nivFormName',
                 'label' => 'Niveau de formation',
                 'mapped' => false, //mapped set to false because niveauFormation is not an attribute of Apprenant class
+                'data' => $currentNiveauFormation,
             ])
             ->add('situationFamiliale', ChoiceType::class, [
                 'choices' => [

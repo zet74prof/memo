@@ -52,7 +52,7 @@
                 <td>{{ apprenant.prescripteur.prescripteurName }}</td>
                 <td>{{ apprenant.ressource.ressourceName }}</td>
                 <td>{{ apprenant.typeFormation.formationName }}</td>
-                <td>{{ apprenant.qpv.qpvName }}</td>
+                <td>{{ apprenant.getLastQpv.qpvName }}</td>
                 <td>{{ apprenant.situationFamiliale }}</td>
                 <td>{% for site in apprenant.getLastSites %}
                     {{ site.siteName }}<br>
