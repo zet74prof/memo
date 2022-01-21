@@ -112,15 +112,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $siteHisto;
 
     /**
-     * @ORM\OneToMany(targetEntity=StatusHisto::class, mappedBy="user", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=StatusHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
      */
     private $statusHistos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=QPVHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
+     */
+    private $qPVHistos;
 
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
         $this->siteHisto = new ArrayCollection();
         $this->statusHistos = new ArrayCollection();
+        $this->qPVHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,6 +147,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     * To build username automatically from firstname.surname given in the creation form
+     * Pre-requiste: username set to firstname.lastname from a form
+     * Objective of this function: replace spaces by dashes, accented characters by non-accented, and set to lower case
+     */
+    public function CleanUserName()
+    {
+        $unwanted_charaters = array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+
+        $userName = str_replace(' ','-',$this->getUserIdentifier());
+        $userName = strtr( $userName, $unwanted_charaters );
+        $userName = strtolower($userName);
+        $this->setUsername($userName);
     }
 
     /**
@@ -552,6 +577,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $statusHisto = new StatusHisto(new \DateTime('now'),$status);
             $statusHisto->setUser($this);
             return $statusHisto;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @return Collection|QPVHisto[]
+     */
+    public function getQPVHistos(): Collection
+    {
+        return $this->qPVHistos;
+    }
+
+    public function addQPVHisto(QPVHisto $qPVHisto): self
+    {
+        if (!$this->qPVHistos->contains($qPVHisto)) {
+            $this->qPVHistos[] = $qPVHisto;
+            $qPVHisto->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQPVHisto(QPVHisto $qPVHisto): self
+    {
+        if ($this->qPVHistos->removeElement($qPVHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($qPVHisto->getUser() === $this) {
+                $qPVHisto->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return QPV
+     */
+    public function getLastQPV(): QPV
+    {
+        $lastQPVHisto = $this->getQPVHistos()->last();
+        return $lastQPVHisto->getQpv();
+    }
+
+    /**
+     * @param QPV $qpv
+     * @return QPVHisto|null
+     * Get a QPV, checks if the QPV has changed and returns a QPVHisto object to persist
+     */
+    public function setQPVWithHisto(QPV $qpv): ?QPVHisto
+    {
+        if ($this->getLastQPV() != $qpv)
+        {
+            $qpvHisto = new QPVHisto(new \DateTime('now'),$qpv);
+            $qpvHisto->setUser($this);
+            return $qpvHisto;
         }
         else
         {

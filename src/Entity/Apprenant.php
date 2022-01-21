@@ -25,10 +25,10 @@ class Apprenant extends User
     private $ressource;
 
     /**
-     * @ORM\OneToMany(targetEntity=NivFormHisto::class, mappedBy="apprenant", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=NivFormHisto::class, mappedBy="apprenant", orphanRemoval=true, fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $niveauFormation;
+    private $niveauFormationHistos;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeFormation::class, inversedBy="apprenants")
@@ -43,12 +43,6 @@ class Apprenant extends User
     private $prescripteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=QPV::class, inversedBy="apprenants")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $qpv;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $situationFamiliale;
@@ -56,7 +50,7 @@ class Apprenant extends User
     public function __construct()
     {
         parent::__construct();
-        $this->niveauFormation = new ArrayCollection();
+        $this->niveauFormationHistos = new ArrayCollection();
     }
 
     public function getEnfantACharge(): ?int
@@ -86,20 +80,15 @@ class Apprenant extends User
     /**
      * @return Collection|NivFormHisto[]
      */
-    public function getNiveauFormation(): Collection
+    public function getNiveauFormationHistos(): Collection
     {
-        return $this->niveauFormation;
-    }
-
-    public function getLastNiveauFormation():NiveauFormation
-    {
-        return $this->niveauFormation->last()->getNiveauFormation();
+        return $this->niveauFormationHistos;
     }
 
     public function addNiveauFormation(NivFormHisto $niveauFormation): self
     {
-        if (!$this->niveauFormation->contains($niveauFormation)) {
-            $this->niveauFormation[] = $niveauFormation;
+        if (!$this->niveauFormationHistos->contains($niveauFormation)) {
+            $this->niveauFormationHistos[] = $niveauFormation;
             $niveauFormation->setApprenant($this);
         }
 
@@ -108,7 +97,7 @@ class Apprenant extends User
 
     public function removeNiveauFormation(NivFormHisto $niveauFormation): self
     {
-        if ($this->niveauFormation->removeElement($niveauFormation)) {
+        if ($this->niveauFormationHistos->removeElement($niveauFormation)) {
             // set the owning side to null (unless already changed)
             if ($niveauFormation->getApprenant() === $this) {
                 $niveauFormation->setApprenant(null);
@@ -116,6 +105,34 @@ class Apprenant extends User
         }
 
         return $this;
+    }
+
+    /**
+     * @return NiveauFormation
+     */
+    public function getLastNiveauFormation(): NiveauFormation
+    {
+        $lastNivFormHisto = $this->getNiveauFormationHistos()->last();
+        return $lastNivFormHisto->getNiveauFormation();
+    }
+
+    /**
+     * @param NiveauFormation $niveauFormation
+     * @return NivFormHisto|null
+     * Get a NiveauFormation, checks if the niveau de formation has changed and returns a NivFormHisto object to persist
+     */
+    public function setNiveauFormationWithHisto(NiveauFormation $niveauFormation): ?NivFormHisto
+    {
+        if ($this->getLastNiveauFormation() != $niveauFormation)
+        {
+            $nivFormHisto = new NivFormHisto(new \DateTime('now'),$niveauFormation);
+            $nivFormHisto->setApprenant($this);
+            return $nivFormHisto;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public function getTypeFormation(): ?TypeFormation
@@ -138,18 +155,6 @@ class Apprenant extends User
     public function setPrescripteur(?Prescripteur $prescripteur): self
     {
         $this->prescripteur = $prescripteur;
-
-        return $this;
-    }
-
-    public function getQpv(): ?QPV
-    {
-        return $this->qpv;
-    }
-
-    public function setQpv(?QPV $qpv): self
-    {
-        $this->qpv = $qpv;
 
         return $this;
     }
