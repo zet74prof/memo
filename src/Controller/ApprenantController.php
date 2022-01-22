@@ -9,7 +9,6 @@ use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\StatusHisto;
 use App\Form\ApprenantType;
-use App\Form\ApprenantTypeEdit;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +24,31 @@ class ApprenantController extends AbstractController
     public function index(ApprenantRepository $apprenantRepository): Response
     {
         return $this->render('apprenant/index.html.twig', [
-            'apprenants' => $apprenantRepository->findAll(),
+            'apprenants' => $apprenantRepository->findAllCurrentActive(),
+        ]);
+    }
+
+    #[Route('/inactifs', name: 'apprenant_inactive', methods: ['GET'])]
+    public function inactive(ApprenantRepository $apprenantRepository): Response
+    {
+        return $this->render('apprenant/index.html.twig', [
+            'apprenants' => $apprenantRepository->findAllCurrentInactive(),
+        ]);
+    }
+
+    #[Route('/enpause', name: 'apprenant_inpause', methods: ['GET'])]
+    public function inPause(ApprenantRepository $apprenantRepository): Response
+    {
+        return $this->render('apprenant/index.html.twig', [
+            'apprenants' => $apprenantRepository->findAllCurrentInPause(),
+        ]);
+    }
+
+    #[Route('/validation', name: 'apprenant_invalidation', methods: ['GET'])]
+    public function inValidation(ApprenantRepository $apprenantRepository): Response
+    {
+        return $this->render('apprenant/index.html.twig', [
+            'apprenants' => $apprenantRepository->findAllCurrentInValidation(),
         ]);
     }
 
@@ -59,6 +82,7 @@ class ApprenantController extends AbstractController
             $niveauFormation->setApprenant($apprenant);
             $qpv = new QPVHisto(new \DateTime('now'),$form->get('qpv')->getData());
             $qpv->setUser($apprenant);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($apprenant);
             $entityManager->persist($state);
