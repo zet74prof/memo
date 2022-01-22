@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Apprenant;
+use App\Entity\Site;
+use App\Entity\Territoire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +21,107 @@ class ApprenantRepository extends ServiceEntityRepository
         parent::__construct($registry, Apprenant::class);
     }
 
-    // /**
-    //  * @return Apprenant[] Returns an array of Apprenant objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Apprenant[] Returns an array of Apprenant objects
+     */
+    public function findAllCurrentInValidation()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $apprenants = $this->findAll();
+        $apprenantsInValidation = [];
+        foreach ($apprenants as $apprenant)
+        {
+            if ($apprenant->getLastState() == 1)
+            {
+                $apprenantsInValidation[] = $apprenant;
+            }
+        }
+        return $apprenantsInValidation;
     }
+
+    /**
+     * @return Apprenant[] Returns an array of Apprenant objects
+     */
+    public function findAllCurrentActive()
+    {
+        $apprenants = $this->findAll();
+        $apprenantsActive = [];
+        foreach ($apprenants as $apprenant)
+        {
+            if ($apprenant->getLastState() == 2)
+            {
+                $apprenantsActive[] = $apprenant;
+            }
+        }
+        return $apprenantsActive;
+    }
+
+    /**
+     * @return Apprenant[] Returns an array of Apprenant objects
+     */
+    public function findAllCurrentInactive()
+    {
+        $apprenants = $this->findAll();
+        $apprenantsInactive = [];
+        foreach ($apprenants as $apprenant)
+        {
+            if ($apprenant->getLastState() == 3)
+            {
+                $apprenantsInactive[] = $apprenant;
+            }
+        }
+        return $apprenantsInactive;
+    }
+
+    /**
+     * @return Apprenant[] Returns an array of Apprenant objects
+     */
+    public function findAllCurrentInPause()
+    {
+        $apprenants = $this->findAll();
+        $apprenantsInPause = [];
+        foreach ($apprenants as $apprenant)
+        {
+            if ($apprenant->getLastState() == 4)
+            {
+                $apprenantsInPause[] = $apprenant;
+            }
+        }
+        return $apprenantsInPause;
+    }
+
+    /**
+    * @return Apprenant[] Returns an array of Apprenant objects
     */
+    public function findByFilter(?Territoire $territoire, ?Site $site, \DateTime $dateDeb, \DateTime $dateFin)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->innerJoin('a.siteHisto','siteHisto')
+            ->innerJoin('siteHisto.sites', 'site')
+            ->innerJoin('site.territoire','t')
+            ->innerJoin('a.stateHisto', 'state');
+        if ($territoire != null)
+        {
+            $qb->where('t = :territoire')
+                ->setParameter('territoire', $territoire);
+        }
+        if ($site != null)
+        {
+            $qb->andWhere('site = :siteparam')
+                ->setParameter('siteparam', $site);
+        }
+        $qb->andWhere('siteHisto.date BETWEEN :dateDeb AND :dateFin')
+            ->andWhere('state.date BETWEEN :dateDeb AND :dateFin')
+            ->andWhere('state.state = 2')
+            ->setParameter('dateDeb', $dateDeb)
+            ->setParameter('dateFin', $dateFin);
+
+        $list = $qb
+            ->getQuery()
+            ->getResult();
+
+        return $list;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Apprenant

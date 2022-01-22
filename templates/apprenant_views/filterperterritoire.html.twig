@@ -1,0 +1,45 @@
+<div class="container">
+    {{ form_start(form) }}
+        <div class="row m-3">
+            <div class="col-lg-5 text-end">
+                <div class="row mb-1">
+                    <div class="col lg-6">
+                        {{ form_label(form.territoire) }}
+                    </div>
+                    <div class="col lg-6">
+                        {{ form_widget(form.territoire) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lg-6">
+                        {{ form_label(form.site) }}
+                    </div>
+                    <div class="col lg-6">
+                        {{ form_widget(form.site) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-end">
+                <div class="row mb-1">
+                    <div class="col lg-6">
+                        {{ form_label(form.dateDeb) }}
+                    </div>
+                    <div class="col lg-6">
+                        {{ form_widget(form.dateDeb) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col lg-6">
+                        {{ form_label(form.dateFin) }}
+                    </div>
+                    <div class="col lg-6">
+                        {{ form_widget(form.dateFin) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

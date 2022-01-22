@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apprenant index{% endblock %}
+
+{% block body %}
+    <h1 xmlns="http://www.w3.org/1999/html">Apprenant</h1>
+    {{ include('apprenant_views/filterperterritoire.html.twig') }}
+    <div class="containter">
+        <div class="row m-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Date de naissance</th>
+                    <th>Tel1</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for apprenant in apprenants %}
+                    <tr>
+                        <td>{{ apprenant.title }}</td>
+                        <td>{{ apprenant.surname }}</td>
+                        <td>{{ apprenant.firstname }}</td>
+                        <td>{{ apprenant.address }}</td>
+                        <td>{{ apprenant.postalCode }}</td>
+                        <td>{{ apprenant.city }}</td>
+                        <td>{{ apprenant.birthDate ? apprenant.birthDate|date('d/m/Y') : '' }}</td>
+                        <td>{{ apprenant.tel1 }}</td>
+                        <td>
+                            <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}"><button class="btn btn-info">Afficher</button></a>
+                            <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}"><button class="btn btn-warning">Modifier</button></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="17">aucune donnée trouvée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
