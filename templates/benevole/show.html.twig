@@ -66,9 +66,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('benevole_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('benevole_edit', {'id': benevole.id}) }}">Modifier</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('benevole_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{{ path('benevole_edit', {'id': benevole.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+        </div>
+    </div>
 
     {{ include('benevole/_delete_form.html.twig') }}
 {% endblock %}

@@ -7,7 +7,13 @@
 
     {{ include('type_enseignement/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('type_enseignement_index') }}">retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('type_enseignement_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-2">
+            {{ include('type_enseignement/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('type_enseignement/_delete_form.html.twig') }}
 {% endblock %}

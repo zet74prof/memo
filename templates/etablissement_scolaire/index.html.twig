@@ -19,8 +19,8 @@
                 <td>{{ etablissement_scolaire.id }}</td>
                 <td>{{ etablissement_scolaire.name }}</td>
                 <td>
-                    <a href="{{ path('etablissement_scolaire_show', {'id': etablissement_scolaire.id}) }}">show</a>
-                    <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}">edit</a>
+                    <a href="{{ path('etablissement_scolaire_show', {'id': etablissement_scolaire.id}) }}">Afficher</a>
+                    <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('etablissement_scolaire_new') }}">Create new</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('etablissement_scolaire_new') }}"><button class="btn btn-primary">Créer nouveau établissement</button></a>
+        </div>
+    </div>
+
 {% endblock %}

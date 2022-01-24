@@ -19,8 +19,8 @@
                 <td>{{ status.id }}</td>
                 <td>{{ status.statusName }}</td>
                 <td>
-                    <a href="{{ path('status_show', {'id': status.id}) }}">show</a>
-                    <a href="{{ path('status_edit', {'id': status.id}) }}">edit</a>
+                    <a href="{{ path('status_show', {'id': status.id}) }}">Afficher</a>
+                    <a href="{{ path('status_edit', {'id': status.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('status_new') }}">Create new</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('status_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
+        </div>
+    </div>
 {% endblock %}

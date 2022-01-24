@@ -7,5 +7,9 @@
 
     {{ include('qpv/_form.html.twig') }}
 
-    <a href="{{ path('q_p_v_index') }}">retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('q_p_v_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

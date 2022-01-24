@@ -7,5 +7,9 @@
 
     {{ include('type_formation/_form.html.twig') }}
 
-    <a href="{{ path('type_formation_index') }}">retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('type_formation_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

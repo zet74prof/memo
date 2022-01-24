@@ -7,5 +7,9 @@
 
     {{ include('benevole/_form.html.twig') }}
 
-    <a href="{{ path('benevole_index') }}">Retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('benevole_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

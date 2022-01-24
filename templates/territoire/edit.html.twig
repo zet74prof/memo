@@ -7,7 +7,13 @@
 
     {{ include('territoire/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('territoire_index') }}">retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('territoire_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-2">
+            {{ include('territoire/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('territoire/_delete_form.html.twig') }}
 {% endblock %}

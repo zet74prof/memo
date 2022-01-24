@@ -1,4 +1,6 @@
 <form method="post" action="{{ path('prescripteur_delete', {'id': prescripteur.id}) }}" onsubmit="return confirm('êtes-vous sûr de vouloir supprimer cet élément?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ prescripteur.id) }}">
-    <button class="btn">Supprimer</button>
+    <div class="col-lg-1">
+        <button class="btn btn-warning btn-xs">Supprimer</button>
+    </div>
 </form>

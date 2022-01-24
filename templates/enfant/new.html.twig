@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Enfant{% endblock %}
+{% block title %}Nouveau Enfant{% endblock %}
 
 {% block body %}
-    <h1>Create new Enfant</h1>
+    <h1>Créer nouveau Enfant</h1>
 
     {{ include('enfant/_form.html.twig') }}
 
-    <a href="{{ path('enfant_index') }}">back to list</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('enfant_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

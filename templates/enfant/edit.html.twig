@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Enfant{% endblock %}
+{% block title %}Modifier Enfant{% endblock %}
 
 {% block body %}
-    <h1>Edit Enfant</h1>
+    <h1>Modifier Enfant</h1>
 
     {{ include('enfant/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('enfant_index') }}">back to list</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('enfant_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-2">
+            {{ include('enfant/_delete_form.html.twig') }}
+        </div>
+    </div>
+    retour à la liste</a>
 
-    {{ include('enfant/_delete_form.html.twig') }}
+
 {% endblock %}
