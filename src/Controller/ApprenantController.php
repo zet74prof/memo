@@ -55,6 +55,39 @@ class ApprenantController extends AbstractController
         ]);
     }
 
+    #[Route('/export', name: 'apprenant_export', methods: ['GET'])]
+    public function export(ApprenantRepository $apprenantRepository):Response
+    {
+        $listApprenants = $apprenantRepository->findAll();
+        $i = 0;
+        foreach ($listApprenants as $apprenant)
+        {
+            $testTab[$i][] = $apprenant->getUserIdentifier();
+            $testTab[$i][] = $apprenant->getFirstname();
+            $testTab[$i][] = $apprenant->getSurname();
+            $i++;
+        }
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('User List');
+
+        $sheet->getCell('A1')->setValue('username');
+        $sheet->getCell('B1')->setValue('firstname');
+        $sheet->getCell('C1')->setValue('surname');
+
+        // Increase row cursor after header write
+        $sheet->fromArray($testTab,null, 'A2', true);
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        $writer->save('testlistapprenant.xlsx');
+
+        return $this->redirectToRoute('home');
+    }
+
     #[Route('/new', name: 'apprenant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -167,49 +200,5 @@ class ApprenantController extends AbstractController
         }
 
         return $this->redirectToRoute('apprenant_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    private function getData(): array
-    {
-        /**
-         * @var $user User[]
-         */
-        $list = [];
-        $users = $this->entityManager->getRepository(User::class)->findAll();
-
-        foreach ($users as $user) {
-            $list[] = [
-                $user->getUsername(),
-                $user->getRoles(),
-                $user->getPassword()
-            ];
-        }
-        return $list;
-    }
-
-    /**
-     * @Route("/export",  name="export")
-     */
-    public function export()
-    {
-        $spreadsheet = new Spreadsheet();
-
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->setTitle('User List');
-
-        $sheet->getCell('A1')->setValue('username');
-        $sheet->getCell('B1')->setValue('Roles');
-        $sheet->getCell('C1')->setValue('Password');
-
-        // Increase row cursor after header write
-        $sheet->fromArray($this->getData(),null, 'A2', true);
-
-
-        $writer = new Xlsx($spreadsheet);
-
-        $writer->save('helloworld.xlsx');
-
-        return $this->redirectToRoute('home');
     }
 }

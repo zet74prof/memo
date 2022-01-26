@@ -18,7 +18,6 @@ class ApprenantViewsController extends AbstractController
         $form = $this->createForm(FilterApprenantType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $apprenantsList = $apprenantRepository->findByFilter($form->get('territoire')->getData(),
                 $form->get('site')->getData(),
                 $form->get('dateDeb')->getData(),
