@@ -8,9 +8,12 @@ use App\Entity\QPVHisto;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\StatusHisto;
+use App\Entity\User;
 use App\Form\ApprenantType;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,5 +167,49 @@ class ApprenantController extends AbstractController
         }
 
         return $this->redirectToRoute('apprenant_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function getData(): array
+    {
+        /**
+         * @var $user User[]
+         */
+        $list = [];
+        $users = $this->entityManager->getRepository(User::class)->findAll();
+
+        foreach ($users as $user) {
+            $list[] = [
+                $user->getUsername(),
+                $user->getRoles(),
+                $user->getPassword()
+            ];
+        }
+        return $list;
+    }
+
+    /**
+     * @Route("/export",  name="export")
+     */
+    public function export()
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('User List');
+
+        $sheet->getCell('A1')->setValue('username');
+        $sheet->getCell('B1')->setValue('Roles');
+        $sheet->getCell('C1')->setValue('Password');
+
+        // Increase row cursor after header write
+        $sheet->fromArray($this->getData(),null, 'A2', true);
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        $writer->save('helloworld.xlsx');
+
+        return $this->redirectToRoute('home');
     }
 }

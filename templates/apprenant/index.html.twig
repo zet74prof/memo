@@ -71,6 +71,12 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('apprenant_new') }}"><button class="btn btn-primary">Créer un nouvel apprenant</button></a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('apprenant_new') }}"><button class="btn btn-primary">Créer un nouvel apprenant</button></a>
+        </div>
+        <div class="col-lg-2">
+            <a href="{{ path('export') }}"><button class="btn btn-primary">Exporter</button></a>
+        </div>
+    </div>
 {% endblock %}
