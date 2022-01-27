@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enfant index{% endblock %}
+{% block title %}Enfant{% endblock %}
 
 {% block body %}
-    <h1>Enfant index</h1>
+    <h1>Enfant</h1>
 
     <table class="table">
         <thead>
@@ -45,17 +45,22 @@
                 <td>{{ enfant.email }}</td>
                 <td>{{ enfant.typeReferent }}</td>
                 <td>
-                    <a href="{{ path('enfant_show', {'id': enfant.id}) }}">show</a>
-                    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">edit</a>
+                    <a href="{{ path('enfant_show', {'id': enfant.id}) }}">Afficher</a>
+                    <a href="{{ path('enfant_edit', {'id': enfant.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="17">no records found</td>
+                <td colspan="17">Aucune Donnée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('enfant_new') }}">Create new</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('enfant_new') }}"><button class="btn btn-primary">Créer nouveau enfant</button></a>
+        </div>
+    </div>
+
 {% endblock %}

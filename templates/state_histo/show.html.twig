@@ -26,9 +26,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('state_histo_index') }}">retour à la liste</a>
-
-    <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}">modifier</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('state_histo_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+        </div>
+    </div>
 
     {{ include('state_histo/_delete_form.html.twig') }}
 {% endblock %}

@@ -30,6 +30,9 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('territoire_new') }}">Create new</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('territoire_new') }}"><button class="btn btn-primary">Créer nouveau territoire</button></a>
+        </div>
+    </div>
 {% endblock %}

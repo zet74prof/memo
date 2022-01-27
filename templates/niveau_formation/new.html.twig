@@ -6,6 +6,9 @@
     <h1>Créer un Niveau de Formation</h1>
 
     {{ include('niveau_formation/_form.html.twig') }}
-
-    <a href="{{ path('niveau_formation_index') }}">retour à la liste</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('niveau_formation_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

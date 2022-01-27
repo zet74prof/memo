@@ -30,6 +30,9 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('type_formation_new') }}">Créer nouveau</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('type_formation_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
+        </div>
+    </div>
 {% endblock %}

@@ -18,9 +18,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('etablissement_scolaire_index') }}">back to list</a>
-
-    <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}">edit</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('etablissement_scolaire_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+        </div>
+    </div>
 
     {{ include('etablissement_scolaire/_delete_form.html.twig') }}
 {% endblock %}

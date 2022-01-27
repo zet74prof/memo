@@ -18,9 +18,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('niveau_formation_index') }}">retour à la liste</a>
-
-    <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}">Modifier</a>
+    <div class="row mb-3">
+        <div class="col-lg-1">
+            <a href="{{ path('niveau_formation_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{{ path('niveau_formation_edit', {'id': niveau_formation.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+        </div>
+    </div>
 
     {{ include('niveau_formation/_delete_form.html.twig') }}
 {% endblock %}
