@@ -9,6 +9,7 @@ use App\Entity\StateHisto;
 use App\Form\BenevoleType;
 use App\Repository\BenevoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class BenevoleController extends AbstractController
     }
 
     #[Route('/new', name: 'benevole_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $benevole = new Benevole();
         $benevole->setRoles(['ROLE_BENEVOLE']);
@@ -55,7 +56,7 @@ class BenevoleController extends AbstractController
             //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
             $state = new StateHisto(new \DateTime('now'),true,'Création');
             $state->setUser($benevole);
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($benevole);
             $entityManager->persist($state);
             $entityManager->persist($siteHisto);
