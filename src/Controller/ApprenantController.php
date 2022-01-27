@@ -11,6 +11,7 @@ use App\Entity\StatusHisto;
 use App\Form\ApprenantType;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +54,7 @@ class ApprenantController extends AbstractController
     }
 
     #[Route('/new', name: 'apprenant_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $apprenant = new Apprenant();
         $apprenant->setRoles(['ROLE_APPRENANT']);
@@ -83,7 +84,7 @@ class ApprenantController extends AbstractController
             $qpv = new QPVHisto(new \DateTime('now'),$form->get('qpv')->getData());
             $qpv->setUser($apprenant);
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($apprenant);
             $entityManager->persist($state);
             $entityManager->persist($status);

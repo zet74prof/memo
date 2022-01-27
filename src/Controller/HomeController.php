@@ -9,9 +9,7 @@ use App\Entity\User;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
+    #[Route('/', name: 'home', methods: ['GET'])]
     public function index():Response
     {
         /** @var \App\Entity\User $user */
@@ -25,6 +23,6 @@ class HomeController extends AbstractController
         {
             $connectedUser = '- Connectez-vous';
         }
-        return $this-> render('index.html.twig', ['connected_user' => $user->getFirstname()]);
+        return $this-> render('index.html.twig', ['connected_user' => $connectedUser]);
     }
 }
