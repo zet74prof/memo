@@ -71,7 +71,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/changepassword', name: 'user_change_password', methods: ['GET', 'POST'])]
-    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function changePassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         /** @var \App\Entity\User $user */
@@ -87,7 +87,7 @@ class UserController extends AbstractController
                         $form->get('plainPasswordNew')->getData()
                     )
                 );
-                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager = $doctrine->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
@@ -122,13 +122,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, ManagerRegistry $doctrine, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -140,10 +140,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, ManagerRegistry $doctrine, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
