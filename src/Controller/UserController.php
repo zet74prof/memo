@@ -10,6 +10,7 @@ use App\Form\ChangePasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $doctrine->getManager();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
