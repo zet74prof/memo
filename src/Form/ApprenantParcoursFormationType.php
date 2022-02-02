@@ -29,7 +29,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ApprenantType extends AbstractType
+class ApprenantParcoursFormationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -67,6 +67,14 @@ class ApprenantType extends AbstractType
         else
         {
             $currentSites = [];
+        }
+        if($apprenant->getNiveauFormationHistos()->last())
+        {
+            $currentNiveauFormation = $apprenant->getNiveauFormationHistos()->last()->getNiveauFormation();
+        }
+        else
+        {
+            $currentNiveauFormation = null;
         }
 
         $builder
@@ -130,6 +138,10 @@ class ApprenantType extends AbstractType
                 'required' => false,
                 'label' => 'Téléphone secondaire',
             ])
+            ->add('comment', TextType::class, [
+                'required' => false,
+                'label' => 'Commentaires additionnels',
+            ])
             ->add('email', EmailType::class, [
                 'required' => false,
             ])
@@ -187,17 +199,6 @@ class ApprenantType extends AbstractType
                 'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
                 'data' => $currentStatus,
             ])
-            ->add('ressource', EntityType::class, [
-                'class' => Ressource::class,
-                'choice_label' => 'ressourceName',
-                'label' => 'Ressources',
-            ])
-            ->add('prescripteur', EntityType::class, [
-                'class' => Prescripteur::class,
-                'choice_label' => 'prescripteurName',
-                'label' => 'Prescripteur',
-                'placeholder' => '',
-            ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'siteName',
@@ -216,12 +217,27 @@ class ApprenantType extends AbstractType
                     return ['checked' => $selected];
                 }
             ])
-            ->add('welcomeBy', TextType::class, [
-                'label' => 'Accueil fait par'
+            ->add('ressource', EntityType::class, [
+                'class' => Ressource::class,
+                'choice_label' => 'ressourceName',
+                'label' => 'Ressources',
             ])
-            ->add('comment', TextType::class, [
-                'required' => false,
-                'label' => 'Commentaires additionnels',
+            ->add('typeFormation', EntityType::class, [
+                'class' => TypeFormation::class,
+                'choice_label' => 'formationName',
+                'label' => 'Type de formation',
+            ])
+            ->add('prescripteur', EntityType::class, [
+                'class' => Prescripteur::class,
+                'choice_label' => 'prescripteurName',
+                'label' => 'Prescripteur',
+            ])
+            ->add('niveauFormation', EntityType::class, [
+                'class' => NiveauFormation::class,
+                'choice_label' => 'nivFormName',
+                'label' => 'Niveau de formation',
+                'mapped' => false, //mapped set to false because niveauFormation is not an attribute of Apprenant class
+                'data' => $currentNiveauFormation,
             ])
         ;
     }

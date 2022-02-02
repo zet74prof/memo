@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TerritoireRepository;
+use App\Repository\TypePrescripteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TerritoireRepository::class)
+ * @ORM\Entity(repositoryClass=TypePrescripteurRepository::class)
  */
-class Territoire
+class TypePrescripteur
 {
     /**
      * @ORM\Id
@@ -20,59 +20,23 @@ class Territoire
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Site::class, mappedBy="territoire")
-     */
-    private $sites;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Prescripteur::class, mappedBy="territoire")
+     * @ORM\OneToMany(targetEntity=Prescripteur::class, mappedBy="type")
      */
     private $prescripteurs;
 
     public function __construct()
     {
-        $this->sites = new ArrayCollection();
         $this->prescripteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Site[]
-     */
-    public function getSite(): Collection
-    {
-        return $this->sites;
-    }
-
-    public function addSite(Site $sites): self
-    {
-        if (!$this->sites->contains($sites)) {
-            $this->sites[] = $sites;
-            $sites->setTerritoire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSite(Site $sites): self
-    {
-        if ($this->site->removeElement($sites)) {
-            // set the owning side to null (unless already changed)
-            if ($sites->getTerritoire() === $this) {
-                $sites->setTerritoire(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -99,7 +63,7 @@ class Territoire
     {
         if (!$this->prescripteurs->contains($prescripteur)) {
             $this->prescripteurs[] = $prescripteur;
-            $prescripteur->setTerritoire($this);
+            $prescripteur->setType($this);
         }
 
         return $this;
@@ -109,8 +73,8 @@ class Territoire
     {
         if ($this->prescripteurs->removeElement($prescripteur)) {
             // set the owning side to null (unless already changed)
-            if ($prescripteur->getTerritoire() === $this) {
-                $prescripteur->setTerritoire(null);
+            if ($prescripteur->getType() === $this) {
+                $prescripteur->setType(null);
             }
         }
 

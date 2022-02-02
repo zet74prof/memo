@@ -47,6 +47,11 @@ class Apprenant extends User
      */
     private $situationFamiliale;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbEnfant;
+
     public function __construct()
     {
         parent::__construct();
@@ -167,6 +172,18 @@ class Apprenant extends User
     public function setSituationFamiliale(string $situationFamiliale): self
     {
         $this->situationFamiliale = $situationFamiliale;
+
+        return $this;
+    }
+
+    public function getNbEnfant(): ?int
+    {
+        return $this->nbEnfant;
+    }
+
+    public function setNbEnfant(?int $nbEnfant): self
+    {
+        $this->nbEnfant = $nbEnfant;
 
         return $this;
     }

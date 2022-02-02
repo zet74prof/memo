@@ -121,6 +121,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $qPVHistos;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $maidenName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $birthCity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $countryOfOrigin;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nationality;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motherTongue;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateOfArrivalFR;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $otherContact;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $socialSecurityNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $emergencyContact;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $welcomeBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Bailleur::class, inversedBy="users")
+     */
+    private $bailleur;
+
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
@@ -640,5 +695,137 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         {
             return null;
         }
+    }
+
+    public function getMaidenName(): ?string
+    {
+        return $this->maidenName;
+    }
+
+    public function setMaidenName(?string $maidenName): self
+    {
+        $this->maidenName = $maidenName;
+
+        return $this;
+    }
+
+    public function getBirthCity(): ?string
+    {
+        return $this->birthCity;
+    }
+
+    public function setBirthCity(?string $birthCity): self
+    {
+        $this->birthCity = $birthCity;
+
+        return $this;
+    }
+
+    public function getCountryOfOrigin(): ?string
+    {
+        return $this->countryOfOrigin;
+    }
+
+    public function setCountryOfOrigin(?string $countryOfOrigin): self
+    {
+        $this->countryOfOrigin = $countryOfOrigin;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): self
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getMotherTongue(): ?string
+    {
+        return $this->motherTongue;
+    }
+
+    public function setMotherTongue(?string $motherTongue): self
+    {
+        $this->motherTongue = $motherTongue;
+
+        return $this;
+    }
+
+    public function getDateOfArrivalFR(): ?\DateTimeInterface
+    {
+        return $this->dateOfArrivalFR;
+    }
+
+    public function setDateOfArrivalFR(?\DateTimeInterface $dateOfArrivalFR): self
+    {
+        $this->dateOfArrivalFR = $dateOfArrivalFR;
+
+        return $this;
+    }
+
+    public function getOtherContact(): ?string
+    {
+        return $this->otherContact;
+    }
+
+    public function setOtherContact(?string $otherContact): self
+    {
+        $this->otherContact = $otherContact;
+
+        return $this;
+    }
+
+    public function getSocialSecurityNumber(): ?string
+    {
+        return $this->socialSecurityNumber;
+    }
+
+    public function setSocialSecurityNumber(?string $socialSecurityNumber): self
+    {
+        $this->socialSecurityNumber = $socialSecurityNumber;
+
+        return $this;
+    }
+
+    public function getEmergencyContact(): ?string
+    {
+        return $this->emergencyContact;
+    }
+
+    public function setEmergencyContact(?string $emergencyContact): self
+    {
+        $this->emergencyContact = $emergencyContact;
+
+        return $this;
+    }
+
+    public function getWelcomeBy(): ?string
+    {
+        return $this->welcomeBy;
+    }
+
+    public function setWelcomeBy(?string $welcomeBy): self
+    {
+        $this->welcomeBy = $welcomeBy;
+
+        return $this;
+    }
+
+    public function getBailleur(): ?Bailleur
+    {
+        return $this->bailleur;
+    }
+
+    public function setBailleur(?Bailleur $bailleur): self
+    {
+        $this->bailleur = $bailleur;
+
+        return $this;
     }
 }

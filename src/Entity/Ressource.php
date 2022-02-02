@@ -29,6 +29,11 @@ class Ressource
      */
     private $apprenants;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $code;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
@@ -77,6 +82,18 @@ class Ressource
                 $apprenant->setRessource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

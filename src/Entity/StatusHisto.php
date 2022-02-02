@@ -35,6 +35,11 @@ class StatusHisto
     private $status;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $extraInfo;
+
+    /**
      * @param $id
      * @param $date
      * @param $status
@@ -82,6 +87,18 @@ class StatusHisto
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getExtraInfo(): ?string
+    {
+        return $this->extraInfo;
+    }
+
+    public function setExtraInfo(?string $extraInfo): self
+    {
+        $this->extraInfo = $extraInfo;
 
         return $this;
     }
