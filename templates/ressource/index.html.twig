@@ -9,14 +9,15 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
+                <th>Code</th>
+                <th>Libellé</th>
             </tr>
         </thead>
         <tbody>
         {% for ressource in ressources %}
             <tr>
                 <td>{{ ressource.id }}</td>
+                <td>{{ ressource.code }}</td>
                 <td>{{ ressource.ressourceName }}</td>
                 <td>
                     <a href="{{ path('ressource_show', {'id': ressource.id}) }}">Afficher</a>

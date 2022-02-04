@@ -25,11 +25,6 @@ class Prescripteur
     private $prescripteurName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="prescripteur")
-     */
-    private $apprenants;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $respName;
@@ -71,9 +66,14 @@ class Prescripteur
      */
     private $territoire;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PrescripteurHisto::class, mappedBy="prescripteur")
+     */
+    private $prescripteurHistos;
+
     public function __construct()
     {
-        $this->apprenants = new ArrayCollection();
+        $this->prescripteurHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,36 +89,6 @@ class Prescripteur
     public function setPrescripteurName(string $prescripteurName): self
     {
         $this->prescripteurName = $prescripteurName;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Apprenant[]
-     */
-    public function getApprenants(): Collection
-    {
-        return $this->apprenants;
-    }
-
-    public function addApprenant(Apprenant $apprenant): self
-    {
-        if (!$this->apprenants->contains($apprenant)) {
-            $this->apprenants[] = $apprenant;
-            $apprenant->setPrescripteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeApprenant(Apprenant $apprenant): self
-    {
-        if ($this->apprenants->removeElement($apprenant)) {
-            // set the owning side to null (unless already changed)
-            if ($apprenant->getPrescripteur() === $this) {
-                $apprenant->setPrescripteur(null);
-            }
-        }
 
         return $this;
     }
@@ -215,6 +185,36 @@ class Prescripteur
     public function setTerritoire(?Territoire $territoire): self
     {
         $this->territoire = $territoire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PrescripteurHisto[]
+     */
+    public function getPrescripteurHistos(): Collection
+    {
+        return $this->prescripteurHistos;
+    }
+
+    public function addPrescripteurHisto(PrescripteurHisto $prescripteurHisto): self
+    {
+        if (!$this->prescripteurHistos->contains($prescripteurHisto)) {
+            $this->prescripteurHistos[] = $prescripteurHisto;
+            $prescripteurHisto->setPrescripteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrescripteurHisto(PrescripteurHisto $prescripteurHisto): self
+    {
+        if ($this->prescripteurHistos->removeElement($prescripteurHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($prescripteurHisto->getPrescripteur() === $this) {
+                $prescripteurHisto->setPrescripteur(null);
+            }
+        }
 
         return $this;
     }

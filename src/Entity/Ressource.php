@@ -25,18 +25,18 @@ class Ressource
     private $ressourceName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="ressource")
-     */
-    private $apprenants;
-
-    /**
      * @ORM\Column(type="string", length=10)
      */
     private $code;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RessourceHisto::class, mappedBy="ressource")
+     */
+    private $ressourceHistos;
+
     public function __construct()
     {
-        $this->apprenants = new ArrayCollection();
+        $this->ressourceHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,36 +56,6 @@ class Ressource
         return $this;
     }
 
-    /**
-     * @return Collection|Apprenant[]
-     */
-    public function getApprenants(): Collection
-    {
-        return $this->apprenants;
-    }
-
-    public function addApprenant(Apprenant $apprenant): self
-    {
-        if (!$this->apprenants->contains($apprenant)) {
-            $this->apprenants[] = $apprenant;
-            $apprenant->setRessource($this);
-        }
-
-        return $this;
-    }
-
-    public function removeApprenant(Apprenant $apprenant): self
-    {
-        if ($this->apprenants->removeElement($apprenant)) {
-            // set the owning side to null (unless already changed)
-            if ($apprenant->getRessource() === $this) {
-                $apprenant->setRessource(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCode(): ?string
     {
         return $this->code;
@@ -94,6 +64,36 @@ class Ressource
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RessourceHisto[]
+     */
+    public function getRessourceHistos(): Collection
+    {
+        return $this->ressourceHistos;
+    }
+
+    public function addRessourceHisto(RessourceHisto $ressourceHisto): self
+    {
+        if (!$this->ressourceHistos->contains($ressourceHisto)) {
+            $this->ressourceHistos[] = $ressourceHisto;
+            $ressourceHisto->setRessource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessourceHisto(RessourceHisto $ressourceHisto): self
+    {
+        if ($this->ressourceHistos->removeElement($ressourceHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($ressourceHisto->getRessource() === $this) {
+                $ressourceHisto->setRessource(null);
+            }
+        }
 
         return $this;
     }

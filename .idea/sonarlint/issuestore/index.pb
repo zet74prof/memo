@@ -25,7 +25,5 @@ X
 +src/Controller/ApprenantViewsController.php,6/1/613c3c32f281ba321c681cf7097be82c891dc3a1
 Y
 )templates/apprenant_views/index.html.twig,e/e/ee2afdd5f9055fbd39cce7a9851d0cb6d465ff3c
-V
-&src/Controller/ApprenantController.php,4/1/415a1b0a21613dbe3c29f48be6276e127e1c8230
 Q
 !src/Controller/UserController.php,8/7/87b99206717ccce222f05190f36b6273e3ea6228

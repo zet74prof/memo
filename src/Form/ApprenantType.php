@@ -44,13 +44,17 @@ class ApprenantType extends AbstractType
         {
             $currentState = 1;
         }
-        if($apprenant->getStatusHistos()->last())
+        if($apprenant->getAddressHistos()->last())
         {
-            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
+            $currentAddress = $apprenant->getAddressHistos()->last()->getAddress();
+            $currentPostalCode = $apprenant->getAddressHistos()->last()->getPostalCode();
+            $currentCity = $apprenant->getAddressHistos()->last()->getCity();
         }
         else
         {
-            $currentStatus = null;
+            $currentAddress = null;
+            $currentPostalCode = null;
+            $currentCity = null;
         }
         if($apprenant->getQPVHistos()->last())
         {
@@ -59,6 +63,38 @@ class ApprenantType extends AbstractType
         else
         {
             $currentQPV = null;
+        }
+        if($apprenant->getBailleurHistos()->last())
+        {
+            $currentBailleur = $apprenant->getBailleurHistos()->last()->getBailleur();
+        }
+        else
+        {
+            $currentBailleur = null;
+        }
+        if($apprenant->getStatusHistos()->last())
+        {
+            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
+        }
+        else
+        {
+            $currentStatus = null;
+        }
+        if($apprenant->getRessourceHistos()->last())
+        {
+            $currentRessource = $apprenant->getRessourceHistos()->last()->getRessource();
+        }
+        else
+        {
+            $currentRessource = null;
+        }
+        if($apprenant->getPrescripteurHistos()->last())
+        {
+            $currentPrescripteur = $apprenant->getPrescripteurHistos()->last()->getPrescripteur();
+        }
+        else
+        {
+            $currentPrescripteur = null;
         }
         if ($apprenant->getSiteHisto()->last())
         {
@@ -110,7 +146,8 @@ class ApprenantType extends AbstractType
                 'label' => 'Ville de naissance'
             ])
             ->add('countryOfOrigin', CountryType::class, [
-                'label' => 'Pays d\'origine'
+                'label' => 'Pays d\'origine',
+                'data' => 'FR',
             ])
             ->add('nationality', TextType::class, [
                 'label' => 'Nationalité'
@@ -137,13 +174,19 @@ class ApprenantType extends AbstractType
                 'label' => 'Autre contact'
             ])
             ->add('address', TextType::class, [
-                'label' => 'Adresse'
+                'label' => 'Adresse',
+                'mapped' => false,
+                'data' => $currentAddress,
             ])
             ->add('postalCode', TextType::class, [
                 'label' => 'Code postal',
+                'mapped' => false,
+                'data' => $currentPostalCode,
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
+                'mapped' => false,
+                'data' => $currentCity,
             ])
             ->add('qpv', EntityType::class, [
                 'class' => QPV::class,
@@ -155,7 +198,9 @@ class ApprenantType extends AbstractType
             ->add('bailleur', EntityType::class, [
                 'class' => Bailleur::class,
                 'label' => 'Bailleur',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'mapped' => false, //mapped set to false because Bailleur is not an attribute of Apprenant class
+                'data' => $currentBailleur,
             ])
             ->add('socialSecurityNumber', TextType::class, [
                 'label' => 'N° de sécurité sociale'
@@ -191,12 +236,16 @@ class ApprenantType extends AbstractType
                 'class' => Ressource::class,
                 'choice_label' => 'ressourceName',
                 'label' => 'Ressources',
+                'mapped' => false, //mapped set to false because ressource is not an attribute of Apprenant class
+                'data' => $currentRessource,
             ])
             ->add('prescripteur', EntityType::class, [
                 'class' => Prescripteur::class,
                 'choice_label' => 'prescripteurName',
                 'label' => 'Prescripteur',
                 'placeholder' => '',
+                'mapped' => false, //mapped set to false because prescripteur is not an attribute of Apprenant class
+                'data' => $currentPrescripteur,
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,

@@ -25,13 +25,13 @@ class Bailleur
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="bailleur")
+     * @ORM\OneToMany(targetEntity=BailleurHisto::class, mappedBy="bailleur")
      */
-    private $users;
+    private $bailleurHistos;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->bailleurHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,29 +52,29 @@ class Bailleur
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|BailleurHisto[]
      */
-    public function getUsers(): Collection
+    public function getBailleurHistos(): Collection
     {
-        return $this->users;
+        return $this->bailleurHistos;
     }
 
-    public function addUser(User $user): self
+    public function addBailleurHisto(BailleurHisto $bailleurHisto): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setBailleur($this);
+        if (!$this->bailleurHistos->contains($bailleurHisto)) {
+            $this->bailleurHistos[] = $bailleurHisto;
+            $bailleurHisto->setBailleur($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeBailleurHisto(BailleurHisto $bailleurHisto): self
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->bailleurHistos->removeElement($bailleurHisto)) {
             // set the owning side to null (unless already changed)
-            if ($user->getBailleur() === $this) {
-                $user->setBailleur(null);
+            if ($bailleurHisto->getBailleur() === $this) {
+                $bailleurHisto->setBailleur(null);
             }
         }
 

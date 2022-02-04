@@ -62,21 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $address;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $postalCode;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $city;
-
-    /**
      * @ORM\Column(type="date")
      */
     protected $birthDate;
@@ -172,9 +157,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $welcomeBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Bailleur::class, inversedBy="users")
+     * @ORM\OneToMany(targetEntity=AddressHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
      */
-    private $bailleur;
+    private $addressHistos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BailleurHisto::class, mappedBy="user", orphanRemoval=true, fetch="EAGER")
+     */
+    private $bailleurHistos;
 
     public function __construct()
     {
@@ -182,6 +172,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->siteHisto = new ArrayCollection();
         $this->statusHistos = new ArrayCollection();
         $this->qPVHistos = new ArrayCollection();
+        $this->addressHistos = new ArrayCollection();
+        $this->bailleurHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -319,42 +311,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?string
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(string $postalCode): self
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }
@@ -817,15 +773,120 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBailleur(): ?Bailleur
+    /**
+     * @return Collection|AddressHisto[]
+     */
+    public function getAddressHistos(): Collection
     {
-        return $this->bailleur;
+        return $this->addressHistos;
     }
 
-    public function setBailleur(?Bailleur $bailleur): self
+    public function addAddressHisto(AddressHisto $addressHisto): self
     {
-        $this->bailleur = $bailleur;
+        if (!$this->addressHistos->contains($addressHisto)) {
+            $this->addressHistos[] = $addressHisto;
+            $addressHisto->setUser($this);
+        }
 
         return $this;
+    }
+
+    public function removeAddressHisto(AddressHisto $addressHisto): self
+    {
+        if ($this->addressHistos->removeElement($addressHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($addressHisto->getUser() === $this) {
+                $addressHisto->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return AddressHisto
+     */
+    public function getLastAddress(): AddressHisto
+    {
+        return $this->getAddressHistos()->last();
+    }
+
+    /**
+     * @param string $address
+     * @param string $postalCode
+     * @param string $city
+     * @return AddressHisto|null
+     * Get an address, postalCode and city, checks if the Address has changed and returns a AddressHisto object to persist
+     */
+    public function setAddressWithHisto(string $address, string $postalCode, string $city): ?AddressHisto
+    {
+        if ($this->getLastAddress()->getAddress() != $address or $this->getLastAddress()->getPostalCode() != $postalCode or $this->getLastAddress()->getCity() != $city)
+        {
+            $addressHisto = new AddressHisto(new \DateTime('now'), $address, $postalCode, $city);
+            $addressHisto->setUser($this);
+            return $addressHisto;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @return Collection|BailleurHisto[]
+     */
+    public function getBailleurHistos(): Collection
+    {
+        return $this->bailleurHistos;
+    }
+
+    public function addBailleurHisto(BailleurHisto $bailleurHisto): self
+    {
+        if (!$this->bailleurHistos->contains($bailleurHisto)) {
+            $this->bailleurHistos[] = $bailleurHisto;
+            $bailleurHisto->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBailleurHisto(BailleurHisto $bailleurHisto): self
+    {
+        if ($this->bailleurHistos->removeElement($bailleurHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($bailleurHisto->getUser() === $this) {
+                $bailleurHisto->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Bailleur
+     */
+    public function getLastBailleur(): Bailleur
+    {
+        $lastBailleurHisto = $this->getBailleurHistos()->last();
+        return $lastBailleurHisto->getBailleur();
+    }
+
+    /**
+     * @param Bailleur $bailleur
+     * @return BailleurHisto|null
+     * Get a bailleur, checks if the bailleur has changed and if so, returns a BailleurHisto object to persist
+     */
+    public function setBailleurWithHisto(Bailleur $bailleur): ?BailleurHisto
+    {
+        if ($this->getLastBailleur() != $bailleur)
+        {
+            $bailleurHisto = new BailleurHisto(new \DateTime('now'),$bailleur);
+            $bailleurHisto->setUser($this);
+            return $bailleurHisto;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
