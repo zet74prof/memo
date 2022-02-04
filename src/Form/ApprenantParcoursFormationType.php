@@ -29,7 +29,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ApprenantType extends AbstractType
+class ApprenantParcoursFormationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -44,17 +44,13 @@ class ApprenantType extends AbstractType
         {
             $currentState = 1;
         }
-        if($apprenant->getAddressHistos()->last())
+        if($apprenant->getStatusHistos()->last())
         {
-            $currentAddress = $apprenant->getAddressHistos()->last()->getAddress();
-            $currentPostalCode = $apprenant->getAddressHistos()->last()->getPostalCode();
-            $currentCity = $apprenant->getAddressHistos()->last()->getCity();
+            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
         }
         else
         {
-            $currentAddress = null;
-            $currentPostalCode = null;
-            $currentCity = null;
+            $currentStatus = null;
         }
         if($apprenant->getQPVHistos()->last())
         {
@@ -64,38 +60,6 @@ class ApprenantType extends AbstractType
         {
             $currentQPV = null;
         }
-        if($apprenant->getBailleurHistos()->last())
-        {
-            $currentBailleur = $apprenant->getBailleurHistos()->last()->getBailleur();
-        }
-        else
-        {
-            $currentBailleur = null;
-        }
-        if($apprenant->getStatusHistos()->last())
-        {
-            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
-        }
-        else
-        {
-            $currentStatus = null;
-        }
-        if($apprenant->getRessourceHistos()->last())
-        {
-            $currentRessource = $apprenant->getRessourceHistos()->last()->getRessource();
-        }
-        else
-        {
-            $currentRessource = null;
-        }
-        if($apprenant->getPrescripteurHistos()->last())
-        {
-            $currentPrescripteur = $apprenant->getPrescripteurHistos()->last()->getPrescripteur();
-        }
-        else
-        {
-            $currentPrescripteur = null;
-        }
         if ($apprenant->getSiteHisto()->last())
         {
             $currentSites = $apprenant->getSiteHisto()->last()->getSites();
@@ -103,6 +67,14 @@ class ApprenantType extends AbstractType
         else
         {
             $currentSites = [];
+        }
+        if($apprenant->getNiveauFormationHistos()->last())
+        {
+            $currentNiveauFormation = $apprenant->getNiveauFormationHistos()->last()->getNiveauFormation();
+        }
+        else
+        {
+            $currentNiveauFormation = null;
         }
 
         $builder
@@ -146,8 +118,7 @@ class ApprenantType extends AbstractType
                 'label' => 'Ville de naissance'
             ])
             ->add('countryOfOrigin', CountryType::class, [
-                'label' => 'Pays d\'origine',
-                'data' => 'FR',
+                'label' => 'Pays d\'origine'
             ])
             ->add('nationality', TextType::class, [
                 'label' => 'Nationalité'
@@ -167,6 +138,10 @@ class ApprenantType extends AbstractType
                 'required' => false,
                 'label' => 'Téléphone secondaire',
             ])
+            ->add('comment', TextType::class, [
+                'required' => false,
+                'label' => 'Commentaires additionnels',
+            ])
             ->add('email', EmailType::class, [
                 'required' => false,
             ])
@@ -174,19 +149,13 @@ class ApprenantType extends AbstractType
                 'label' => 'Autre contact'
             ])
             ->add('address', TextType::class, [
-                'label' => 'Adresse',
-                'mapped' => false,
-                'data' => $currentAddress,
+                'label' => 'Adresse'
             ])
             ->add('postalCode', TextType::class, [
                 'label' => 'Code postal',
-                'mapped' => false,
-                'data' => $currentPostalCode,
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
-                'mapped' => false,
-                'data' => $currentCity,
             ])
             ->add('qpv', EntityType::class, [
                 'class' => QPV::class,
@@ -198,9 +167,7 @@ class ApprenantType extends AbstractType
             ->add('bailleur', EntityType::class, [
                 'class' => Bailleur::class,
                 'label' => 'Bailleur',
-                'choice_label' => 'name',
-                'mapped' => false, //mapped set to false because Bailleur is not an attribute of Apprenant class
-                'data' => $currentBailleur,
+                'choice_label' => 'name'
             ])
             ->add('socialSecurityNumber', TextType::class, [
                 'label' => 'N° de sécurité sociale'
@@ -232,21 +199,6 @@ class ApprenantType extends AbstractType
                 'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
                 'data' => $currentStatus,
             ])
-            ->add('ressource', EntityType::class, [
-                'class' => Ressource::class,
-                'choice_label' => 'ressourceName',
-                'label' => 'Ressources',
-                'mapped' => false, //mapped set to false because ressource is not an attribute of Apprenant class
-                'data' => $currentRessource,
-            ])
-            ->add('prescripteur', EntityType::class, [
-                'class' => Prescripteur::class,
-                'choice_label' => 'prescripteurName',
-                'label' => 'Prescripteur',
-                'placeholder' => '',
-                'mapped' => false, //mapped set to false because prescripteur is not an attribute of Apprenant class
-                'data' => $currentPrescripteur,
-            ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'siteName',
@@ -265,12 +217,27 @@ class ApprenantType extends AbstractType
                     return ['checked' => $selected];
                 }
             ])
-            ->add('welcomeBy', TextType::class, [
-                'label' => 'Accueil fait par'
+            ->add('ressource', EntityType::class, [
+                'class' => Ressource::class,
+                'choice_label' => 'ressourceName',
+                'label' => 'Ressources',
             ])
-            ->add('comment', TextType::class, [
-                'required' => false,
-                'label' => 'Commentaires additionnels',
+            ->add('typeFormation', EntityType::class, [
+                'class' => TypeFormation::class,
+                'choice_label' => 'formationName',
+                'label' => 'Type de formation',
+            ])
+            ->add('prescripteur', EntityType::class, [
+                'class' => Prescripteur::class,
+                'choice_label' => 'prescripteurName',
+                'label' => 'Prescripteur',
+            ])
+            ->add('niveauFormation', EntityType::class, [
+                'class' => NiveauFormation::class,
+                'choice_label' => 'nivFormName',
+                'label' => 'Niveau de formation',
+                'mapped' => false, //mapped set to false because niveauFormation is not an attribute of Apprenant class
+                'data' => $currentNiveauFormation,
             ])
         ;
     }

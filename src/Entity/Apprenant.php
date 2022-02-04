@@ -19,10 +19,9 @@ class Apprenant extends User
     private $enfantACharge;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ressource::class, inversedBy="apprenants")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $ressource;
+    private $nbEnfant;
 
     /**
      * @ORM\OneToMany(targetEntity=NivFormHisto::class, mappedBy="apprenant", orphanRemoval=true, fetch="EAGER")
@@ -37,20 +36,26 @@ class Apprenant extends User
     private $typeFormation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Prescripteur::class, inversedBy="apprenants")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $prescripteur;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $situationFamiliale;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RessourceHisto::class, mappedBy="apprenant", orphanRemoval=true, fetch="EAGER")
+     */
+    private $ressourceHistos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PrescripteurHisto::class, mappedBy="apprenant", orphanRemoval=true, fetch="EAGER")
+     */
+    private $prescripteurHistos;
 
     public function __construct()
     {
         parent::__construct();
         $this->niveauFormationHistos = new ArrayCollection();
+        $this->ressourceHistos = new ArrayCollection();
+        $this->prescripteurHistos = new ArrayCollection();
     }
 
     public function getEnfantACharge(): ?int
@@ -61,18 +66,6 @@ class Apprenant extends User
     public function setEnfantACharge(?int $enfantACharge): self
     {
         $this->enfantACharge = $enfantACharge;
-
-        return $this;
-    }
-
-    public function getRessource(): ?Ressource
-    {
-        return $this->ressource;
-    }
-
-    public function setRessource(?Ressource $ressource): self
-    {
-        $this->ressource = $ressource;
 
         return $this;
     }
@@ -147,18 +140,6 @@ class Apprenant extends User
         return $this;
     }
 
-    public function getPrescripteur(): ?Prescripteur
-    {
-        return $this->prescripteur;
-    }
-
-    public function setPrescripteur(?Prescripteur $prescripteur): self
-    {
-        $this->prescripteur = $prescripteur;
-
-        return $this;
-    }
-
     public function getSituationFamiliale(): ?string
     {
         return $this->situationFamiliale;
@@ -169,5 +150,133 @@ class Apprenant extends User
         $this->situationFamiliale = $situationFamiliale;
 
         return $this;
+    }
+
+    public function getNbEnfant(): ?int
+    {
+        return $this->nbEnfant;
+    }
+
+    public function setNbEnfant(?int $nbEnfant): self
+    {
+        $this->nbEnfant = $nbEnfant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RessourceHisto[]
+     */
+    public function getRessourceHistos(): Collection
+    {
+        return $this->ressourceHistos;
+    }
+
+    public function addRessourceHisto(RessourceHisto $ressourceHisto): self
+    {
+        if (!$this->ressourceHistos->contains($ressourceHisto)) {
+            $this->ressourceHistos[] = $ressourceHisto;
+            $ressourceHisto->setApprenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessourceHisto(RessourceHisto $ressourceHisto): self
+    {
+        if ($this->ressourceHistos->removeElement($ressourceHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($ressourceHisto->getApprenant() === $this) {
+                $ressourceHisto->setApprenant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Ressource
+     */
+    public function getLastRessource(): Ressource
+    {
+        $lastRessourceHisto = $this->getRessourceHistos()->last();
+        return $lastRessourceHisto->getRessource();
+    }
+
+    /**
+     * @param Ressource $ressource
+     * @return RessourceHisto|null
+     * Get a Ressource, checks if the ressource has changed and returns a RessourceHisto object to persist
+     */
+    public function setRessourceWithHisto(Ressource $ressource): ?RessourceHisto
+    {
+        if ($this->getLastRessource() != $ressource)
+        {
+            $ressourceHisto = new RessourceHisto(new \DateTime('now'), $ressource);
+            $ressourceHisto->setApprenant($this);
+            return $ressourceHisto;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @return Collection|PrescripteurHisto[]
+     */
+    public function getPrescripteurHistos(): Collection
+    {
+        return $this->prescripteurHistos;
+    }
+
+    public function addPrescripteurHisto(PrescripteurHisto $prescripteurHisto): self
+    {
+        if (!$this->prescripteurHistos->contains($prescripteurHisto)) {
+            $this->prescripteurHistos[] = $prescripteurHisto;
+            $prescripteurHisto->setApprenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrescripteurHisto(PrescripteurHisto $prescripteurHisto): self
+    {
+        if ($this->prescripteurHistos->removeElement($prescripteurHisto)) {
+            // set the owning side to null (unless already changed)
+            if ($prescripteurHisto->getApprenant() === $this) {
+                $prescripteurHisto->setApprenant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Prescripteur
+     */
+    public function getLastPrescripteur(): Prescripteur
+    {
+        $lastPrescripteurHisto = $this->getPrescripteurHistos()->last();
+        return $lastPrescripteurHisto->getPrescripteur();
+    }
+
+    /**
+     * @param Prescripteur $prescripteur
+     * @return PrescripteurHisto|null
+     * Get a Prescripteur, checks if the prescripteur has changed and returns a PrescripteurHisto object to persist
+     */
+    public function setPrescripteurWithHisto(Prescripteur $prescripteur): ?PrescripteurHisto
+    {
+        if ($this->getLastPrescripteur() != $prescripteur)
+        {
+            $prescripteurHisto = new PrescripteurHisto(new \DateTime('now'), $prescripteur);
+            $prescripteurHisto->setApprenant($this);
+            return $prescripteurHisto;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

@@ -36,10 +36,98 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
+            {{ form_label(form.maidenName) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.maidenName) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
             {{ form_label(form.firstname) }}
         </div>
         <div class="col-lg-10">
             {{ form_widget(form.firstname) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.birthDate) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.birthDate) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.birthCity) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.birthCity) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.countryOfOrigin) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.countryOfOrigin) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.nationality) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.nationality) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.motherTongue) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.motherTongue) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.dateOfArrivalFR) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.dateOfArrivalFR) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.tel1) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.tel1) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.tel2) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.tel2) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.email) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.otherContact) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.otherContact) }}
         </div>
     </div>
     <div class="row mb-3">
@@ -68,10 +156,42 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.birthDate) }}
+            {{ form_label(form.qpv) }}
         </div>
         <div class="col-lg-10">
-            {{ form_widget(form.birthDate) }}
+            {{ form_widget(form.qpv) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.bailleur) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.bailleur) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.socialSecurityNumber) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.socialSecurityNumber) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.situationFamiliale) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.situationFamiliale) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.nbEnfant) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.nbEnfant) }}
         </div>
     </div>
     <div class="row mb-3">
@@ -84,42 +204,10 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.tel1) }}
+            {{ form_label(form.emergencyContact) }}
         </div>
         <div class="col-lg-10">
-            {{ form_widget(form.tel1) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.tel2) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.tel2) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.comment) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.comment) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.email) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.email) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.site) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.site) }}
+            {{ form_widget(form.emergencyContact) }}
         </div>
     </div>
     <div class="row mb-3">
@@ -140,14 +228,6 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.typeFormation) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.typeFormation) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
             {{ form_label(form.prescripteur) }}
         </div>
         <div class="col-lg-10">
@@ -156,26 +236,26 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.qpv) }}
+            {{ form_label(form.site) }}
         </div>
         <div class="col-lg-10">
-            {{ form_widget(form.qpv) }}
+            {{ form_widget(form.site) }}
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.niveauFormation) }}
+            {{ form_label(form.welcomeBy) }}
         </div>
         <div class="col-lg-10">
-            {{ form_widget(form.niveauFormation) }}
+            {{ form_widget(form.welcomeBy) }}
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.situationFamiliale) }}
+            {{ form_label(form.comment) }}
         </div>
         <div class="col-lg-10">
-            {{ form_widget(form.situationFamiliale) }}
+            {{ form_widget(form.comment) }}
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Valider</button>

@@ -8,12 +8,40 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ prescripteur.id }}</td>
+                <th>Nom</th>
+                <td>{{ prescripteur.prescripteurName }}</td>
             </tr>
             <tr>
-                <th>PrescripteurName</th>
-                <td>{{ prescripteur.prescripteurName }}</td>
+                <th>Responsable</th>
+                <td>{{ prescripteur.respName }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ prescripteur.address }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ prescripteur.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ prescripteur.city }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ prescripteur.email }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ prescripteur.tel }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ prescripteur.type.name }}</td>
+            </tr>
+            <tr>
+                <th>Territoire</th>
+                <td>{{ prescripteur.territoire.name }}</td>
             </tr>
         </tbody>
     </table>

@@ -9,7 +9,15 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>PrescripteurName</th>
+                <th>Nom</th>
+                <th>Responsable</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Type</th>
+                <th>Territoire</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +26,14 @@
             <tr>
                 <td>{{ prescripteur.id }}</td>
                 <td>{{ prescripteur.prescripteurName }}</td>
+                <td>{{ prescripteur.respName }}</td>
+                <td>{{ prescripteur.address }}</td>
+                <td>{{ prescripteur.postalCode }}</td>
+                <td>{{ prescripteur.city }}</td>
+                <td>{{ prescripteur.email }}</td>
+                <td>{{ prescripteur.tel }}</td>
+                <td>{{ prescripteur.type.name }}</td>
+                <td>{{ prescripteur.territoire.name }}</td>
                 <td>
                     <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}">Afficher</a>
                     <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}">Modifier</a>

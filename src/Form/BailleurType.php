@@ -2,25 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Ressource;
+use App\Entity\Bailleur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RessourceType extends AbstractType
+class BailleurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('code')
-            ->add('ressourceName')
+            ->add('name')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Ressource::class,
+            'data_class' => Bailleur::class,
         ]);
     }
 }
