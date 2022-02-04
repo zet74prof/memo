@@ -133,7 +133,8 @@ class ApprenantType extends AbstractType
                 'label' => 'Nom',
             ])
             ->add('maidenName', TextType::class, [
-                'label' => 'Nom de jeune fille'
+                'label' => 'Nom de jeune fille',
+                'required' => false,
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
@@ -157,7 +158,8 @@ class ApprenantType extends AbstractType
             ])
             ->add('dateOfArrivalFR', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date d\'arrivée en France'
+                'label' => 'Date d\'arrivée en France',
+                'required' => false,
             ])
             ->add('tel1', TelType::class, [
                 'required' => false,
@@ -171,7 +173,8 @@ class ApprenantType extends AbstractType
                 'required' => false,
             ])
             ->add('otherContact', TextareaType::class, [
-                'label' => 'Autre contact'
+                'label' => 'Autre contact',
+                'required' => false,
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
@@ -203,7 +206,8 @@ class ApprenantType extends AbstractType
                 'data' => $currentBailleur,
             ])
             ->add('socialSecurityNumber', TextType::class, [
-                'label' => 'N° de sécurité sociale'
+                'label' => 'N° de sécurité sociale',
+                'required' => false,
             ])
             ->add('situationFamiliale', ChoiceType::class, [
                 'choices' => [
@@ -223,7 +227,8 @@ class ApprenantType extends AbstractType
                 'label' => 'Nombre d\'enfants à charge'
             ])
             ->add('emergencyContact', TextareaType::class, [
-                'label' => 'Personne à contacter en cas d\'urgence'
+                'label' => 'Personne à contacter en cas d\'urgence',
+                'required' => false,
             ])
             ->add('status', EntityType::class, [
                 'class' => Status::class,
