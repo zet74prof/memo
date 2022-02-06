@@ -11,6 +11,7 @@ use App\Entity\Ressource;
 use App\Entity\Site;
 use App\Entity\Status;
 use App\Entity\TypeFormation;
+use App\Entity\TypeHebergement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DomCrawler\Field\TextareaFormField;
 use Symfony\Component\Form\AbstractType;
@@ -191,6 +192,12 @@ class ApprenantType extends AbstractType
                 'mapped' => false,
                 'data' => $currentCity,
             ])
+            ->add('typeHebergement', EntityType::class, [
+                'label' => 'Si hébergé',
+                'choice_label' => 'name',
+                'class' => TypeHebergement::class,
+                'required' => false,
+            ])
             ->add('qpv', EntityType::class, [
                 'class' => QPV::class,
                 'choice_label' => 'qpvName',
@@ -233,9 +240,15 @@ class ApprenantType extends AbstractType
             ->add('status', EntityType::class, [
                 'class' => Status::class,
                 'choice_label' => 'statusName',
-                'label' => 'Statut',
+                'label' => 'Type d\'activité',
                 'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
                 'data' => $currentStatus,
+            ])
+            ->add('status_extrainfo', TextareaType::class, [
+                'label' => 'Détails du type d\'activité',
+                'required' => false,
+                'mapped' => false,
+                'attr' => ['placeholder' => 'Nom de l\'employeur, poste occupé, date d\'inscription à Pôle Emploi, Identifiants Pôle Emploi, etc...'],
             ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,

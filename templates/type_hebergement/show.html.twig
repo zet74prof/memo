@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeHebergement{% endblock %}
+
+{% block body %}
+    <h1>TypeHebergement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ type_hebergement.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ type_hebergement.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('type_hebergement_index') }}">back to list</a>
+
+    <a href="{{ path('type_hebergement_edit', {'id': type_hebergement.id}) }}">edit</a>
+
+    {{ include('type_hebergement/_delete_form.html.twig') }}
+{% endblock %}

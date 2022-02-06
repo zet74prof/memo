@@ -88,6 +88,7 @@ class ApprenantController extends AbstractController
             $bailleur = new BailleurHisto(new \DateTime('now'), $form->get('bailleur')->getData());
             $bailleur->setUser($apprenant);
             $status = new StatusHisto(new \DateTime('now'),$form->get('status')->getData());
+            $status->setExtraInfo($form->get('status_extrainfo')->getData());
             $status->setUser($apprenant);
             $ressource = new RessourceHisto(new \DateTime('now'),$form->get('ressource')->getData());
             $ressource->setApprenant($apprenant);
@@ -137,6 +138,7 @@ class ApprenantController extends AbstractController
             $qpv = $apprenant->setQPVWithHisto($form->get('qpv')->getData());
             $bailleur = $apprenant->setBailleurWithHisto($form->get('bailleur')->getData());
             $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
+            $status->setExtraInfo($form->get('status_extrainfo')->getData());
             $ressource = $apprenant->setRessourceWithHisto($form->get('ressource')->getData());
             $prescripteur = $apprenant->setPrescripteurWithHisto($form->get('prescripteur')->getData());
             $entityManager->persist($apprenant);

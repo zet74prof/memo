@@ -156,6 +156,14 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-2">
+            {{ form_label(form.typeHebergement) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.typeHebergement) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
             {{ form_label(form.qpv) }}
         </div>
         <div class="col-lg-10">
@@ -216,6 +224,14 @@
         </div>
         <div class="col-lg-10">
             {{ form_widget(form.status) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.status_extrainfo) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.status_extrainfo) }}
         </div>
     </div>
     <div class="row mb-3">
