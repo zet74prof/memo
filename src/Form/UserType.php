@@ -52,15 +52,6 @@ class UserType extends AbstractType
                 ],
                 'label' => 'Genre'
             ])
-            ->add('address', TextType::class, [
-                'label' => 'Adresse'
-            ])
-            ->add('postalCode', TextType::class, [
-                'label' => 'Code postal',
-            ])
-            ->add('city', TextType::class, [
-                'label' => 'Ville',
-            ])
             ->add('birthDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',

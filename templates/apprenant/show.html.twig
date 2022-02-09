@@ -11,18 +11,18 @@
                 <img src="{{ asset('Photo-Etienne-1.jpg') }}" class="card-img-top img-fluid bg-light    " alt="{{ asset('Photo-Etienne-1.jpg') }}">
                 <div class="card-body">
                     <h5 class="card-title">{% if apprenant.title == 'M' %}M.{% else %}Mme{% endif%} {{ apprenant.surname }} {% if apprenant.title == 'F' %}({{ apprenant.maidenName }}){% endif %} {{ apprenant.firstname }}</h5>
-                    <p class="card-text">Né{% if apprenant.title != 'M' %}e{% endif%} le {{ apprenant.birthDate ? apprenant.birthDate|date('d-m-Y') }}
-                    <br>N° sécurité sociale: {{ apprenant.socialSecurityNumber }}</p>
+                    <p class="card-text"><i>Né{% if apprenant.title != 'M' %}e{% endif%} le</i> {{ apprenant.birthDate ? apprenant.birthDate|date('d-m-Y') }}
+                        <br><i>N° sécurité sociale:</i> {{ apprenant.socialSecurityNumber }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-light">
                         <ul>
-                            <li>Pays d'origine: {{ apprenant.countryOfOrigin|country_name }}</li>
-                            <li>Natonalité: {{ apprenant.nationality }}</li>
-                            <li>Langue maternelle: {{ apprenant.motherTongue }}</li>
-                            <li>Ville de naissance: {{ apprenant.birthCity }}</li>
+                            <li><i>Pays d'origine:</i> {{ apprenant.countryOfOrigin|country_name }}</li>
+                            <li><i>Natonalité:</i> {{ apprenant.nationality }}</li>
+                            <li><i>Langue maternelle:</i> {{ apprenant.motherTongue }}</li>
+                            <li><i>Ville de naissance:</i> {{ apprenant.birthCity }}</li>
                             {% if apprenant.dateOfArrivalFR != null %}
-                                <li>Arrivée en France: {{ apprenant.dateOfArrivalFR ? apprenant.dateOfArrivalFR|date('d-m-Y') }}</li>
+                                <li><i>Arrivée en France:</i> {{ apprenant.dateOfArrivalFR ? apprenant.dateOfArrivalFR|date('d-m-Y') }}</li>
                             {% endif %}
                         </ul>
                     </li>
@@ -46,14 +46,14 @@
                     {% endif %}
                     <li class="list-group-item">
                         <ul>
-                            <li>Téléphone 1: {{ apprenant.tel1 }}</li>
-                            <li>Téléphone 2: {{ apprenant.tel2 }}</li>
+                            <li><i>Téléphone 1:</i> {{ apprenant.tel1 }}</li>
+                            <li><i>Téléphone 2:</i> {{ apprenant.tel2 }}</li>
                         </ul>
                     </li>
-                    <li class="list-group-item bg-light">email: {{ apprenant.email }}</li>
+                    <li class="list-group-item bg-light"><i>email:</i> {{ apprenant.email }}</li>
                 </ul>
                 <div class="card-body">
-                    Autre contact:<br>{{ apprenant.otherContact }}
+                    <i>Autre contact:</i><br>{{ apprenant.otherContact }}
                 </div>
             </div>
         </div>
@@ -101,15 +101,15 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <ul>
-                            <li>{{ apprenant.situationFamiliale }}</li>
-                            <li>Nombre d'enfants: {{ apprenant.nbEnfant }}</li>
-                            <li>Enfants à charge: {{ apprenant.enfantACharge }}</li>
+                            <li><i>Situation Familiale:</i> {{ apprenant.situationFamiliale.name }}</li>
+                            <li><i>Nombre d'enfants:</i> {{ apprenant.nbEnfant }}</li>
+                            <li><i>Enfants à charge:</i> {{ apprenant.enfantACharge }}</li>
                         </ul>
                     </li>
-                    <div class="card-body bg-light">
-                        Personne à contacter en cas d'urgence:<br>{{ apprenant.emergencyContact }}
-                    </div>
                 </ul>
+                <div class="card-body bg-light">
+                    <i>Personne à contacter en cas d'urgence:</i><br>{{ apprenant.emergencyContact }}
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-sm-12 mb-3">
