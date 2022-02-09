@@ -138,7 +138,10 @@ class ApprenantController extends AbstractController
             $qpv = $apprenant->setQPVWithHisto($form->get('qpv')->getData());
             $bailleur = $apprenant->setBailleurWithHisto($form->get('bailleur')->getData());
             $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
-            $status->setExtraInfo($form->get('status_extrainfo')->getData());
+            if($form->get('status_extrainfo')->getData() != null)
+            {
+                $status->setExtraInfo($form->get('status_extrainfo')->getData());
+            }
             $ressource = $apprenant->setRessourceWithHisto($form->get('ressource')->getData());
             $prescripteur = $apprenant->setPrescripteurWithHisto($form->get('prescripteur')->getData());
             $entityManager->persist($apprenant);

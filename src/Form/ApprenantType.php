@@ -122,7 +122,7 @@ class ApprenantType extends AbstractType
             ])
             ->add('state_reason', TextType::class, [
                 'label' => 'Indiquer la raison du changement d\'état',
-                'required' => false,
+                'required' => true,
                 'mapped' => false,
             ])
             ->add('title', ChoiceType::class, [

@@ -7,8 +7,6 @@ S
 #src/Controller/EnfantController.php,6/c/6c8e4907870e5f94de1e75c9cb7a59afb0960359
 \
 ,src/Controller/NiveauFormationController.php,2/8/2804d1ad11cd49f238d6662f4da273af76016bd1
-M
-config/packages/security.yaml,c/5/c5f941b4d4e9404f23935164fabdd261abb68e93
 U
 %src/Controller/BenevoleController.php,4/1/4154b4c75dfdb708f35ccfc0dee70d965e36c0de
 Q
@@ -17,12 +15,6 @@ Q
 +templates/type_enseignement/index.html.twig,7/0/700b299d41fd593da1940392864de85663d8b7de
 X
 (templates/type_formation/index.html.twig,f/2/f2707af74748871932ff0905d782186a12baf1c8
-[
-+src/Controller/ApprenantViewsController.php,6/1/613c3c32f281ba321c681cf7097be82c891dc3a1
-Y
-)templates/apprenant_views/index.html.twig,e/e/ee2afdd5f9055fbd39cce7a9851d0cb6d465ff3c
-Q
-!src/Controller/UserController.php,8/7/87b99206717ccce222f05190f36b6273e3ea6228
 I
 src/Entity/Territoire.php,c/5/c5884524c2e28424ea62e3c850e5d6a2555f6d5c
 I
@@ -55,8 +47,6 @@ U
 %templates/prescripteur/show.html.twig,a/0/a043c30e8f1ce2f65d8314a96dcdcc9d6aa2040e
 R
 "templates/ressource/show.html.twig,e/8/e8abfdd382e538429903b208279c364d315c80e2
-S
-#templates/apprenant/index.html.twig,f/b/fbccf5e6b962a00ccb35488987640a2a483513bf
 E
 src/Entity/Enfant.php,4/9/49c98475df6f8d5756cb34dc5947a5e28d1b5cbc
 <
