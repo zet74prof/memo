@@ -25,9 +25,6 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => 'Nom d\'utilisateur',
-            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
@@ -52,15 +49,6 @@ class UserType extends AbstractType
                 ],
                 'label' => 'Genre'
             ])
-            ->add('address', TextType::class, [
-                'label' => 'Adresse'
-            ])
-            ->add('postalCode', TextType::class, [
-                'label' => 'Code postal',
-            ])
-            ->add('city', TextType::class, [
-                'label' => 'Ville',
-            ])
             ->add('birthDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',
@@ -79,24 +67,6 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez saisir un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'label' => 'Mot de passe',
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,

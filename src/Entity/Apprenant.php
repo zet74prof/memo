@@ -36,7 +36,8 @@ class Apprenant extends User
     private $typeFormation;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=SituationFamiliale::class, inversedBy="apprenants")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $situationFamiliale;
 
@@ -140,12 +141,12 @@ class Apprenant extends User
         return $this;
     }
 
-    public function getSituationFamiliale(): ?string
+    public function getSituationFamiliale(): ?SituationFamiliale
     {
         return $this->situationFamiliale;
     }
 
-    public function setSituationFamiliale(string $situationFamiliale): self
+    public function setSituationFamiliale(?SituationFamiliale $situationFamiliale): self
     {
         $this->situationFamiliale = $situationFamiliale;
 

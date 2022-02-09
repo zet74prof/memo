@@ -9,8 +9,11 @@ use App\Entity\Prescripteur;
 use App\Entity\QPV;
 use App\Entity\Ressource;
 use App\Entity\Site;
+use App\Entity\SituationFamiliale;
 use App\Entity\Status;
 use App\Entity\TypeFormation;
+use App\Entity\TypeHebergement;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DomCrawler\Field\TextareaFormField;
 use Symfony\Component\Form\AbstractType;
@@ -119,7 +122,7 @@ class ApprenantType extends AbstractType
             ])
             ->add('state_reason', TextType::class, [
                 'label' => 'Indiquer la raison du changement d\'état',
-                'required' => false,
+                'required' => true,
                 'mapped' => false,
             ])
             ->add('title', ChoiceType::class, [
@@ -191,8 +194,22 @@ class ApprenantType extends AbstractType
                 'mapped' => false,
                 'data' => $currentCity,
             ])
+            ->add('typeHebergement', EntityType::class, [
+                'label' => 'Si hébergé',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'class' => TypeHebergement::class,
+                'required' => false,
+            ])
             ->add('qpv', EntityType::class, [
                 'class' => QPV::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('q')
+                        ->orderBy('q.qpvName', 'ASC');
+                },
                 'choice_label' => 'qpvName',
                 'label' => 'QPV',
                 'mapped' => false, //mapped set to false because QPV is not an attribute of Apprenant class
@@ -200,6 +217,10 @@ class ApprenantType extends AbstractType
             ])
             ->add('bailleur', EntityType::class, [
                 'class' => Bailleur::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('b')
+                        ->orderBy('b.name', 'ASC');
+                },
                 'label' => 'Bailleur',
                 'choice_label' => 'name',
                 'mapped' => false, //mapped set to false because Bailleur is not an attribute of Apprenant class
@@ -209,13 +230,9 @@ class ApprenantType extends AbstractType
                 'label' => 'N° de sécurité sociale',
                 'required' => false,
             ])
-            ->add('situationFamiliale', ChoiceType::class, [
-                'choices' => [
-                    'Personne seule sans enfant' => 1,
-                    'Personne seule avec enfant(s)' => 2,
-                    'Couple sans enfant' => 3,
-                    'Couple avec enfant(s)' => 4
-                ],
+            ->add('situationFamiliale', EntityType::class, [
+                'class' => SituationFamiliale::class,
+                'choice_label' => 'name',
                 'label' => 'Situation familiale',
             ])
             ->add('nbEnfant', IntegerType::class, [
@@ -233,12 +250,22 @@ class ApprenantType extends AbstractType
             ->add('status', EntityType::class, [
                 'class' => Status::class,
                 'choice_label' => 'statusName',
-                'label' => 'Statut',
+                'label' => 'Type d\'activité',
                 'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
                 'data' => $currentStatus,
             ])
+            ->add('status_extrainfo', TextareaType::class, [
+                'label' => 'Détails du type d\'activité',
+                'required' => false,
+                'mapped' => false,
+                'attr' => ['placeholder' => 'Nom de l\'employeur, poste occupé, date d\'inscription à Pôle Emploi, Identifiants Pôle Emploi, etc...'],
+            ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.active = TRUE');
+                },
                 'choice_label' => 'ressourceName',
                 'label' => 'Ressources',
                 'mapped' => false, //mapped set to false because ressource is not an attribute of Apprenant class
@@ -246,6 +273,10 @@ class ApprenantType extends AbstractType
             ])
             ->add('prescripteur', EntityType::class, [
                 'class' => Prescripteur::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.prescripteurName', 'ASC');
+                },
                 'choice_label' => 'prescripteurName',
                 'label' => 'Prescripteur',
                 'placeholder' => '',
@@ -254,6 +285,10 @@ class ApprenantType extends AbstractType
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.siteName', 'ASC');
+                },
                 'choice_label' => 'siteName',
                 'expanded' => true,
                 'multiple' => true,

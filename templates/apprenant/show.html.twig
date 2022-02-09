@@ -3,78 +3,168 @@
 {% block title %}Apprenant:fiche d'identité{% endblock %}
 
 {% block body %}
-    <h1>Fiche d'identité de l'apprenant</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ apprenant.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ apprenant.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ apprenant.roles ? apprenant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td>{{ apprenant.surname }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ apprenant.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ apprenant.title }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ apprenant.lastAddress.address }}</td>
-            </tr>
-            <tr>
-                <th>PostalCode</th>
-                <td>{{ apprenant.lastAddress.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ apprenant.lastAddress.city }}</td>
-            </tr>
-            <tr>
-                <th>BirthDate</th>
-                <td>{{ apprenant.birthDate ? apprenant.birthDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Tel1</th>
-                <td>{{ apprenant.tel1 }}</td>
-            </tr>
-            <tr>
-                <th>Tel2</th>
-                <td>{{ apprenant.tel2 }}</td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td>{{ apprenant.comment }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ apprenant.email }}</td>
-            </tr>
-            <tr>
-                <th>EnfantACharge</th>
-                <td>{{ apprenant.enfantACharge }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="text-center">Fiche d'identité de l'apprenant</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <img src="{{ asset('Photo-Etienne-1.jpg') }}" class="card-img-top img-fluid bg-light    " alt="{{ asset('Photo-Etienne-1.jpg') }}">
+                <div class="card-body">
+                    <h5 class="card-title">{% if apprenant.title == 'M' %}M.{% else %}Mme{% endif%} {{ apprenant.surname }} {% if apprenant.title == 'F' %}({{ apprenant.maidenName }}){% endif %} {{ apprenant.firstname }}</h5>
+                    <p class="card-text"><i>Né{% if apprenant.title != 'M' %}e{% endif%} le</i> {{ apprenant.birthDate ? apprenant.birthDate|date('d-m-Y') }}
+                        <br><i>N° sécurité sociale:</i> {{ apprenant.socialSecurityNumber }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light">
+                        <ul>
+                            <li><i>Pays d'origine:</i> {{ apprenant.countryOfOrigin|country_name }}</li>
+                            <li><i>Natonalité:</i> {{ apprenant.nationality }}</li>
+                            <li><i>Langue maternelle:</i> {{ apprenant.motherTongue }}</li>
+                            <li><i>Ville de naissance:</i> {{ apprenant.birthCity }}</li>
+                            {% if apprenant.dateOfArrivalFR != null %}
+                                <li><i>Arrivée en France:</i> {{ apprenant.dateOfArrivalFR ? apprenant.dateOfArrivalFR|date('d-m-Y') }}</li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Adresse et contact</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <ul>
+                            {% for a in apprenant.addressHistos %}
+                                <li>{{ a.address }}<br>{{ a.postalCode }} {{ a.city }}<br><p class="fst-italic">(à partir du {{ a.date ? a.date|date('d-m-Y') }})</p></li>
+                            {% endfor %}
+                        </ul>
+                    {% if apprenant.typeHebergement != null %}
+                    <li class="list-group-item bg-light">Lieu d'hébergement: {{ apprenant.typeHebergement.name }}</li>
+                    {% endif %}
+                    <li class="list-group-item">
+                        <ul>
+                            <li><i>Téléphone 1:</i> {{ apprenant.tel1 }}</li>
+                            <li><i>Téléphone 2:</i> {{ apprenant.tel2 }}</li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item bg-light"><i>email:</i> {{ apprenant.email }}</li>
+                </ul>
+                <div class="card-body">
+                    <i>Autre contact:</i><br>{{ apprenant.otherContact }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Quartier Politique de la Ville</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <ul>
+                            {% for qpv in apprenant.qPVHistos %}
+                            <li>{{ qpv.qpv.qpvName }}<br><p class="fst-italic">(à partir du {{ qpv.date ? qpv.date|date('d-m-Y') }})</p></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Bailleur</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <ul>
+                            {% for b in apprenant.bailleurHistos %}
+                                <li>{{ b.bailleur.name }}<br><p class="fst-italic">(à partir du {{ b.date ? b.date|date('d-m-Y') }})</p></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Situation familiale</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <ul>
+                            <li><i>Situation Familiale:</i> {{ apprenant.situationFamiliale.name }}</li>
+                            <li><i>Nombre d'enfants:</i> {{ apprenant.nbEnfant }}</li>
+                            <li><i>Enfants à charge:</i> {{ apprenant.enfantACharge }}</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="card-body bg-light">
+                    <i>Personne à contacter en cas d'urgence:</i><br>{{ apprenant.emergencyContact }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Type d'activité</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for status in apprenant.statusHistos %}
+                    <li class="list-group-item">
+                        {{ status.status.statusName }}<br><p class="fst-italic">(à partir du {{ status.date ? status.date|date('d-m-Y') }})</p>
+                        {{ status.extraInfo }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Ressources</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for res in apprenant.ressourceHistos %}
+                        <li class="list-group-item">
+                            {{ res.ressource.ressourceName }}<br><p class="fst-italic">(à partir du {{ res.date ? res.date|date('d-m-Y') }})</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mb-3">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Prescripteur</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for prescr in apprenant.prescripteurHistos %}
+                        <li class="list-group-item">
+                            <a href="{{ path('prescripteur_show', {'id': prescr.prescripteur.id}) }}">{{ prescr.prescripteur.prescripteurName }}</a><br><p class="fst-italic">(à partir du {{ prescr.date ? prescr.date|date('d-m-Y') }})</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row mb-3">
-    <div class="col-lg-1">
+    <div class="col-6">
         <a href="{{ path('apprenant_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
-    <div class="col-lg-1">
+    <div class="col-6">
         <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}"><button class="btn btn-primary">Modifier</button></a>
     </div>
 </div>

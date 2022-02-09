@@ -166,6 +166,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $bailleurHistos;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeHebergement::class, inversedBy="users")
+     */
+    private $typeHebergement;
+
     public function __construct()
     {
         $this->stateHisto = new ArrayCollection();
@@ -888,5 +893,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         {
             return null;
         }
+    }
+
+    public function getTypeHebergement(): ?TypeHebergement
+    {
+        return $this->typeHebergement;
+    }
+
+    public function setTypeHebergement(?TypeHebergement $typeHebergement): self
+    {
+        $this->typeHebergement = $typeHebergement;
+
+        return $this;
     }
 }
