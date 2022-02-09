@@ -21,12 +21,6 @@ I
 src/Entity/StateHisto.php,3/d/3dc2cc28df17a0913533f2847f93e5b45ce242c7
 Q
 !templates/apprenant/new.html.twig,9/8/984cfe321c45c9ae3e1da15d12caab5e081edb5c
-R
-"templates/apprenant/edit.html.twig,5/6/562f4d2de0c7599e318698c7dc04b8d54adce39d
-S
-#templates/ressource/_form.html.twig,4/4/4436f76f39ce8e50308c19d75ac8eac2620f60e0
-Q
-!templates/ressource/new.html.twig,5/2/52260a96be06dabe214cd8df9faf503b979f262e
 V
 &templates/prescripteur/_form.html.twig,1/a/1aefe953d0d754bfc73badb411e739f549c3116b
 U
@@ -35,16 +29,8 @@ K
 src/Entity/NivFormHisto.php,3/f/3fb315eeac9d4ce6f4420e0a4d3582caa0b7386c
 V
 &templates/prescripteur/index.html.twig,2/4/244d3686d80a570f1c67ab5cc043a97f6b60e93d
-S
-#templates/ressource/index.html.twig,2/6/26441d7ff2f9b14253e993de63d67657a5e74abd
 M
 src/Form/PrescripteurType.php,f/4/f4ac382eacb30aeb1a2e370e269721a39a71588b
-H
-src/Entity/Ressource.php,e/0/e089cae6a9103c956f0da4a438b803dff15a4cfe
-J
-src/Form/RessourceType.php,8/4/84d28c6e24eeb85e46ec602b1557a2386b6f686c
-U
-%templates/prescripteur/show.html.twig,a/0/a043c30e8f1ce2f65d8314a96dcdcc9d6aa2040e
 R
 "templates/ressource/show.html.twig,e/8/e8abfdd382e538429903b208279c364d315c80e2
 E

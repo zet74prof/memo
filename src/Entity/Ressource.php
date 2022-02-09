@@ -34,6 +34,11 @@ class Ressource
      */
     private $ressourceHistos;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
     public function __construct()
     {
         $this->ressourceHistos = new ArrayCollection();
@@ -94,6 +99,18 @@ class Ressource
                 $ressourceHisto->setRessource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

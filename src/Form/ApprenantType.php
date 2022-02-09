@@ -262,6 +262,10 @@ class ApprenantType extends AbstractType
             ])
             ->add('ressource', EntityType::class, [
                 'class' => Ressource::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.active = TRUE');
+                },
                 'choice_label' => 'ressourceName',
                 'label' => 'Ressources',
                 'mapped' => false, //mapped set to false because ressource is not an attribute of Apprenant class
