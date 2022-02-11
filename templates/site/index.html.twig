@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Site index{% endblock %}
+{% block title %}Sites{% endblock %}
 
 {% block body %}
     <div class="row mb-3">
         <h1>Paramétrage des sites</h1>
     </div>
-
+    <div class="row m-3">
+        <a href="{{ path('site_new') }}"><button class="btn btn-primary">Créer un nouveau site</button></a>
+    </div>
     <div class="row m-3">
         <table class="table table-striped table-hover">
             <thead>
@@ -34,8 +36,5 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="col-lg-2">
-            <a href="{{ path('site_new') }}"><button class="btn btn-primary">Créer un nouveau site</button></a>
-        </div>
     </div>
 {% endblock %}

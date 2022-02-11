@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Prescripteur{% endblock %}
+{% block title %}Modifier un prescripteur{% endblock %}
 
 {% block body %}
-    <h1>Edit Prescripteur</h1>
+    <div class="row m-3">
+        <h1>Modifier un prescripteur</h1>
+    </div>
 
-    {{ include('prescripteur/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('prescripteur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('prescripteur_index') }}">retour à la liste</a><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
-        </div>
-        <div class="col-lg-2">
-            {{ include('prescripteur/_delete_form.html.twig') }}
-        </div>
+    <div class="row m-3">
+        <a href="{{ path('prescripteur_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>
 
 {% endblock %}

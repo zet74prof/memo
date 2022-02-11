@@ -21,8 +21,8 @@ class SiteType extends AbstractType
                 'label' => 'Nom du site'])
             ->add('territoire', EntityType::class, [
                 'class' => Territoire::class,
-                'choice_label' => 'siteName',
-                'label' => 'territoire',
+                'choice_label' => 'name',
+                'label' => 'Territoire',
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'Actif',

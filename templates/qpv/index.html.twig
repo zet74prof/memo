@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}QPV index{% endblock %}
+{% block title %}QPV{% endblock %}
 
 {% block body %}
     <div class="row mb-3">
         <h1>Paramétrage des QPV</h1>
     </div>
-
+    <div class="row m-3">
+        <a href="{{ path('q_p_v_new') }}"><button class="btn btn-primary">Créer un nouveau QPV</button></a>
+    </div>
     <div class="row m-3">
         <table class="table table-striped table-hover">
             <thead>
@@ -34,9 +36,6 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="col-lg-2">
-            <a href="{{ path('q_p_v_new') }}"><button class="btn btn-primary">Créer un nouveau QPV</button></a>
-        </div>
     </div>
 
 {% endblock %}
