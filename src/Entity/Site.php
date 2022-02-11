@@ -34,6 +34,11 @@ class Site
      */
     private $siteHistos;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->siteHistos = new ArrayCollection();
@@ -91,6 +96,18 @@ class Site
         if ($this->siteHistos->removeElement($siteHisto)) {
             $siteHisto->removeSite($this);
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

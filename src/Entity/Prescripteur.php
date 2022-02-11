@@ -71,6 +71,11 @@ class Prescripteur
      */
     private $prescripteurHistos;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->prescripteurHistos = new ArrayCollection();
@@ -215,6 +220,18 @@ class Prescripteur
                 $prescripteurHisto->setPrescripteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

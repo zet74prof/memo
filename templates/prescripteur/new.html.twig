@@ -3,13 +3,13 @@
 {% block title %}nouveau Prescripteur{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau Prescripteur</h1>
+    <div class="row m-3">
+        <h1>Créer un nouveau Prescripteur</h1>
+    </div>
 
     {{ include('prescripteur/_form.html.twig') }}
 
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('prescripteur_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+    <div class="row m-3">
+        <a href="{{ path('prescripteur_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

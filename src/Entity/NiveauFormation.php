@@ -22,6 +22,11 @@ class NiveauFormation
      */
     private $nivFormName;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class NiveauFormation
     public function setNivFormName(string $nivFormName): self
     {
         $this->nivFormName = $nivFormName;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

@@ -29,6 +29,11 @@ class QPV
      */
     private $apprenants;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
@@ -77,6 +82,18 @@ class QPV
                 $apprenant->setQpv(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }
