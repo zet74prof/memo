@@ -122,7 +122,7 @@ class ApprenantType extends AbstractType
             ])
             ->add('state_reason', TextType::class, [
                 'label' => 'Indiquer la raison du changement d\'état',
-                'required' => true,
+                'required' => false,
                 'mapped' => false,
             ])
             ->add('title', ChoiceType::class, [
@@ -208,6 +208,7 @@ class ApprenantType extends AbstractType
                 'class' => QPV::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('q')
+                        ->where('q.active = TRUE')
                         ->orderBy('q.qpvName', 'ASC');
                 },
                 'choice_label' => 'qpvName',
@@ -219,6 +220,7 @@ class ApprenantType extends AbstractType
                 'class' => Bailleur::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('b')
+                        ->where('b.active = TRUE')
                         ->orderBy('b.name', 'ASC');
                 },
                 'label' => 'Bailleur',
@@ -249,6 +251,10 @@ class ApprenantType extends AbstractType
             ])
             ->add('status', EntityType::class, [
                 'class' => Status::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->where('s.active = TRUE');
+                },
                 'choice_label' => 'statusName',
                 'label' => 'Type d\'activité',
                 'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
@@ -275,6 +281,7 @@ class ApprenantType extends AbstractType
                 'class' => Prescripteur::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
+                        ->where('p.active = TRUE')
                         ->orderBy('p.prescripteurName', 'ASC');
                 },
                 'choice_label' => 'prescripteurName',
@@ -287,6 +294,7 @@ class ApprenantType extends AbstractType
                 'class' => Site::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('s')
+                        ->where('s.active = TRUE')
                         ->orderBy('s.siteName', 'ASC');
                 },
                 'choice_label' => 'siteName',

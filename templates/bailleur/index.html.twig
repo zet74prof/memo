@@ -1,35 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bailleur index{% endblock %}
+{% block title %}Bailleurs{% endblock %}
 
 {% block body %}
-    <h1>Bailleur index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for bailleur in bailleurs %}
-            <tr>
-                <td>{{ bailleur.id }}</td>
-                <td>{{ bailleur.name }}</td>
-                <td>
-                    <a href="{{ path('bailleur_show', {'id': bailleur.id}) }}">show</a>
-                    <a href="{{ path('bailleur_edit', {'id': bailleur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('bailleur_new') }}">Create new</a>
+    <div class="row mb-3">
+        <h1>Paramétrage des bailleurs</h1>
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('bailleur_new') }}"><button class="btn btn-primary">Créer un nouveau bailleur</button></a>
+    </div>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actif</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for bailleur in bailleurs %}
+                <tr>
+                    <td>{{ bailleur.id }}</td>
+                    <td>{{ bailleur.name }}</td>
+                    <td>{% if bailleur.active == true %}Oui{% endif %}</td>
+                    <td>
+                        <a href="{{ path('bailleur_edit', {'id': bailleur.id}) }}" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">aucune donnée trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

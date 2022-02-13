@@ -3,11 +3,14 @@
 {% block title %}Edit Bailleur{% endblock %}
 
 {% block body %}
-    <h1>Edit Bailleur</h1>
+    <div class="row m-3">
+        <h1>Modifier un Bailleur</h1>
+    </div>
 
-    {{ include('bailleur/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('bailleur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('bailleur_index') }}">back to list</a>
+    <div class="row m-3">
+        <a href="{{ path('bailleur_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+    </div>
 
-    {{ include('bailleur/_delete_form.html.twig') }}
 {% endblock %}

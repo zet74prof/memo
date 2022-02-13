@@ -3,18 +3,14 @@
 {% block title %}Modifier NiveauFormation{% endblock %}
 
 {% block body %}
-    <h1>Modifier un Niveau de Formation</h1>
-
-    {{ include('niveau_formation/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('niveau_formation_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
-        </div>
-        <div class="col-lg-2">
-            {{ include('niveau_formation/_delete_form.html.twig') }}
-        </div>
+    <div class="row m-3">
+        <h1>Modifier un Niveau de Formation</h1>
     </div>
 
+    {{ include('niveau_formation/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <div class="row m-3">
+        <a href="{{ path('niveau_formation_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
+    </div>
 
 {% endblock %}

@@ -1,16 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollaps">
-                <i class="fe fe-x"></i>
-            </button>
-
+    <div class="container-fluid">
+        <img src="{{ asset('img/memo_logo.png') }}" class="img-fluid">
+        <a class="navbar-brand" href="{{path('home') }}">Memo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a href="/" class="nav-link" href="">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('apprenant_index') }}" class="nav-link">Apprenants</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('apprenant_index') }}" role="button" aria-expanded="false">Apprenants</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('apprenant_invalidation') }}" class="dropdown-item">En validation</a></li>
+                        <li><a href="{{ path('apprenant_index') }}" class="dropdown-item">Actifs</a></li>
+                        <li><a href="{{ path('apprenant_inpause') }}" class="dropdown-item">En pause</a></li>
+                        <li><a href="{{ path('apprenant_inactive') }}" class="dropdown-item">Inactifs</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="{{ path('apprenant_anniversaire') }}" class="dropdown-item">Anniversaires du mois prochain</a></li>
+                        <li><a href="{{ path('apprenant_par_territoire') }}" class="dropdown-item">Historique par territoire/site</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{ path('enfant_index') }}" class="nav-link">Enfants</a>
@@ -22,13 +32,17 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramétrage</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('q_p_v_index') }}" class="dropdown-item">QPV</a></li>
-                        <li><a href="{{ path('etablissement_scolaire_index') }}" class="dropdown-item">Etablissements scolaires</a></li>
-                        <li><a href="{{ path('niveau_formation_index') }}" class="dropdown-item">Niveaux de formation</a></li>
+                        <li><a href="{{ path('bailleur_index') }}" class="dropdown-item">Bailleurs</a></li>
                         <li><a href="{{ path('prescripteur_index') }}" class="dropdown-item">Prescripteurs</a></li>
+                        <li><a href="{{ path('type_prescripteur_index') }}" class="dropdown-item">Type de prescripteurs</a></li>
+                        <li><a href="{{ path('type_hebergement_index') }}" class="dropdown-item">Types d'hébergement</a></li>
+                        <li><a href="{{ path('situation_familiale_index') }}" class="dropdown-item">Situations familiales</a></li>
                         <li><a href="{{ path('ressource_index') }}" class="dropdown-item">Ressources</a></li>
-                        <li><a href="{{ path('site_index') }}" class="dropdown-item">Sites</a></li>
                         <li><a href="{{ path('status_index') }}" class="dropdown-item">Statuts</a></li>
+                        <li><a href="{{ path('site_index') }}" class="dropdown-item">Sites</a></li>
                         <li><a href="{{ path('territoire_index') }}" class="dropdown-item">Territoires</a></li>
+                        <li><a href="{{ path('niveau_formation_index') }}" class="dropdown-item">Niveaux de formation</a></li>
+                        <li><a href="{{ path('etablissement_scolaire_index') }}" class="dropdown-item">Etablissements scolaires</a></li>
                         <li><a href="{{ path('type_enseignement_index') }}" class="dropdown-item">Types d'enseignements</a></li>
                         <li><a href="{{ path('type_formation_index') }}" class="dropdown-item">Types de formation</a></li>
                         <li><a href="{{ path('user_index') }}" class="dropdown-item">Utilisateurs</a></li>

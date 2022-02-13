@@ -1,4 +1,85 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
-{{ form_end(form) }}
+<div class="container">
+    {{ form_start(form) }}
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.type) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.type) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.prescripteurName) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.prescripteurName) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.respName) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.respName) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.address) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.address) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.postalCode) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.postalCode) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.city) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.city) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.email) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.tel) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.tel) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.territoire) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.territoire) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            {{ form_label(form.active) }}
+        </div>
+        <div class="col-lg-10">
+            {{ form_widget(form.active) }}
+        </div>
+    </div>
+    <button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+    {{ form_end(form) }}
+</div>

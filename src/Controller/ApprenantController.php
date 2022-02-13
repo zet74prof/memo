@@ -70,7 +70,7 @@ class ApprenantController extends AbstractController
             $apprenant->setPassword(
                 $passwordHasher->hashPassword(
                     $apprenant,
-                    'motsetmerveilles@59%ApprenantPwd'
+                    'MetM@59etbu'
                 )
             );
 

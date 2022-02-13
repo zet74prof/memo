@@ -3,9 +3,13 @@
 {% block title %}New Bailleur{% endblock %}
 
 {% block body %}
-    <h1>Create new Bailleur</h1>
+    <div class="row m-3">
+        <h1>Créer un nouveau Bailleur</h1>
+    </div>
 
     {{ include('bailleur/_form.html.twig') }}
 
-    <a href="{{ path('bailleur_index') }}">back to list</a>
+    <div class="row m-3">
+        <a href="{{ path('bailleur_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+    </div>
 {% endblock %}

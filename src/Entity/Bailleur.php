@@ -29,6 +29,11 @@ class Bailleur
      */
     private $bailleurHistos;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function __construct()
     {
         $this->bailleurHistos = new ArrayCollection();
@@ -77,6 +82,18 @@ class Bailleur
                 $bailleurHisto->setBailleur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }
