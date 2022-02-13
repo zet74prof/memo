@@ -35,4 +35,14 @@ class ApprenantViewsController extends AbstractController
             'apprenants' => null,
         ]);
     }
+
+    #[Route('/anniversaires', name: 'apprenant_anniversaire', methods: ['GET', 'POST'])]
+    public function birthdayNextMonth(Request $request, ApprenantRepository $apprenantRepository): Response
+    {
+        $apprenants_list = $apprenantRepository->findBirthdayNextMonth();
+
+        return $this->render('apprenant_views/birthday.html.twig', [
+           'apprenants' => $apprenants_list
+        ]);
+    }
 }

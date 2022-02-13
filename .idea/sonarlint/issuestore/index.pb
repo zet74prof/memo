@@ -53,8 +53,6 @@ K
 src/Entity/Prescripteur.php,c/9/c914fd6f76411fbe477c059e9a2fed42802052e2
 B
 src/Entity/QPV.php,2/c/2c37ef6ca019573e67cb7487ef4d103ae246f6ca
-C
-src/Entity/User.php,0/a/0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
 H
 src/Entity/Apprenant.php,5/7/5752579c8c4da1b9d7c2535aed06ddf529c70856
 N
@@ -63,18 +61,12 @@ R
 "templates/apprenant/show.html.twig,5/9/59d0260d2cfb4afb7f7f6644b22c2f79ab2d474d
 P
  src/Form/FilterApprenantType.php,f/a/fa8686388fa997877c88e09e97cbce6d5685a6e6
-Y
-)templates/apprenant_views/index.html.twig,e/e/ee2afdd5f9055fbd39cce7a9851d0cb6d465ff3c
-V
-&src/Repository/ApprenantRepository.php,2/6/2661ae2b2d62406fab3c4bef8d0bbf07fbf2294e
 S
 #templates/apprenant/index.html.twig,f/b/fbccf5e6b962a00ccb35488987640a2a483513bf
 M
 config/packages/security.yaml,c/5/c5f941b4d4e9404f23935164fabdd261abb68e93
 N
 templates/user/_form.html.twig,2/9/29198098962e7f33c221162e2ae8ae32900e11aa
-[
-+src/Controller/ApprenantViewsController.php,6/1/613c3c32f281ba321c681cf7097be82c891dc3a1
 E
 src/Form/UserType.php,6/c/6c2442a67dda9c3193b965c65ce788acf9b5ecaf
 Q

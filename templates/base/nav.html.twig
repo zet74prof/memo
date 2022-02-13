@@ -10,8 +10,17 @@
                 <li class="nav-item">
                     <a href="/" class="nav-link" href="">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('apprenant_index') }}" class="nav-link">Apprenants</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{{ path('apprenant_index') }}" role="button" aria-expanded="false">Apprenants</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('apprenant_invalidation') }}" class="dropdown-item">En validation</a></li>
+                        <li><a href="{{ path('apprenant_index') }}" class="dropdown-item">Actifs</a></li>
+                        <li><a href="{{ path('apprenant_inpause') }}" class="dropdown-item">En pause</a></li>
+                        <li><a href="{{ path('apprenant_inactive') }}" class="dropdown-item">Inactifs</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="{{ path('apprenant_anniversaire') }}" class="dropdown-item">Anniversaires du mois prochain</a></li>
+                        <li><a href="{{ path('apprenant_par_territoire') }}" class="dropdown-item">Historique par territoire/site</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{ path('enfant_index') }}" class="nav-link">Enfants</a>
