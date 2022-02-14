@@ -3,9 +3,13 @@
 {% block title %}New TypeHebergement{% endblock %}
 
 {% block body %}
-    <h1>Create new TypeHebergement</h1>
+    <div class="row m-3">
+        <h1>Create new TypeHebergement</h1>
+    </div>
 
     {{ include('type_hebergement/_form.html.twig') }}
 
-    <a href="{{ path('type_hebergement_index') }}">back to list</a>
+    <div class="row mb-3">
+        <a href="{{ path('type_hebergement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+    </div>
 {% endblock %}

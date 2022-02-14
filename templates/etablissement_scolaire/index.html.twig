@@ -3,38 +3,38 @@
 {% block title %}EtablissementScolaire index{% endblock %}
 
 {% block body %}
-    <h1>EtablissementScolaire index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for etablissement_scolaire in etablissement_scolaires %}
-            <tr>
-                <td>{{ etablissement_scolaire.id }}</td>
-                <td>{{ etablissement_scolaire.name }}</td>
-                <td>
-                    <a href="{{ path('etablissement_scolaire_show', {'id': etablissement_scolaire.id}) }}">Afficher</a>
-                    <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
     <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('etablissement_scolaire_new') }}"><button class="btn btn-primary">Créer nouveau établissement</button></a>
-        </div>
+        <h1>EtablissementScolaire index</h1>
+    </div>
+    <div class="row mb-3">
+        <a href="{{ path('etablissement_scolaire_new') }}"><button class="btn btn-primary">Créer nouveau établissement</button></a>
+    </div>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etablissement_scolaire in etablissement_scolaires %}
+                <tr>
+                    <td>{{ etablissement_scolaire.id }}</td>
+                    <td>{{ etablissement_scolaire.name }}</td>
+                    <td>
+                        <a href="{{ path('etablissement_scolaire_show', {'id': etablissement_scolaire.id}) }}" class="btn btn-primary">Afficher</a>
+                        <a href="{{ path('etablissement_scolaire_edit', {'id': etablissement_scolaire.id}) }}" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}

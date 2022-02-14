@@ -3,11 +3,19 @@
 {% block title %}Edit TypeHebergement{% endblock %}
 
 {% block body %}
-    <h1>Edit TypeHebergement</h1>
+    <div class="row m-3">
+        <h1>Edit TypeHebergement</h1>
+    </div>
 
     {{ include('type_hebergement/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('type_hebergement_index') }}">back to list</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('type_hebergement_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+        <div class="col-lg-2">
+            {{ include('type_hebergement/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('type_hebergement/_delete_form.html.twig') }}
 {% endblock %}

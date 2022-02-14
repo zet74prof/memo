@@ -3,12 +3,14 @@
 {% block title %}Edit TypeEnseignement{% endblock %}
 
 {% block body %}
-    <h1>Edit TypeEnseignement</h1>
+    <div class="row m-3">
+        <h1>Edit TypeEnseignement</h1>
+    </div>
 
     {{ include('type_enseignement/_form.html.twig', {'button_label': 'Update'}) }}
 
     <div class="row mb-3">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <a href="{{ path('type_enseignement_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
         </div>
         <div class="col-lg-2">

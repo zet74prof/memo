@@ -3,9 +3,15 @@
 {% block title %}New SituationFamiliale{% endblock %}
 
 {% block body %}
-    <h1>Create new SituationFamiliale</h1>
+    <div class="row m-3">
+        <h1>Create new SituationFamiliale</h1>
+    </div>
 
     {{ include('situation_familiale/_form.html.twig') }}
 
-    <a href="{{ path('situation_familiale_index') }}">back to list</a>
+    <div class="row mb-3">
+        <div class="col-lg-2">
+            <a href="{{ path('situation_familiale_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        </div>
+    </div>
 {% endblock %}

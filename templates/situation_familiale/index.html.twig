@@ -3,33 +3,38 @@
 {% block title %}SituationFamiliale index{% endblock %}
 
 {% block body %}
-    <h1>SituationFamiliale index</h1>
+    <div class="row mb-3">
+        <h1>SituationFamiliale index</h1>
+    </div>
+    <div class="row mb-3">
+        <a href="{{ path('situation_familiale_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
+    </div>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for situation_familiale in situation_familiales %}
+                <tr>
+                    <td>{{ situation_familiale.id }}</td>
+                    <td>{{ situation_familiale.name }}</td>
+                    <td>
+                        <a href="{{ path('situation_familiale_show', {'id': situation_familiale.id}) }}" class="btn btn-primary">Afficher</a>s
+                        <a href="{{ path('situation_familiale_edit', {'id': situation_familiale.id}) }}" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for situation_familiale in situation_familiales %}
-            <tr>
-                <td>{{ situation_familiale.id }}</td>
-                <td>{{ situation_familiale.name }}</td>
-                <td>
-                    <a href="{{ path('situation_familiale_show', {'id': situation_familiale.id}) }}">show</a>
-                    <a href="{{ path('situation_familiale_edit', {'id': situation_familiale.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('situation_familiale_new') }}">Create new</a>
 {% endblock %}
