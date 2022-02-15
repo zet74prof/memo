@@ -51,6 +51,11 @@ class Apprenant extends User
      */
     private $prescripteurHistos;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CourseOfLife::class, inversedBy="apprenant", cascade={"persist", "remove"})
+     */
+    private $courseOfLife;
+
     public function __construct()
     {
         parent::__construct();
@@ -279,5 +284,17 @@ class Apprenant extends User
         {
             return null;
         }
+    }
+
+    public function getCourseOfLife(): ?CourseOfLife
+    {
+        return $this->courseOfLife;
+    }
+
+    public function setCourseOfLife(?CourseOfLife $courseOfLife): self
+    {
+        $this->courseOfLife = $courseOfLife;
+
+        return $this;
     }
 }

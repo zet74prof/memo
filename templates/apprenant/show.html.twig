@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-6 col-sm-12 mb-3">
             <div class="card">
-                <img src="{{ asset('Photo-Etienne-1.jpg') }}" class="card-img-top img-fluid bg-light    " alt="{{ asset('Photo-Etienne-1.jpg') }}">
+                <img src="{{ asset('Photo-Etienne-1.jpg') }}" class="card-img-top bg-light" alt="{{ asset('Photo-Etienne-1.jpg') }}">
                 <div class="card-body">
                     <h5 class="card-title">{% if apprenant.title == 'M' %}M.{% else %}Mme{% endif%} {{ apprenant.surname }} {% if apprenant.title == 'F' %}({{ apprenant.maidenName }}){% endif %} {{ apprenant.firstname }}</h5>
                     <p class="card-text"><i>Né{% if apprenant.title != 'M' %}e{% endif%} le</i> {{ apprenant.birthDate ? apprenant.birthDate|date('d-m-Y') }}
