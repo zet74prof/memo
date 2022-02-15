@@ -22,6 +22,11 @@ class Status
      */
     private $statusName;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $active;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Status
     public function setStatusName(string $statusName): self
     {
         $this->statusName = $statusName;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

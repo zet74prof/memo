@@ -3,22 +3,29 @@
 namespace App\Form;
 
 use App\Entity\Apprenant;
+use App\Entity\Bailleur;
 use App\Entity\NiveauFormation;
 use App\Entity\Prescripteur;
 use App\Entity\QPV;
 use App\Entity\Ressource;
 use App\Entity\Site;
+use App\Entity\SituationFamiliale;
 use App\Entity\Status;
 use App\Entity\TypeFormation;
+use App\Entity\TypeHebergement;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DomCrawler\Field\TextareaFormField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,13 +47,17 @@ class ApprenantType extends AbstractType
         {
             $currentState = 1;
         }
-        if($apprenant->getStatusHistos()->last())
+        if($apprenant->getAddressHistos()->last())
         {
-            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
+            $currentAddress = $apprenant->getAddressHistos()->last()->getAddress();
+            $currentPostalCode = $apprenant->getAddressHistos()->last()->getPostalCode();
+            $currentCity = $apprenant->getAddressHistos()->last()->getCity();
         }
         else
         {
-            $currentStatus = null;
+            $currentAddress = null;
+            $currentPostalCode = null;
+            $currentCity = null;
         }
         if($apprenant->getQPVHistos()->last())
         {
@@ -56,6 +67,38 @@ class ApprenantType extends AbstractType
         {
             $currentQPV = null;
         }
+        if($apprenant->getBailleurHistos()->last())
+        {
+            $currentBailleur = $apprenant->getBailleurHistos()->last()->getBailleur();
+        }
+        else
+        {
+            $currentBailleur = null;
+        }
+        if($apprenant->getStatusHistos()->last())
+        {
+            $currentStatus = $apprenant->getStatusHistos()->last()->getStatus();
+        }
+        else
+        {
+            $currentStatus = null;
+        }
+        if($apprenant->getRessourceHistos()->last())
+        {
+            $currentRessource = $apprenant->getRessourceHistos()->last()->getRessource();
+        }
+        else
+        {
+            $currentRessource = null;
+        }
+        if($apprenant->getPrescripteurHistos()->last())
+        {
+            $currentPrescripteur = $apprenant->getPrescripteurHistos()->last()->getPrescripteur();
+        }
+        else
+        {
+            $currentPrescripteur = null;
+        }
         if ($apprenant->getSiteHisto()->last())
         {
             $currentSites = $apprenant->getSiteHisto()->last()->getSites();
@@ -64,61 +107,8 @@ class ApprenantType extends AbstractType
         {
             $currentSites = [];
         }
-        if($apprenant->getNiveauFormationHistos()->last())
-        {
-            $currentNiveauFormation = $apprenant->getNiveauFormationHistos()->last()->getNiveauFormation();
-        }
-        else
-        {
-            $currentNiveauFormation = null;
-        }
 
         $builder
-            ->add('surname', TextType::class, [
-                'label' => 'Nom de famille',
-            ])
-            ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
-            ])
-            ->add('title', ChoiceType::class, [
-                'choices' => [
-                    'Madame' => 'F',
-                    'Monsieur' => 'M',
-                ],
-                'label' => 'Genre'
-            ])
-            ->add('address', TextType::class, [
-                'label' => 'Adresse'
-            ])
-            ->add('postalCode', TextType::class, [
-                'label' => 'Code postal',
-            ])
-            ->add('city', TextType::class, [
-                'label' => 'Ville',
-            ])
-            ->add('birthDate', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Date de naissance',
-            ])
-            ->add('tel1', TelType::class, [
-                'required' => false,
-                'label' => 'Téléphone principal',
-            ])
-            ->add('tel2', TelType::class, [
-                'required' => false,
-                'label' => 'Téléphone secondaire',
-            ])
-            ->add('comment', TextType::class, [
-                'required' => false,
-                'label' => 'Commentaires additionnels',
-            ])
-            ->add('email', EmailType::class, [
-                'required' => false,
-            ])
-            ->add('enfantACharge', IntegerType::class, [
-                'empty_data' => 0,
-                'label' => 'Enfants à charge'
-            ])
             ->add('state', ChoiceType::class, [
                 'choices' => [
                     'Validation' => 1,
@@ -135,8 +125,178 @@ class ApprenantType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
+            ->add('title', ChoiceType::class, [
+                'choices' => [
+                    'Madame' => 'F',
+                    'Monsieur' => 'M',
+                ],
+                'label' => 'Genre'
+            ])
+            ->add('surname', TextType::class, [
+                'label' => 'Nom',
+            ])
+            ->add('maidenName', TextType::class, [
+                'label' => 'Nom de jeune fille',
+                'required' => false,
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('birthDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de naissance',
+            ])
+            ->add('birthCity', TextType::class, [
+                'label' => 'Ville de naissance'
+            ])
+            ->add('countryOfOrigin', CountryType::class, [
+                'label' => 'Pays d\'origine',
+                'data' => 'FR',
+            ])
+            ->add('nationality', TextType::class, [
+                'label' => 'Nationalité'
+            ])
+            ->add('motherTongue', TextType::class, [
+                'label' => 'Langue maternelle'
+            ])
+            ->add('dateOfArrivalFR', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date d\'arrivée en France',
+                'required' => false,
+            ])
+            ->add('tel1', TelType::class, [
+                'required' => false,
+                'label' => 'Téléphone principal',
+            ])
+            ->add('tel2', TelType::class, [
+                'required' => false,
+                'label' => 'Téléphone secondaire',
+            ])
+            ->add('email', EmailType::class, [
+                'required' => false,
+            ])
+            ->add('otherContact', TextareaType::class, [
+                'label' => 'Autre contact',
+                'required' => false,
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse',
+                'mapped' => false,
+                'data' => $currentAddress,
+            ])
+            ->add('postalCode', TextType::class, [
+                'label' => 'Code postal',
+                'mapped' => false,
+                'data' => $currentPostalCode,
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'mapped' => false,
+                'data' => $currentCity,
+            ])
+            ->add('typeHebergement', EntityType::class, [
+                'label' => 'Si hébergé',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'class' => TypeHebergement::class,
+                'required' => false,
+            ])
+            ->add('qpv', EntityType::class, [
+                'class' => QPV::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('q')
+                        ->where('q.active = TRUE')
+                        ->orderBy('q.qpvName', 'ASC');
+                },
+                'choice_label' => 'qpvName',
+                'label' => 'QPV',
+                'mapped' => false, //mapped set to false because QPV is not an attribute of Apprenant class
+                'data' => $currentQPV,
+            ])
+            ->add('bailleur', EntityType::class, [
+                'class' => Bailleur::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('b')
+                        ->where('b.active = TRUE')
+                        ->orderBy('b.name', 'ASC');
+                },
+                'label' => 'Bailleur',
+                'choice_label' => 'name',
+                'mapped' => false, //mapped set to false because Bailleur is not an attribute of Apprenant class
+                'data' => $currentBailleur,
+            ])
+            ->add('socialSecurityNumber', TextType::class, [
+                'label' => 'N° de sécurité sociale',
+                'required' => false,
+            ])
+            ->add('situationFamiliale', EntityType::class, [
+                'class' => SituationFamiliale::class,
+                'choice_label' => 'name',
+                'label' => 'Situation familiale',
+            ])
+            ->add('nbEnfant', IntegerType::class, [
+                'empty_data' => 0,
+                'label' => 'Nombre d\'enfants'
+            ])
+            ->add('enfantACharge', IntegerType::class, [
+                'empty_data' => 0,
+                'label' => 'Nombre d\'enfants à charge'
+            ])
+            ->add('emergencyContact', TextareaType::class, [
+                'label' => 'Personne à contacter en cas d\'urgence',
+                'required' => false,
+            ])
+            ->add('status', EntityType::class, [
+                'class' => Status::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->where('s.active = TRUE');
+                },
+                'choice_label' => 'statusName',
+                'label' => 'Type d\'activité',
+                'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
+                'data' => $currentStatus,
+            ])
+            ->add('status_extrainfo', TextareaType::class, [
+                'label' => 'Détails du type d\'activité',
+                'required' => false,
+                'mapped' => false,
+                'attr' => ['placeholder' => 'Nom de l\'employeur, poste occupé, date d\'inscription à Pôle Emploi, Identifiants Pôle Emploi, etc...'],
+            ])
+            ->add('ressource', EntityType::class, [
+                'class' => Ressource::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.active = TRUE');
+                },
+                'choice_label' => 'ressourceName',
+                'label' => 'Ressources',
+                'mapped' => false, //mapped set to false because ressource is not an attribute of Apprenant class
+                'data' => $currentRessource,
+            ])
+            ->add('prescripteur', EntityType::class, [
+                'class' => Prescripteur::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->where('p.active = TRUE')
+                        ->orderBy('p.prescripteurName', 'ASC');
+                },
+                'choice_label' => 'prescripteurName',
+                'label' => 'Prescripteur',
+                'placeholder' => '',
+                'mapped' => false, //mapped set to false because prescripteur is not an attribute of Apprenant class
+                'data' => $currentPrescripteur,
+            ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->where('s.active = TRUE')
+                        ->orderBy('s.siteName', 'ASC');
+                },
                 'choice_label' => 'siteName',
                 'expanded' => true,
                 'multiple' => true,
@@ -153,50 +313,12 @@ class ApprenantType extends AbstractType
                     return ['checked' => $selected];
                 }
             ])
-            ->add('status', EntityType::class, [
-                'class' => Status::class,
-                'choice_label' => 'statusName',
-                'label' => 'Statut',
-                'mapped' => false, //mapped set to false because status is not an attribute of Apprenant class
-                'data' => $currentStatus,
+            ->add('welcomeBy', TextType::class, [
+                'label' => 'Accueil fait par'
             ])
-            ->add('ressource', EntityType::class, [
-                'class' => Ressource::class,
-                'choice_label' => 'ressourceName',
-                'label' => 'Ressources',
-            ])
-            ->add('typeFormation', EntityType::class, [
-                'class' => TypeFormation::class,
-                'choice_label' => 'formationName',
-                'label' => 'Type de formation',
-            ])
-            ->add('prescripteur', EntityType::class, [
-                'class' => Prescripteur::class,
-                'choice_label' => 'prescripteurName',
-                'label' => 'Prescripteur',
-            ])
-            ->add('qpv', EntityType::class, [
-                'class' => QPV::class,
-                'choice_label' => 'qpvName',
-                'label' => 'QPV',
-                'mapped' => false, //mapped set to false because QPV is not an attribute of Apprenant class
-                'data' => $currentQPV,
-            ])
-            ->add('niveauFormation', EntityType::class, [
-                'class' => NiveauFormation::class,
-                'choice_label' => 'nivFormName',
-                'label' => 'Niveau de formation',
-                'mapped' => false, //mapped set to false because niveauFormation is not an attribute of Apprenant class
-                'data' => $currentNiveauFormation,
-            ])
-            ->add('situationFamiliale', ChoiceType::class, [
-                'choices' => [
-                    'Personne seule sans enfant' => 1,
-                    'Personne seule avec enfant(s)' => 2,
-                    'Couple sans enfant' => 3,
-                    'Couple avec enfant(s)' => 4
-                ],
-                'label' => 'Situation familiale',
+            ->add('comment', TextType::class, [
+                'required' => false,
+                'label' => 'Commentaires additionnels',
             ])
         ;
     }

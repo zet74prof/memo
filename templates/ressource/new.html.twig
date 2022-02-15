@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}nouvelle Ressource{% endblock %}
+{% block title %}Nouvelle ressource{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle Ressource</h1>
+    <div class="row m-3">
+        <h1>Créer une nouvelle ressource</h1>
+    </div>
 
     {{ include('ressource/_form.html.twig') }}
 
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('ressource_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+    <div class="row m-3">
+        <a href="{{ path('ressource_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

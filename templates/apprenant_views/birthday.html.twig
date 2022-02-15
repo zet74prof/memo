@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anniversaires apprenants{% endblock %}
+
+{% block body %}
+    <h1>Les anniversaires du mois prochain</h1>
+    <div class="containter">
+        <div class="row m-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Date de naissance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for apprenant in apprenants %}
+                    <tr>
+                        <td>{{ apprenant.title }}</td>
+                        <td>{{ apprenant.surname }}</td>
+                        <td>{{ apprenant.firstname }}</td>
+                        <td>{{ apprenant.lastAddress.address }}</td>
+                        <td>{{ apprenant.lastAddress.postalCode }}</td>
+                        <td>{{ apprenant.lastAddress.city }}</td>
+                        <td>{{ apprenant.birthDate ? apprenant.birthDate|date('d/m/Y') : '' }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="17">aucune donnée trouvée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

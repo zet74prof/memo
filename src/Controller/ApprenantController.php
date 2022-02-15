@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\AddressHisto;
 use App\Entity\Apprenant;
+use App\Entity\BailleurHisto;
 use App\Entity\NivFormHisto;
+use App\Entity\PrescripteurHisto;
 use App\Entity\QPVHisto;
+use App\Entity\RessourceHisto;
 use App\Entity\SiteHisto;
 use App\Entity\StateHisto;
 use App\Entity\StatusHisto;
@@ -66,7 +70,7 @@ class ApprenantController extends AbstractController
             $apprenant->setPassword(
                 $passwordHasher->hashPassword(
                     $apprenant,
-                    'motsetmerveilles@59%ApprenantPwd'
+                    'MetM@59etbu'
                 )
             );
 
@@ -74,23 +78,33 @@ class ApprenantController extends AbstractController
             $apprenant->CleanUserName();
 
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
-            //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique de statut
+            //on créé un objet StateHisto pour stocker le premier état 'actif' dans l'historique d'état
             $state = new StateHisto(new \DateTime('now'),1,'Création');
             $state->setUser($apprenant);
-            $status = new StatusHisto(new \DateTime('now'),$form->get('status')->getData());
-            $status->setUser($apprenant);
-            $niveauFormation = new NivFormHisto(new \DateTime('now'),$form->get('niveauFormation')->getData());
-            $niveauFormation->setApprenant($apprenant);
+            $address = new AddressHisto(new \DateTime('now'), $form->get('address')->getData(), $form->get('postalCode')->getData(), $form->get('city')->getData());
+            $address->setUser($apprenant);
             $qpv = new QPVHisto(new \DateTime('now'),$form->get('qpv')->getData());
             $qpv->setUser($apprenant);
+            $bailleur = new BailleurHisto(new \DateTime('now'), $form->get('bailleur')->getData());
+            $bailleur->setUser($apprenant);
+            $status = new StatusHisto(new \DateTime('now'),$form->get('status')->getData());
+            $status->setExtraInfo($form->get('status_extrainfo')->getData());
+            $status->setUser($apprenant);
+            $ressource = new RessourceHisto(new \DateTime('now'),$form->get('ressource')->getData());
+            $ressource->setApprenant($apprenant);
+            $prescripteur = new PrescripteurHisto(new \DateTime('now'),$form->get('prescripteur')->getData());
+            $prescripteur->setApprenant($apprenant);
 
             $entityManager = $doctrine->getManager();
             $entityManager->persist($apprenant);
             $entityManager->persist($state);
-            $entityManager->persist($status);
-            $entityManager->persist($siteHisto);
-            $entityManager->persist($niveauFormation);
+            $entityManager->persist($address);
             $entityManager->persist($qpv);
+            $entityManager->persist($bailleur);
+            $entityManager->persist($status);
+            $entityManager->persist($ressource);
+            $entityManager->persist($prescripteur);
+            $entityManager->persist($siteHisto);
             $entityManager->flush();
 
             return $this->redirectToRoute('apprenant_index');
@@ -120,29 +134,48 @@ class ApprenantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $siteHisto = $apprenant->setSitesWithHisto($form->get('site')->getData());
             $state = $apprenant->setStateWithHisto($form->get('state')->getData(), $form->get('state_reason')->getData());
-            $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
-            $niveauFormation = $apprenant->setNiveauFormationWithHisto($form->get('niveauFormation')->getData());
+            $address = $apprenant->setAddressWithHisto($form->get('address')->getData(), $form->get('postalCode')->getData(), $form->get('city')->getData());
             $qpv = $apprenant->setQPVWithHisto($form->get('qpv')->getData());
+            $bailleur = $apprenant->setBailleurWithHisto($form->get('bailleur')->getData());
+            $status = $apprenant->setStatusWithHisto($form->get('status')->getData());
+            if($form->get('status_extrainfo')->getData() != null)
+            {
+                $status->setExtraInfo($form->get('status_extrainfo')->getData());
+            }
+            $ressource = $apprenant->setRessourceWithHisto($form->get('ressource')->getData());
+            $prescripteur = $apprenant->setPrescripteurWithHisto($form->get('prescripteur')->getData());
             $entityManager->persist($apprenant);
             if ($state != null)
             {
                 $entityManager->persist($state);
             }
-            if ($status != null)
+            if ($address != null)
             {
-                $entityManager->persist($status);
-            }
-            if ($siteHisto != null)
-            {
-                $entityManager->persist($siteHisto);
-            }
-            if($niveauFormation != null)
-            {
-                $entityManager->persist($niveauFormation);
+                $entityManager->persist($address);
             }
             if($qpv != null)
             {
                 $entityManager->persist($qpv);
+            }
+            if ($bailleur != null)
+            {
+                $entityManager->persist($bailleur);
+            }
+            if ($status != null)
+            {
+                $entityManager->persist($status);
+            }
+            if ($ressource != null)
+            {
+                $entityManager->persist($ressource);
+            }
+            if ($prescripteur != null)
+            {
+                $entityManager->persist($prescripteur);
+            }
+            if ($siteHisto != null)
+            {
+                $entityManager->persist($siteHisto);
             }
             $entityManager->flush();
 

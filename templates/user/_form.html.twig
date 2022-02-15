@@ -2,22 +2,6 @@
     {{ form_start(form) }}
     <div class="row mb-3">
         <div class="col-lg-2">
-            {{ form_label(form.username) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.username) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.plainPassword) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.plainPassword) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
             {{ form_label(form.roles) }}
         </div>
         <div class="col-lg-10">
@@ -46,30 +30,6 @@
         </div>
         <div class="col-lg-10">
             {{ form_widget(form.firstname) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.address) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.address) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.postalCode) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.postalCode) }}
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            {{ form_label(form.city) }}
-        </div>
-        <div class="col-lg-10">
-            {{ form_widget(form.city) }}
         </div>
     </div>
     <div class="row mb-3">
@@ -121,5 +81,6 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Valider</button>
-    {{ form_end(form) }}
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
 </div>

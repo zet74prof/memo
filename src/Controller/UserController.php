@@ -36,11 +36,14 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $user->setUsername($form->get('firstname')->getData() . '.' . $form->get('surname')->getData());
+        $user->CleanUserName();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    'motsetmerveilles@59%UserPwd'
                 )
             );
             $siteHisto = new SiteHisto();

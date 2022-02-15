@@ -28,7 +28,6 @@
                 <th>QPV</th>
                 <th>Situation familiale</th>
                 <th>Site</th>
-                <th>Niveau de formation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -40,25 +39,23 @@
                 <td>{{ apprenant.surname }}</td>
                 <td>{{ apprenant.firstname }}</td>
                 <td>{{ apprenant.title }}</td>
-                <td>{{ apprenant.address }}</td>
-                <td>{{ apprenant.postalCode }}</td>
-                <td>{{ apprenant.city }}</td>
+                <td>{{ apprenant.lastAddress.address }}</td>
+                <td>{{ apprenant.lastAddress.postalCode }}</td>
+                <td>{{ apprenant.lastAddress.city }}</td>
                 <td>{{ apprenant.birthDate ? apprenant.birthDate|date('d/m/Y') : '' }}</td>
                 <td>{{ apprenant.tel1 }}</td>
                 <td>{{ apprenant.tel2 }}</td>
                 <td>{{ apprenant.comment }}</td>
                 <td>{{ apprenant.email }}</td>
                 <td>{{ apprenant.enfantACharge }}</td>
-                <td>{{ apprenant.prescripteur.prescripteurName }}</td>
-                <td>{{ apprenant.ressource.ressourceName }}</td>
-                <td>{{ apprenant.typeFormation.formationName }}</td>
-                <td>{{ apprenant.getLastQpv.qpvName }}</td>
-                <td>{{ apprenant.situationFamiliale }}</td>
+                <td>{{ apprenant.lastPrescripteur.prescripteurName }}</td>
+                <td>{{ apprenant.lastRessource.ressourceName }}</td>
+                <td>{{ apprenant.lastQPV.qpvName }}</td>
+                <td>{{ apprenant.situationFamiliale.name }}</td>
                 <td>{% for site in apprenant.getLastSites %}
                     {{ site.siteName }}<br>
                     {% endfor %}
                 </td>
-                <td>{{ apprenant.getLastNiveauFormation.nivFormName }}</td>
                 <td>
                     <a href="{{ path('apprenant_show', {'id': apprenant.id}) }}">Afficher</a>
                     <a href="{{ path('apprenant_edit', {'id': apprenant.id}) }}">Modifier</a>

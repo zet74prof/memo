@@ -122,6 +122,26 @@ class ApprenantRepository extends ServiceEntityRepository
         return $list;
     }
 
+    /**
+     * @return Apprenant[] Returns an array of Apprenant objects
+     */
+    public function findBirthdayNextMonth()
+    {
+        $list = $this->findAllCurrentActive();
+        $listBirthday = [];
+        foreach ($list as $apprenant)
+        {
+            $today = new \DateTime('now');
+            $nextMonth = $today->format('n') + 1;
+            if (intval($apprenant->getBirthDate()->format('n')) == $nextMonth)
+            {
+                $listBirthday[] = $apprenant;
+            }
+        }
+
+        return $listBirthday;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Apprenant

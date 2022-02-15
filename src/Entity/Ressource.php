@@ -25,13 +25,23 @@ class Ressource
     private $ressourceName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Apprenant::class, mappedBy="ressource")
+     * @ORM\Column(type="string", length=10)
      */
-    private $apprenants;
+    private $code;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RessourceHisto::class, mappedBy="ressource")
+     */
+    private $ressourceHistos;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
 
     public function __construct()
     {
-        $this->apprenants = new ArrayCollection();
+        $this->ressourceHistos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,32 +61,56 @@ class Ressource
         return $this;
     }
 
-    /**
-     * @return Collection|Apprenant[]
-     */
-    public function getApprenants(): Collection
+    public function getCode(): ?string
     {
-        return $this->apprenants;
+        return $this->code;
     }
 
-    public function addApprenant(Apprenant $apprenant): self
+    public function setCode(string $code): self
     {
-        if (!$this->apprenants->contains($apprenant)) {
-            $this->apprenants[] = $apprenant;
-            $apprenant->setRessource($this);
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RessourceHisto[]
+     */
+    public function getRessourceHistos(): Collection
+    {
+        return $this->ressourceHistos;
+    }
+
+    public function addRessourceHisto(RessourceHisto $ressourceHisto): self
+    {
+        if (!$this->ressourceHistos->contains($ressourceHisto)) {
+            $this->ressourceHistos[] = $ressourceHisto;
+            $ressourceHisto->setRessource($this);
         }
 
         return $this;
     }
 
-    public function removeApprenant(Apprenant $apprenant): self
+    public function removeRessourceHisto(RessourceHisto $ressourceHisto): self
     {
-        if ($this->apprenants->removeElement($apprenant)) {
+        if ($this->ressourceHistos->removeElement($ressourceHisto)) {
             // set the owning side to null (unless already changed)
-            if ($apprenant->getRessource() === $this) {
-                $apprenant->setRessource(null);
+            if ($ressourceHisto->getRessource() === $this) {
+                $ressourceHisto->setRessource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

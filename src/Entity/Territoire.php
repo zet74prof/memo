@@ -29,9 +29,15 @@ class Territoire
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Prescripteur::class, mappedBy="territoire")
+     */
+    private $prescripteurs;
+
     public function __construct()
     {
         $this->sites = new ArrayCollection();
+        $this->prescripteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,6 +83,36 @@ class Territoire
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prescripteur[]
+     */
+    public function getPrescripteurs(): Collection
+    {
+        return $this->prescripteurs;
+    }
+
+    public function addPrescripteur(Prescripteur $prescripteur): self
+    {
+        if (!$this->prescripteurs->contains($prescripteur)) {
+            $this->prescripteurs[] = $prescripteur;
+            $prescripteur->setTerritoire($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrescripteur(Prescripteur $prescripteur): self
+    {
+        if ($this->prescripteurs->removeElement($prescripteur)) {
+            // set the owning side to null (unless already changed)
+            if ($prescripteur->getTerritoire() === $this) {
+                $prescripteur->setTerritoire(null);
+            }
+        }
 
         return $this;
     }
