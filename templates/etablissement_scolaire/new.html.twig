@@ -10,8 +10,6 @@
     {{ include('etablissement_scolaire/_form.html.twig') }}
 
     <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('etablissement_scolaire_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+        <a href="{{ path('etablissement_scolaire_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

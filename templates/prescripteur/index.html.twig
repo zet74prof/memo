@@ -34,7 +34,6 @@
                     <td>{{ prescripteur.type.name }}</td>
                     <td>{% if prescripteur.active == true %}Oui{% endif %}</td>
                     <td>
-                        <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}" class="btn btn-primary">Afficher</a>
                         <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}" class="btn btn-primary">Modifier</a>
                     </td>
                 </tr>

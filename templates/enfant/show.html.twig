@@ -5,79 +5,81 @@
 {% block body %}
     <h1>Enfant</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ enfant.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ enfant.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ enfant.roles ? enfant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td>{{ enfant.surname }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ enfant.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ enfant.title }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ enfant.address }}</td>
-            </tr>
-            <tr>
-                <th>PostalCode</th>
-                <td>{{ enfant.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ enfant.city }}</td>
-            </tr>
-            <tr>
-                <th>BirthDate</th>
-                <td>{{ enfant.birthDate ? enfant.birthDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Tel1</th>
-                <td>{{ enfant.tel1 }}</td>
-            </tr>
-            <tr>
-                <th>Tel2</th>
-                <td>{{ enfant.tel2 }}</td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td>{{ enfant.comment }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ enfant.email }}</td>
-            </tr>
-            <tr>
-                <th>TypeReferent</th>
-                <td>{{ enfant.typeReferent }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ enfant.id }}</td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ enfant.username }}</td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td>{{ enfant.roles ? enfant.roles|json_encode : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Surname</th>
+                    <td>{{ enfant.surname }}</td>
+                </tr>
+                <tr>
+                    <th>Firstname</th>
+                    <td>{{ enfant.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ enfant.title }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ enfant.address }}</td>
+                </tr>
+                <tr>
+                    <th>PostalCode</th>
+                    <td>{{ enfant.postalCode }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ enfant.city }}</td>
+                </tr>
+                <tr>
+                    <th>BirthDate</th>
+                    <td>{{ enfant.birthDate ? enfant.birthDate|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Tel1</th>
+                    <td>{{ enfant.tel1 }}</td>
+                </tr>
+                <tr>
+                    <th>Tel2</th>
+                    <td>{{ enfant.tel2 }}</td>
+                </tr>
+                <tr>
+                    <th>Comment</th>
+                    <td>{{ enfant.comment }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ enfant.email }}</td>
+                </tr>
+                <tr>
+                    <th>TypeReferent</th>
+                    <td>{{ enfant.typeReferent }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('enfant_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        <div class="row mb-3">
+            <div class="col-lg-1">
+                <a href="{{ path('enfant_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+            </div>
+            <div class="col-lg-1">
+                <a href="{{ path('enfant_edit', {'id': enfant.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+            </div>
         </div>
-        <div class="col-lg-1">
-            <a href="{{ path('enfant_edit', {'id': enfant.id}) }}"><button class="btn btn-primary">Modifier</button></a>
-        </div>
+
+        {{ include('enfant/_delete_form.html.twig') }}
     </div>
-
-    {{ include('enfant/_delete_form.html.twig') }}
 {% endblock %}

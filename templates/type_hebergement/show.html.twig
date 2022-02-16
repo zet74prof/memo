@@ -5,27 +5,29 @@
 {% block body %}
     <h1>TypeHebergement</h1>
 
-    <table class="table table-striped table-hover">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ type_hebergement.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ type_hebergement.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ type_hebergement.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ type_hebergement.name }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('type_hebergement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <a href="{{ path('type_hebergement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+            </div>
+            <div class="col-lg-2">
+                <a href="{{ path('type_hebergement_edit', {'id': type_hebergement.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+            </div>
         </div>
-        <div class="col-lg-2">
-            <a href="{{ path('type_hebergement_edit', {'id': type_hebergement.id}) }}"><button class="btn btn-primary">Modifier</button></a>
-        </div>
+
+        {{ include('type_hebergement/_delete_form.html.twig') }}
     </div>
-
-    {{ include('type_hebergement/_delete_form.html.twig') }}
 {% endblock %}

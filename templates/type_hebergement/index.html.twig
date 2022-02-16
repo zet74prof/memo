@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypeHebergement index{% endblock %}
+{% block title %}Type Hebergement{% endblock %}
 
 {% block body %}
     <div class="row mb-3">
-        <h1>TypeHebergement index</h1>
+        <h1>Type d'Hebergement</h1>
     </div>
     <div class="row mb-3">
         <a href="{{ path('type_hebergement_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
@@ -30,7 +30,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records found</td>
+                    <td colspan="3">aucune donnée trouvée</td>
                 </tr>
             {% endfor %}
             </tbody>

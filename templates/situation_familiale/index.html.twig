@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SituationFamiliale index{% endblock %}
+{% block title %}Situation familiale{% endblock %}
 
 {% block body %}
     <div class="row mb-3">
-        <h1>SituationFamiliale index</h1>
+        <h1>Situation familiale</h1>
     </div>
     <div class="row mb-3">
         <a href="{{ path('situation_familiale_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
@@ -24,7 +24,6 @@
                     <td>{{ situation_familiale.id }}</td>
                     <td>{{ situation_familiale.name }}</td>
                     <td>
-                        <a href="{{ path('situation_familiale_show', {'id': situation_familiale.id}) }}" class="btn btn-primary">Afficher</a>s
                         <a href="{{ path('situation_familiale_edit', {'id': situation_familiale.id}) }}" class="btn btn-primary">Modifier</a>
                     </td>
                 </tr>

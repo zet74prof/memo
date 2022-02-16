@@ -1,43 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StateHisto index{% endblock %}
+{% block title %}State Histo{% endblock %}
 
 {% block body %}
-    <h1>StateHisto index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Active</th>
-                <th>Raison</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for state_histo in state_histos %}
-            <tr>
-                <td>{{ state_histo.id }}</td>
-                <td>{{ state_histo.date ? state_histo.date|date('Y-m-d') : '' }}</td>
-                <td>{{ state_histo.active ? 'Yes' : 'No' }}</td>
-                <td>{{ state_histo.reason }}</td>
-                <td>
-                    <a href="{{ path('state_histo_show', {'id': state_histo.id}) }}">Afficher</a>
-                    <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">aucune donnée trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+    <h1>State Historique</h1>
     <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('state_histo_new') }}"><button class="btn btn-primary">Créer un nouveau</button></a>
-        </div>
+        <a href="{{ path('state_histo_new') }}"><button class="btn btn-primary">Créer un nouveau</button></a>
     </div>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Active</th>
+                    <th>Raison</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for state_histo in state_histos %}
+                <tr>
+                    <td>{{ state_histo.id }}</td>
+                    <td>{{ state_histo.date ? state_histo.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ state_histo.active ? 'Yes' : 'No' }}</td>
+                    <td>{{ state_histo.reason }}</td>
+                    <td>
+                        <a href="{{ path('state_histo_show', {'id': state_histo.id}) }}">Afficher</a>
+                        <a href="{{ path('state_histo_edit', {'id': state_histo.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">aucune donnée trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

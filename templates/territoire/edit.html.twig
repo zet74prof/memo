@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Territoire{% endblock %}
+{% block title %}Modifier Territoire{% endblock %}
 
 {% block body %}
-    <h1>Edit Territoire</h1>
+    <div class="row m-3">
+        <h1>Modifier un Territoire</h1>
+    </div>
 
-    {{ include('territoire/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('territoire/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
     <div class="row mb-3">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <a href="{{ path('territoire_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
         </div>
         <div class="col-lg-2">

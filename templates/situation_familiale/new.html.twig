@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New SituationFamiliale{% endblock %}
+{% block title %}Situation familiale{% endblock %}
 
 {% block body %}
     <div class="row m-3">
-        <h1>Create new SituationFamiliale</h1>
+        <h1>Créer nouvelle une situation familiale</h1>
     </div>
 
     {{ include('situation_familiale/_form.html.twig') }}
 
     <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('situation_familiale_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+        <a href="{{ path('situation_familiale_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

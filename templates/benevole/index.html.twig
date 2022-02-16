@@ -5,64 +5,65 @@
 {% block body %}
     <h1>Benevole</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom d'utilisateur</th>
-                <th>Roles</th>
-                <th>Nom de famille</th>
-                <th>Prénom</th>
-                <th>Titre</th>
-                <th>Adresse</th>
-                <th>Code Postal</th>
-                <th>Ville</th>
-                <th>Date de naissance</th>
-                <th>Tel1</th>
-                <th>Tel2</th>
-                <th>Commentaire</th>
-                <th>Email</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for benevole in benevoles %}
-            <tr>
-                <td>{{ benevole.id }}</td>
-                <td>{{ benevole.username }}</td>
-                <td>{{ benevole.roles ? benevole.roles|json_encode : '' }}</td>
-                <td>{{ benevole.surname }}</td>
-                <td>{{ benevole.firstname }}</td>
-                <td>{{ benevole.title }}</td>
-                <td>{{ benevole.address }}</td>
-                <td>{{ benevole.postalCode }}</td>
-                <td>{{ benevole.city }}</td>
-                <td>{{ benevole.birthDate ? benevole.birthDate|date('Y-m-d') : '' }}</td>
-                <td>{{ benevole.tel1 }}</td>
-                <td>{{ benevole.tel2 }}</td>
-                <td>{{ benevole.comment }}</td>
-                <td>{{ benevole.email }}</td>
-                <td>{% for site in benevole.getLastSites %}
-                        {{ site.siteName }}<br>
-                    {% endfor %}
-                </td>
-                <td>
-                    <a href="{{ path('benevole_show', {'id': benevole.id}) }}">Afficher</a>
-                    <a href="{{ path('benevole_edit', {'id': benevole.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="16">aucune donnée trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Roles</th>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
+                    <th>Titre</th>
+                    <th>Adresse</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Date de naissance</th>
+                    <th>Tel1</th>
+                    <th>Tel2</th>
+                    <th>Commentaire</th>
+                    <th>Email</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for benevole in benevoles %}
+                <tr>
+                    <td>{{ benevole.id }}</td>
+                    <td>{{ benevole.username }}</td>
+                    <td>{{ benevole.roles ? benevole.roles|json_encode : '' }}</td>
+                    <td>{{ benevole.surname }}</td>
+                    <td>{{ benevole.firstname }}</td>
+                    <td>{{ benevole.title }}</td>
+                    <td>{{ benevole.address }}</td>
+                    <td>{{ benevole.postalCode }}</td>
+                    <td>{{ benevole.city }}</td>
+                    <td>{{ benevole.birthDate ? benevole.birthDate|date('Y-m-d') : '' }}</td>
+                    <td>{{ benevole.tel1 }}</td>
+                    <td>{{ benevole.tel2 }}</td>
+                    <td>{{ benevole.comment }}</td>
+                    <td>{{ benevole.email }}</td>
+                    <td>{% for site in benevole.getLastSites %}
+                            {{ site.siteName }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('benevole_show', {'id': benevole.id}) }}">Afficher</a>
+                        <a href="{{ path('benevole_edit', {'id': benevole.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="16">aucune donnée trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('benevole_new') }}"><button class="btn btn-primary">Créer un nouveau bénévole</button></a>
+        <div class="row mb-3">
+            <div class="col-lg-2">
+                <a href="{{ path('benevole_new') }}"><button class="btn btn-primary">Créer un nouveau bénévole</button></a>
+            </div>
         </div>
     </div>
-
 {% endblock %}
