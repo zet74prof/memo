@@ -1,21 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit TypeEnseignement{% endblock %}
+{% block title %}Modifier Type d'Enseignement{% endblock %}
 
 {% block body %}
     <div class="row m-3">
         <h1>Modifier un type d'enseignement</h1>
     </div>
-
-    {{ include('type_enseignement/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('type_enseignement_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
-        </div>
-        <div class="col-lg-2">
-            {{ include('type_enseignement/_delete_form.html.twig') }}
-        </div>
+    <div class="row m-3">
+        {{ include('type_enseignement/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
+    <div class="row m-3">
+        {{ include('type_enseignement/_delete_form.html.twig') }}
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('type_enseignement_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>
 
 {% endblock %}

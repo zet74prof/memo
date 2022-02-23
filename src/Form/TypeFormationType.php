@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\TypeFormation;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,7 +13,9 @@ class TypeFormationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('formationName')
+            ->add('formationName', TextType::class, [
+                'label' => 'Type de formation'
+            ])
         ;
     }
 

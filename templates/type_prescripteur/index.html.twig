@@ -1,27 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypePrescripteur{% endblock %}
+{% block title %}Types de prescripteur{% endblock %}
 
 {% block body %}
-    <div class="row mb-3">
-        <h1>Type de prescripteur</h1>
+    <div class="row m-3">
+        <h1>Paramétrage des types de prescripteur</h1>
     </div>
-    <div class="row mb-3">
-        <a href="{{ path('type_prescripteur_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
+    <div class="row m-3">
+        <a href="{{ path('type_prescripteur_new') }}"><button class="btn btn-primary">Créer un nouveau type de prescripteur</button></a>
     </div>
     <div class="row m-3">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
+                    <th>Type de prescripteur</th>
                     <th>actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for type_prescripteur in type_prescripteurs %}
                 <tr>
-                    <td>{{ type_prescripteur.id }}</td>
                     <td>{{ type_prescripteur.name }}</td>
                     <td>
                         <a href="{{ path('type_prescripteur_edit', {'id': type_prescripteur.id}) }}" class="btn btn-primary">Modifier</a>

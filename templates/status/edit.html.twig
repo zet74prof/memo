@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Status{% endblock %}
+{% block title %}Modifier Statut{% endblock %}
 
 {% block body %}
     <div class="row m-3">
-        <h1>Modifier un Status</h1>
+        <h1>Modifier un statut</h1>
     </div>
-
-    {{ include('status/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
+    <div class="row m-3">
+        {{ include('status/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
     <div class="row m-3">
         <a href="{{ path('status_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>

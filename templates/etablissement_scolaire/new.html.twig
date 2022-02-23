@@ -4,12 +4,13 @@
 
 {% block body %}
     <div class="row m-3">
-        <h1>Create new EtablissementScolaire</h1>
+        <h1>Créer un nouvel établissement scolaire</h1>
+    </div>
+    <div class="row m-3">
+        {{ include('etablissement_scolaire/_form.html.twig') }}
     </div>
 
-    {{ include('etablissement_scolaire/_form.html.twig') }}
-
-    <div class="row mb-3">
+    <div class="row m-3">
         <a href="{{ path('etablissement_scolaire_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

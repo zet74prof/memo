@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Type Formation{% endblock %}
+{% block title %}Types de formation{% endblock %}
 
 {% block body %}
-    <div class="row mb-3">
-        <h1>Type de formation</h1>
+    <div class="row m-3">
+        <h1>Paramétrage des Types de formation</h1>
     </div>
-    <div class="row mb-3">
+    <div class="row m-3">
         <a href="{{ path('type_formation_new') }}"><button class="btn btn-primary">Créer nouveau</button></a>
     </div>
     <div class="row m-3">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nom formation</th>
                     <th>actions</th>
                 </tr>
@@ -21,10 +20,8 @@
             <tbody>
             {% for type_formation in type_formations %}
                 <tr>
-                    <td>{{ type_formation.id }}</td>
                     <td>{{ type_formation.formationName }}</td>
                     <td>
-                        <a href="{{ path('type_formation_show', {'id': type_formation.id}) }}" class="btn btn-primary">Afficher</a>
                         <a href="{{ path('type_formation_edit', {'id': type_formation.id}) }}" class="btn btn-primary">Modifier</a>
                     </td>
                 </tr>

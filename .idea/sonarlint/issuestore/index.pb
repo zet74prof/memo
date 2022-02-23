@@ -11,10 +11,6 @@ U
 %src/Controller/BenevoleController.php,4/1/4154b4c75dfdb708f35ccfc0dee70d965e36c0de
 Q
 !src/Controller/HomeController.php,a/d/ad8b439416d1e02614f47c5b471c7c4e587dca82
-[
-+templates/type_enseignement/index.html.twig,7/0/700b299d41fd593da1940392864de85663d8b7de
-X
-(templates/type_formation/index.html.twig,f/2/f2707af74748871932ff0905d782186a12baf1c8
 I
 src/Entity/StateHisto.php,3/d/3dc2cc28df17a0913533f2847f93e5b45ce242c7
 K
@@ -29,16 +25,8 @@ E
 composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
 =
 composer.lock,c/3/c3262e2a0879195bd6a727e90f768bc85ad79ffd
-a
-1templates/type_hebergement/_delete_form.html.twig,c/9/c9c5246033782ce27979a94267add3fd81c85e27
 Z
 *templates/type_hebergement/_form.html.twig,f/4/f4a28e4b4cba92bba0b182580aa9e656551253c8
-Y
-)templates/type_hebergement/edit.html.twig,1/0/106744e20cdccffc1eee62f6c622567ce487fb5f
-Z
-*templates/type_hebergement/index.html.twig,f/6/f6bc7d03b4400d23cd9871c09e1d70b86d0109a8
-X
-(templates/type_hebergement/new.html.twig,5/6/5609eeff74b65ae83d952e30daf7f994ac42c28b
 Y
 )templates/type_hebergement/show.html.twig,f/f/ffbf163000913f8f51f5c6ca52b8a051ede06890
 \
@@ -71,8 +59,6 @@ E
 src/Form/UserType.php,6/c/6c2442a67dda9c3193b965c65ce788acf9b5ecaf
 Q
 !src/Controller/UserController.php,8/7/87b99206717ccce222f05190f36b6273e3ea6228
-Q
-!templates/ressource/new.html.twig,5/2/52260a96be06dabe214cd8df9faf503b979f262e
 H
 src/Entity/Ressource.php,e/0/e089cae6a9103c956f0da4a438b803dff15a4cfe
 U
@@ -81,11 +67,30 @@ M
 src/Form/PrescripteurType.php,f/4/f4ac382eacb30aeb1a2e370e269721a39a71588b
 S
 #templates/ressource/_form.html.twig,4/4/4436f76f39ce8e50308c19d75ac8eac2620f60e0
-]
--templates/situation_familiale/index.html.twig,1/a/1a050211fd4f06b3daac1d91d766484389e047ae
 C
 src/Entity/Site.php,f/8/f8b139b26b09e4a1f07cab3e8fe635735f994a15
 I
 src/Entity/Territoire.php,c/5/c5884524c2e28424ea62e3c850e5d6a2555f6d5c
 G
 src/Entity/Bailleur.php,a/2/a26525d2e1f140ac40c5ad6a4fd446a6a39c94f4
+J
+src/Form/ApprenantType.php,9/b/9b8dbcdaa1c423fcd7161d6e81d373e0adb6bef3
+g
+7templates/apprenant_views/filterperterritoire.html.twig,5/5/55c9d6ae15bca8031195f4b1ebecf5e78f97845f
+C
+src/Entity/User.php,0/a/0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
+V
+&src/Repository/ApprenantRepository.php,2/6/2661ae2b2d62406fab3c4bef8d0bbf07fbf2294e
+[
++src/Controller/ApprenantViewsController.php,6/1/613c3c32f281ba321c681cf7097be82c891dc3a1
+Y
+)templates/apprenant_views/index.html.twig,e/e/ee2afdd5f9055fbd39cce7a9851d0cb6d465ff3c
+S
+#templates/apprenant/_form.html.twig,8/2/827babedcb07f928531c9c0b56eb1b1875201670
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+B
+config/bundles.php,f/a/fa9a09a4e1ae4281250526d3dec214138beb5735
+L
+templates/base/nav.html.twig,8/3/83edfb3303be6641a2040a01d478e25553cdbb78

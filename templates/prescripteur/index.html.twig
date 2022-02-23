@@ -3,7 +3,7 @@
 {% block title %}Prescripteurs{% endblock %}
 
 {% block body %}
-    <div class="row mb-3">
+    <div class="row m-3">
         <h1>Paramétrage des prescripteurs</h1>
     </div>
     <div class="row m-3">
@@ -13,7 +13,6 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nom</th>
                     <th>Code postal</th>
                     <th>Ville</th>
@@ -26,7 +25,6 @@
             <tbody>
             {% for prescripteur in prescripteurs %}
                 <tr>
-                    <td>{{ prescripteur.id }}</td>
                     <td>{{ prescripteur.prescripteurName }}</td>
                     <td>{{ prescripteur.postalCode }}</td>
                     <td>{{ prescripteur.city }}</td>
@@ -34,6 +32,7 @@
                     <td>{{ prescripteur.type.name }}</td>
                     <td>{% if prescripteur.active == true %}Oui{% endif %}</td>
                     <td>
+                        <a href="{{ path('prescripteur_show', {'id': prescripteur.id}) }}" class="btn btn-primary">Afficher</a>
                         <a href="{{ path('prescripteur_edit', {'id': prescripteur.id}) }}" class="btn btn-primary">Modifier</a>
                     </td>
                 </tr>
