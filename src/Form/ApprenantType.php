@@ -181,16 +181,19 @@ class ApprenantType extends AbstractType
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
+                'attr' => ['class' => 'address_auto_filled'],
                 'mapped' => false,
                 'data' => $currentAddress,
             ])
             ->add('postalCode', TextType::class, [
                 'label' => 'Code postal',
+                'attr' => ['class' => 'postalCode_auto_filled'],
                 'mapped' => false,
                 'data' => $currentPostalCode,
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
+                'attr' => ['class' => 'city_auto_filled'],
                 'mapped' => false,
                 'data' => $currentCity,
             ])
