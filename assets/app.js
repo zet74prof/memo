@@ -7,6 +7,8 @@
 
 require('bootstrap');
 
+import './search_address';
+
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/card_photo.css';
 import './styles/global.scss';
