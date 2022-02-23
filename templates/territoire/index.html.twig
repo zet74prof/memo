@@ -1,38 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Territoire index{% endblock %}
+{% block title %}Territoires{% endblock %}
 
 {% block body %}
-    <h1>Territoire index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for territoire in territoires %}
-            <tr>
-                <td>{{ territoire.id }}</td>
-                <td>{{ territoire.name }}</td>
-                <td>
-                    <a href="{{ path('territoire_show', {'id': territoire.id}) }}">Afficher</a>
-                    <a href="{{ path('territoire_edit', {'id': territoire.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('territoire_new') }}"><button class="btn btn-primary">Créer nouveau territoire</button></a>
-        </div>
+    <div class="row m-3">
+        <h1>Paramétrage des territoires</h1>
     </div>
+    <div class="row m-3">
+        <a href="{{ path('territoire_new') }}"><button class="btn btn-primary">Créer nouveau territoire</button></a>
+    </div>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for territoire in territoires %}
+                <tr>
+                    <td>{{ territoire.name }}</td>
+                    <td>
+                        <a href="{{ path('territoire_edit', {'id': territoire.id}) }}" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">aucune donnée trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

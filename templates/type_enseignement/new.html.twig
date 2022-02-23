@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}nouveau TypeEnseignement{% endblock %}
+{% block title %}Nouveau Type d'Enseignement{% endblock %}
 
 {% block body %}
-    <h1>Créer nouveau TypeEnseignement</h1>
-
-    {{ include('type_enseignement/_form.html.twig') }}
-
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('type_enseignement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+    <div class="row m-3">
+        <h1>Créer nouveau type d'enseignement</h1>
+    </div>
+    <div class="row m-3">
+        {{ include('type_enseignement/_form.html.twig') }}
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('type_enseignement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

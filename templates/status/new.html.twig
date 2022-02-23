@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau status{% endblock %}
+{% block title %}Nouveau statut{% endblock %}
 
 {% block body %}
-    <div class="row mb-3">
-        <h1>créer un nouveau status</h1>
+    <div class="row m-3">
+        <h1>Créer un nouveau status</h1>
     </div>
-
-    {{ include('status/_form.html.twig') }}
-
-    <div class="row mb-3">
+    <div class="row m-3">
+        {{ include('status/_form.html.twig') }}
+    </div>
+    <div class="row m-3">
         <a href="{{ path('status_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

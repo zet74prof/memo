@@ -6,9 +6,9 @@
     <div class="row m-3">
         <h1>Modifier un prescripteur</h1>
     </div>
-
-    {{ include('prescripteur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
+    <div class="row m-3">
+        {{ include('prescripteur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
     <div class="row m-3">
         <a href="{{ path('prescripteur_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>

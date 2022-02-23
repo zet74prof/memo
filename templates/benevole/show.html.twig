@@ -5,75 +5,76 @@
 {% block body %}
     <h1>Benevole</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ benevole.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <td>{{ benevole.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ benevole.roles ? benevole.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom de famille</th>
-                <td>{{ benevole.surname }}</td>
-            </tr>
-            <tr>
-                <th>prénom</th>
-                <td>{{ benevole.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ benevole.title }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ benevole.address }}</td>
-            </tr>
-            <tr>
-                <th>Code postal</th>
-                <td>{{ benevole.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ benevole.city }}</td>
-            </tr>
-            <tr>
-                <th>Date de naissance</th>
-                <td>{{ benevole.birthDate ? benevole.birthDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Tel1</th>
-                <td>{{ benevole.tel1 }}</td>
-            </tr>
-            <tr>
-                <th>Tel2</th>
-                <td>{{ benevole.tel2 }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ benevole.comment }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ benevole.email }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row m-3">
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ benevole.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <td>{{ benevole.username }}</td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td>{{ benevole.roles ? benevole.roles|json_encode : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Nom de famille</th>
+                    <td>{{ benevole.surname }}</td>
+                </tr>
+                <tr>
+                    <th>prénom</th>
+                    <td>{{ benevole.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ benevole.title }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ benevole.address }}</td>
+                </tr>
+                <tr>
+                    <th>Code postal</th>
+                    <td>{{ benevole.postalCode }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ benevole.city }}</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>{{ benevole.birthDate ? benevole.birthDate|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Tel1</th>
+                    <td>{{ benevole.tel1 }}</td>
+                </tr>
+                <tr>
+                    <th>Tel2</th>
+                    <td>{{ benevole.tel2 }}</td>
+                </tr>
+                <tr>
+                    <th>Commentaire</th>
+                    <td>{{ benevole.comment }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ benevole.email }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="row mb-3">
-        <div class="col-lg-1">
-            <a href="{{ path('benevole_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+        <div class="row mb-3">
+            <div class="col-lg-1">
+                <a href="{{ path('benevole_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+            </div>
+            <div class="col-lg-1">
+                <a href="{{ path('benevole_edit', {'id': benevole.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+            </div>
         </div>
-        <div class="col-lg-1">
-            <a href="{{ path('benevole_edit', {'id': benevole.id}) }}"><button class="btn btn-primary">Modifier</button></a>
-        </div>
+        {{ include('benevole/_delete_form.html.twig') }}
     </div>
-
-    {{ include('benevole/_delete_form.html.twig') }}
 {% endblock %}

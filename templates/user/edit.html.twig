@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1>Modifier User</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
     <div class="row mb-3">
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <a href="{{ path('user_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
         </div>
         <div class="col-lg-2">

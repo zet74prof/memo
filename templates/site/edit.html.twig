@@ -6,9 +6,9 @@
     <div class="row m-3">
         <h1>Modifier un Site</h1>
     </div>
-
-    {{ include('site/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-
+    <div class="row m-3">
+        {{ include('site/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+    </div>
     <div class="row m-3">
         <a href="{{ path('site_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>

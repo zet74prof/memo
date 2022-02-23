@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau TypeFormation{% endblock %}
+{% block title %}Nouveau Type de formation{% endblock %}
 
 {% block body %}
-    <h1>Créer nouveau TypeFormation</h1>
-
-    {{ include('type_formation/_form.html.twig') }}
-
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('type_formation_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+    <div class="row m-3">
+        <h1>Créer nouveau type de formation</h1>
+    </div>
+    <div class="row m-3">
+        {{ include('type_formation/_form.html.twig') }}
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('type_formation_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier NiveauFormation{% endblock %}
+{% block title %}Modifier niveau de formation{% endblock %}
 
 {% block body %}
     <div class="row m-3">
         <h1>Modifier un Niveau de Formation</h1>
     </div>
-
-    {{ include('niveau_formation/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-
+    <div class="row m-3">
+        {{ include('niveau_formation/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+    </div>
     <div class="row m-3">
         <a href="{{ path('niveau_formation_index') }}"><button type="submit" class="btn btn-primary">Retour à la liste</button></a>
     </div>

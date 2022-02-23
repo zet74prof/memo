@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New TypeHebergement{% endblock %}
+{% block title %}Nouveau Type d'hébergement{% endblock %}
 
 {% block body %}
-    <h1>Create new TypeHebergement</h1>
-
-    {{ include('type_hebergement/_form.html.twig') }}
-
-    <a href="{{ path('type_hebergement_index') }}">back to list</a>
+    <div class="row m-3">
+        <h1>Créer un nouveau type d'hébergement</h1>
+    </div>
+    <div class="row m-3">
+        {{ include('type_hebergement/_form.html.twig') }}
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('type_hebergement_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
+    </div>
 {% endblock %}

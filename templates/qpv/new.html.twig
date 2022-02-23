@@ -3,13 +3,13 @@
 {% block title %}Nouveau QPV{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau QPV</h1>
-
-    {{ include('qpv/_form.html.twig') }}
-
-    <div class="row mb-3">
-        <div class="col-lg-2">
-            <a href="{{ path('q_p_v_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
-        </div>
+    <div class="row m-3">
+        <h1>Créer un nouveau QPV</h1>
+    </div>
+    <div class="row m-3">
+        {{ include('qpv/_form.html.twig') }}
+    </div>
+    <div class="row m-3">
+        <a href="{{ path('q_p_v_index') }}"><button class="btn btn-primary">Retour à la liste</button></a>
     </div>
 {% endblock %}
