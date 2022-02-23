@@ -13,4 +13,7 @@ jobs:
           cd /var/www/memodev
           sudo git fetch origin
           sudo git reset --hard origin/master  &&  echo 'You are doing well'
+          sudo yarn install
+          sudo yarn dev
           sudo php bin/console doctrine:schema:update --force
+          sudo composer update
